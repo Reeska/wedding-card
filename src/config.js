@@ -7,6 +7,11 @@ const firebase = {
     messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID
 };
 
+const maps = {
+    apiKey: process.env.VUE_APP_MAPS_API_KEY
+};
+
 export const config = {
-    firebase
+    firebase,
+    maps,
 };

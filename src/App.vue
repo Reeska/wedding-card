@@ -41,7 +41,14 @@
 			</section>
 			<section>
 				<h1 class="title">Présence</h1>
-				<div>uc.</div>
+				<div>
+                    <div class="bash">
+                        <div class="line">
+                            thomas@thomas:~/ 
+                            <div contenteditable="true" class="no-style"></div><div class="cursor"></div>
+                        </div>
+                    </div>
+                </div>
 			</section>
 			<section class="violet">
 				<h1 class="title">FAQ</h1>
@@ -185,5 +192,40 @@ h1 {
 
 section {
   padding-bottom: 30px;
+}
+
+.bash {
+    background-image: url('assets/ubuntu_bash_header.png');
+    background-position: top center;
+    background-repeat:no-repeat;
+    background-color: #300924;
+    height: 300px;
+    width: 700px;
+    margin: auto;
+    font-family: 'Ubuntu';
+    color: white;
+    padding-top: 30px;
+    text-align: left;
+    border-radius: 7px 7px 0px 0px;
+}
+
+.no-style {
+    outline: none;
+    background: transparent;
+    border: none;
+    font-family: 'Ubuntu';
+    color: white;
+    font-size: 1em;
+    display: inline-block;
+    min-width: 10px;
+}
+
+.cursor {
+    width: 6px;
+    height: 15px;
+    padding-top: 2px;
+    background-color: white;
+    display: inline-block;
+    vertical-align: bottom;
 }
 </style>

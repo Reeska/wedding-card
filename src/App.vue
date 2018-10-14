@@ -44,8 +44,33 @@
 				<div>
                     <div class="bash">
                         <div class="line">
-                            thomas@thomas:~/ 
+                            <span class="ubuntu-green bold">thomas@thomas</span>:<span class="ubuntu-blue bold">~/</span> 
                             <div contenteditable="true" class="no-style"></div><div class="cursor"></div>
+                        </div>
+                        <div class="ls">
+                            total 34635<br/>
+                            <table cellspacing="0" cellpadding="0" id="bash">
+                                <tr>
+                                    <td>drwxr-xr-x</td>
+                                    <td>6</td>
+                                    <td>thomas</td>
+                                    <td>thomas</td>
+                                    <td class="right">4096</td>
+                                    <td>feb</td>
+                                    <td>15:29</td>
+                                    <td class="ubuntu-blue bold">./</td>
+                                </tr>
+                                <tr>
+                                    <td>drwxr-xr-x</td>
+                                    <td>6</td>
+                                    <td>thomas</td>
+                                    <td>thomas</td>
+                                    <td class="right">4096678</td>
+                                    <td>feb</td>
+                                    <td>15:29</td>
+                                    <td class="ubuntu-blue bold">../</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -227,5 +252,30 @@ section {
     background-color: white;
     display: inline-block;
     vertical-align: bottom;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.ubuntu-green {
+    color: #87da34;
+}
+
+.ubuntu-blue {
+    color: #7C83A7;
+}
+
+.right {
+    text-align: right;
+}
+
+#bash {
+    margin-left: -3px;
+}
+
+#bash td {
+    padding-left: 3px;
+    padding-right: 3px;
 }
 </style>

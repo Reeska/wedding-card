@@ -42,37 +42,38 @@
 			<section>
 				<h1 class="title">Présence</h1>
 				<div>
-                    <div class="bash">
-                        <div class="line">
-                            <span class="ubuntu-green bold">thomas@thomas</span>:<span class="ubuntu-blue bold">~/</span> 
-                            <div contenteditable="true" class="no-style"></div><div class="cursor"></div>
-                        </div>
-                        <div class="ls">
-                            total 34635<br/>
-                            <table cellspacing="0" cellpadding="0" id="bash">
-                                <tr>
-                                    <td>drwxr-xr-x</td>
-                                    <td>6</td>
-                                    <td>thomas</td>
-                                    <td>thomas</td>
-                                    <td class="right">4096</td>
-                                    <td>feb</td>
-                                    <td>15:29</td>
-                                    <td class="ubuntu-blue bold">./</td>
-                                </tr>
-                                <tr>
-                                    <td>drwxr-xr-x</td>
-                                    <td>6</td>
-                                    <td>thomas</td>
-                                    <td>thomas</td>
-                                    <td class="right">4096678</td>
-                                    <td>feb</td>
-                                    <td>15:29</td>
-                                    <td class="ubuntu-blue bold">../</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                    <terminal></terminal>
+                    <!--<div class="bash">-->
+                        <!--<div class="line">-->
+                            <!--<span class="ubuntu-green bold">thomas@thomas</span>:<span class="ubuntu-blue bold">~/</span> -->
+                            <!--<div contenteditable="true" class="no-style"></div><div class="cursor"></div>-->
+                        <!--</div>-->
+                        <!--<div class="ls">-->
+                            <!--total 34635<br/>-->
+                            <!--<table cellspacing="0" cellpadding="0" id="bash">-->
+                                <!--<tr>-->
+                                    <!--<td>drwxr-xr-x</td>-->
+                                    <!--<td>6</td>-->
+                                    <!--<td>thomas</td>-->
+                                    <!--<td>thomas</td>-->
+                                    <!--<td class="right">4096</td>-->
+                                    <!--<td>feb</td>-->
+                                    <!--<td>15:29</td>-->
+                                    <!--<td class="ubuntu-blue bold">./</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>drwxr-xr-x</td>-->
+                                    <!--<td>6</td>-->
+                                    <!--<td>thomas</td>-->
+                                    <!--<td>thomas</td>-->
+                                    <!--<td class="right">4096678</td>-->
+                                    <!--<td>feb</td>-->
+                                    <!--<td>15:29</td>-->
+                                    <!--<td class="ubuntu-blue bold">../</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
 			</section>
 			<section class="violet">
@@ -85,12 +86,13 @@
 
 <script>
     import VisitorForm from './components/VisitorForm';
+    import Terminal from './components/Terminal';
     import { config } from './config';
 
     export default {
         name: 'app',
         components: {
-            VisitorForm
+            VisitorForm, Terminal
         },
         data: () => {
             return { apiKey: config.maps.apiKey }
@@ -217,65 +219,5 @@ h1 {
 
 section {
   padding-bottom: 30px;
-}
-
-.bash {
-    background-image: url('assets/ubuntu_bash_header.png');
-    background-position: top center;
-    background-repeat:no-repeat;
-    background-color: #300924;
-    height: 300px;
-    width: 700px;
-    margin: auto;
-    font-family: 'Ubuntu';
-    color: white;
-    padding-top: 30px;
-    text-align: left;
-    border-radius: 7px 7px 0px 0px;
-}
-
-.no-style {
-    outline: none;
-    background: transparent;
-    border: none;
-    font-family: 'Ubuntu';
-    color: white;
-    font-size: 1em;
-    display: inline-block;
-    min-width: 10px;
-}
-
-.cursor {
-    width: 6px;
-    height: 15px;
-    padding-top: 2px;
-    background-color: white;
-    display: inline-block;
-    vertical-align: bottom;
-}
-
-.bold {
-    font-weight: bold;
-}
-
-.ubuntu-green {
-    color: #87da34;
-}
-
-.ubuntu-blue {
-    color: #7C83A7;
-}
-
-.right {
-    text-align: right;
-}
-
-#bash {
-    margin-left: -3px;
-}
-
-#bash td {
-    padding-left: 3px;
-    padding-right: 3px;
 }
 </style>

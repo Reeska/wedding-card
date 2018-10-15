@@ -25,6 +25,9 @@
         case 'ls':
           this.resultAsComponent = 'ls';
           break;
+        case 'clear':
+          this.$emit('clear');
+          break;
         case './mariage.sh':
         case 'sh mariage.sh':
           this.result = 'bienvenue !';

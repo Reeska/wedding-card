@@ -14,7 +14,8 @@
           </div>
         </div>
         <div v-else>
-          <command :command="line.command" @virus="handleVirus"/>
+          <command :command="line.command" @virus="handleVirus" 
+            @clear="handleClear"/>
         </div>
       </div>
     </div>
@@ -44,7 +45,7 @@
       };
     },
     created() {
-      this.newLine({ mode: 'prompt' });
+      this.newLine();
     },
     methods: {
       keypress($event) {
@@ -68,7 +69,7 @@
         if (command) {
           this.newLine({ command });
         }
-        this.newLine({ mode: 'prompt' });
+        this.newLine();
 
         this.$nextTick(() => {
           var bashElement = document.querySelector('.bash');
@@ -89,10 +90,10 @@
       bashEnter() {
         this.promptFocus();
       },
-      newLine(mode) {
+      newLine(mode = { mode: 'prompt' }) {
         const line = {
           ...mode,
-          key: this.lines.length,
+          key: new Date().getTime() + this.lines.length,
           editable: true,
           content: ''
         };
@@ -117,11 +118,18 @@
             currentZone.appendChild(document.createTextNode(' '));
           }
 
-          selection.setPosition(currentZone.childNodes[0], this.lastCaretPosition);
+          selection.setPosition(
+            currentZone.childNodes[0],
+            this.lastCaretPosition
+          );
         });
       },
       handleVirus() {
         this.blueScreen = true;
+      },
+      handleClear() {
+        this.lines = [];
+        this.newLine();
       }
     }
   };
@@ -131,7 +139,8 @@
   @import '../colors.scss';
 
   .header {
-    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
+    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top
+      center;
     height: 28px;
     width: 700px;
     margin: auto;
@@ -152,7 +161,7 @@
 
   .blueScreen::before {
     content: '';
-    background: blue url('../assets/crash_windows.png') no-repeat center center;
+    background: blue url('../assets/crash_windows.jpg') no-repeat center center;
     height: 100%;
     width: 100%;
     display: block;
@@ -178,7 +187,7 @@
   .prompt {
     caret-color: transparent;
 
-    &[contenteditable=true] .zone::after {
+    &[contenteditable='true'] .zone::after {
       content: '';
       width: 1px;
       height: 15px;
@@ -186,7 +195,7 @@
       display: inline-block;
       vertical-align: bottom;
       border-right: 6px solid white;
-      animation: terminal-blink-caret .75s step-end infinite;
+      animation: terminal-blink-caret 0.75s step-end infinite;
     }
   }
 

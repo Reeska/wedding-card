@@ -6,57 +6,57 @@
              :contenteditable="line.editable"
              @keydown="keypress"
              @keypress.enter="enter"
-             @mousedown="click"><span class="ubuntu-green bold">thomas@thomas</span>:<span class="ubuntu-blue bold">~/ </span><span class="zone"></span></div>
+             @mousedown="click">
+            <span>
+                <span class="ubuntu-green bold">thomas@thomas</span>:
+                <span class="ubuntu-blue bold">~/</span>
+            </span>
+            <span class="zone">&nbsp;</span>
+        </div>
     </div>
 </template>
 
 <script>
+    function preventAndStopPropagation($event) {
+        $event.preventDefault();
+        $event.stopImmediatePropagation();
+        return false;
+    }
+
     export default {
         data() {
             return {
                 prompt: 'thomas@thomas:~/ ',
                 current: null,
                 lines: [],
+                lastCaretPosition: 1,
             }
         },
         created() {
             this.newLine();
         },
         methods: {
-            keypress() {
-                const selection = window.getSelection();
+            keypress($event) {
                 const caretPosition = window.getSelection().getRangeAt(0).startOffset;
+                const isBack = ($event.key === 'ArrowLeft' || $event.key === 'Backspace');
 
-                console.log('selection', selection);
-                console.log('caretPosition', caretPosition);
+                if (caretPosition === 1 && isBack) {
+                    return preventAndStopPropagation($event);
+                }
 
-                // if ((caretPosition < this.prompt.length && $event.key !== 'ArrowRight' && $event.key !== 'ArrowLeft')
-                //     || (caretPosition === this.prompt.length && $event.key === 'Backspace')) {
-                //     $event.preventDefault();
-                //     $event.stopImmediatePropagation();
-                //
-                //     // selection.setPosition(selection.baseNode, this.prompt.length)
-                //
-                //     // console.log('setposition', window.getSelection().getRangeAt(0).startOffset);
-                //
-                //     return false;
-                // }
+                this.lastCaretPosition = caretPosition + (isBack ? -1 : 1);
             },
             enter($event) {
                 this.newLine();
 
-                $event.preventDefault();
-                $event.stopImmediatePropagation();
-                return false;
+                return preventAndStopPropagation($event);
             },
             click($event) {
                 const selection = window.getSelection();
                 const caretPosition = selection.focusOffset === 0 ? 0 : selection.getRangeAt(0).startOffset;
 
                 if (caretPosition < this.prompt.length) {
-                    $event.preventDefault();
-                    $event.stopImmediatePropagation();
-                    return false;
+                    return preventAndStopPropagation($event);
                 }
             },
             bashEnter() {
@@ -76,13 +76,16 @@
                 }
 
                 this.current = line;
+                this.lastCaretPosition = 1;
+
                 this.promptFocus();
             },
             promptFocus() {
                 this.$nextTick(() => {
-                    document.querySelector('.zone:last-child').focus();
+                    const currentZone = document.querySelector('.prompt:last-child .zone');
                     const selection = window.getSelection();
-                    selection.setPosition(document.querySelector('.zone:last-child'), 0)
+
+                    selection.setPosition(currentZone.childNodes[0], this.lastCaretPosition);
                 })
             }
         }
@@ -99,7 +102,7 @@
         color: white;
         padding-top: 30px;
         text-align: left;
-        border-radius: 7px 7px 0px 0px;
+        border-radius: 7px 7px 0 0;
     }
 
     .no-style {

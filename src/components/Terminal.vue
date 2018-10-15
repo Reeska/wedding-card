@@ -4,16 +4,17 @@
     <div class="bash" :class="blueScreen ? 'blueScreen' : ''" @click="bashEnter">
       <div v-for="line in lines" :key="line.key" class="line">
         <div v-if="line.mode === 'prompt'">
-          <div class="prompt no-style" spellcheck="false" :contenteditable="line.editable" @keydown="keypress" @keypress.enter="enter" @mousedown="click">
+          <div class="prompt no-style" spellcheck="false" :contenteditable="line.editable" @keydown="keypress"
+               @keypress.enter="enter" @mousedown="click">
             <span>
               <span class="ubuntu-green bold">thomas@thomas</span>:
               <span class="ubuntu-blue bold">~/</span>
             </span>
-            <span class="zone">&nbsp;</span>
+            <span class="zone"></span>
           </div>
         </div>
         <div v-else>
-          <command :command="line.command" @virus="handleVirus" />
+          <command :command="line.command" @virus="handleVirus"/>
         </div>
       </div>
     </div>
@@ -54,7 +55,7 @@
         const caretPosition = window.getSelection().getRangeAt(0).startOffset;
         const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
 
-        if (caretPosition === 1 && isBack) {
+        if ($event.key === 'Tab' || (caretPosition === 1 && isBack)) {
           return preventAndStopPropagation($event);
         }
 
@@ -112,10 +113,11 @@
           const currentZone = document.querySelector('.line:last-child .zone');
           const selection = window.getSelection();
 
-          selection.setPosition(
-            currentZone.childNodes[0],
-            this.lastCaretPosition
-          );
+          if (currentZone.childNodes.length === 0) {
+            currentZone.appendChild(document.createTextNode(' '));
+          }
+
+          selection.setPosition(currentZone.childNodes[0], this.lastCaretPosition);
         });
       },
       handleVirus() {
@@ -127,9 +129,9 @@
 
 <style lang="scss" scoped>
   @import '../colors.scss';
+
   .header {
-    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top
-      center;
+    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
     height: 28px;
     width: 700px;
     margin: auto;
@@ -176,7 +178,7 @@
   .prompt {
     caret-color: transparent;
 
-    &[contenteditable='true']::after {
+    &[contenteditable=true] .zone::after {
       content: '';
       width: 1px;
       height: 15px;
@@ -184,7 +186,7 @@
       display: inline-block;
       vertical-align: bottom;
       border-right: 6px solid white;
-      animation: terminal-blink-caret 0.75s step-end infinite;
+      animation: terminal-blink-caret .75s step-end infinite;
     }
   }
 

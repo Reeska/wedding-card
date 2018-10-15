@@ -54,151 +54,151 @@
 </template>
 
 <script>
-import VisitorForm from './components/VisitorForm';
-import Terminal from './components/Terminal';
-import { config } from './config';
+  import VisitorForm from './components/VisitorForm';
+  import Terminal from './components/Terminal';
+  import { config } from './config';
 
-export default {
-  name: 'app',
-  components: {
-    VisitorForm,
-    Terminal
-  },
-  data: () => {
-    return { apiKey: config.maps.apiKey };
-  }
-};
+  export default {
+    name: 'app',
+    components: {
+      VisitorForm,
+      Terminal
+    },
+    data: () => {
+      return { apiKey: config.maps.apiKey };
+    }
+  };
 </script>
 
 <style>
-body {
-  padding-top: 5em;
-  text-align: center;
-  font-family: 'Roboto';
-  margin-left: 0px;
-  margin-right: 0px;
-  padding-top: 20px;
-}
-
-a {
-  text-decoration: none;
-}
-
-.menu {
-  position: fixed;
-  left: 90px;
-  top: 50%;
-  font-family: 'Space Mono';
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 35px;
-}
-
-.menu a {
-  color: #2f4f82;
-  font-weight: bold;
-}
-
-.menu a:hover {
-  font-style: italic;
-}
-
-.menu div {
-  padding: 5px 0px 5px 0px;
-}
-
-.page {
-  max-width: 1800px;
-}
-
-.flex {
-  display: flex;
-  justify-content: center;
-}
-
-.typewriter h1 {
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: 0.15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: 0.15em; /* Adjust as needed */
-  font-family: 'Space Mono';
-  animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
-}
-
-/* The typing effect */
-@keyframes typing {
-  from {
-    width: 0;
+  body {
+    padding-top: 5em;
+    text-align: center;
+    font-family: 'Roboto';
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 20px;
   }
-  to {
-    width: 100%;
-  }
-}
 
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
+  a {
+    text-decoration: none;
   }
-  50% {
+
+  .menu {
+    position: fixed;
+    left: 90px;
+    top: 50%;
+    font-family: 'Space Mono';
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 35px;
+  }
+
+  .menu a {
+    color: #2f4f82;
+    font-weight: bold;
+  }
+
+  .menu a:hover {
+    font-style: italic;
+  }
+
+  .menu div {
+    padding: 5px 0px 5px 0px;
+  }
+
+  .page {
+    max-width: 1800px;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: center;
+  }
+
+  .typewriter h1 {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: 0.15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: 0.15em; /* Adjust as needed */
+    font-family: 'Space Mono';
+    animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #9da7d5;
+    }
+  }
+
+  .date {
+    margin: auto;
+    margin-bottom: 30px;
+    border-style: solid;
+    border-width: 1px 0px 1px 0px;
+    /*border-color: #EEE0E0;*/
     border-color: #9da7d5;
+    max-width: 220px;
+    padding: 10px;
+    margin-top: 10px;
   }
-}
 
-.date {
-  margin: auto;
-  margin-bottom: 30px;
-  border-style: solid;
-  border-width: 1px 0px 1px 0px;
-  /*border-color: #EEE0E0;*/
-  border-color: #9da7d5;
-  max-width: 220px;
-  padding: 10px;
-  margin-top: 10px;
-}
+  .tardis {
+    background-image: url('assets/tardis_big.jpg');
+    background-position: center center;
+    width: 100%;
+    height: 500px;
+  }
 
-.tardis {
-  background-image: url('assets/tardis_big.jpg');
-  background-position: center center;
-  width: 100%;
-  height: 500px;
-}
+  h1 {
+    font-family: 'Dosis';
+  }
 
-h1 {
-  font-family: 'Dosis';
-}
+  .title {
+    font-weight: 100;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    /*border: none;
+              border-bottom: 1px black dashed;*/
+    background-image: linear-gradient(
+      to right,
+      black 33%,
+      rgba(255, 255, 255, 0) 0%
+    );
+    background-position: bottom;
+    background-size: 15px 1px;
+    background-repeat: repeat-x;
+    display: inline-block;
+  }
 
-.title {
-  font-weight: 100;
-  font-size: 2.5em;
-  text-transform: uppercase;
-  /*border: none;
-  border-bottom: 1px black dashed;*/
-  background-image: linear-gradient(
-    to right,
-    black 33%,
-    rgba(255, 255, 255, 0) 0%
-  );
-  background-position: bottom;
-  background-size: 15px 1px;
-  background-repeat: repeat-x;
-  display: inline-block;
-}
+  .bold {
+    font-weight: bold;
+  }
 
-.bold {
-  font-weight: bold;
-}
+  .padded {
+    padding: 30px;
+  }
 
-.padded {
-  padding: 30px;
-}
+  .violet {
+    background-color: #f9f6fa;
+  }
 
-.violet {
-  background-color: #f9f6fa;
-}
-
-section {
-  padding-bottom: 30px;
-}
+  section {
+    padding-bottom: 30px;
+  }
 </style>

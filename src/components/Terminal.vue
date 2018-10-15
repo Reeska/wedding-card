@@ -21,205 +21,205 @@
 </template>
 
 <script>
-import Command from './Command';
+  import Command from './Command';
 
-function preventAndStopPropagation($event) {
-  $event.preventDefault();
-  $event.stopImmediatePropagation();
-  return false;
-}
-
-export default {
-  components: {
-    Command
-  },
-  data() {
-    return {
-      prompt: 'thomas@thomas:~/ ',
-      current: null,
-      lines: [],
-      lastCaretPosition: 1,
-      blueScreen: false
-    };
-  },
-  created() {
-    this.newLine({ mode: 'prompt' });
-  },
-  methods: {
-    keypress($event) {
-      if (this.blueScreen) {
-        this.blueScreen = false;
-        return preventAndStopPropagation($event);
-      }
-      const caretPosition = window.getSelection().getRangeAt(0).startOffset;
-      const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
-
-      if (caretPosition === 1 && isBack) {
-        return preventAndStopPropagation($event);
-      }
-
-      this.lastCaretPosition = caretPosition + (isBack ? -1 : 1);
-    },
-    enter($event) {
-      const command = document
-        .querySelector('.line:last-child .zone')
-        .textContent.trim();
-      if (command) {
-        this.newLine({ command });
-      }
-      this.newLine({ mode: 'prompt' });
-
-      this.$nextTick(() => {
-        var bashElement = document.querySelector('.bash');
-        bashElement.scrollTop = bashElement.scrollHeight;
-      });
-
-      return preventAndStopPropagation($event);
-    },
-    click($event) {
-      const selection = window.getSelection();
-      const caretPosition =
-        selection.focusOffset === 0 ? 0 : selection.getRangeAt(0).startOffset;
-
-      if (caretPosition < this.prompt.length) {
-        return preventAndStopPropagation($event);
-      }
-    },
-    bashEnter() {
-      this.promptFocus();
-    },
-    newLine(mode) {
-      const line = {
-        ...mode,
-        key: this.lines.length,
-        editable: true,
-        content: ''
-      };
-
-      this.lines.push(line);
-
-      if (this.current) {
-        this.current.editable = false;
-      }
-
-      this.current = line;
-      this.lastCaretPosition = 1;
-
-      this.promptFocus();
-    },
-    promptFocus() {
-      this.$nextTick(() => {
-        const currentZone = document.querySelector('.line:last-child .zone');
-        const selection = window.getSelection();
-
-        selection.setPosition(
-          currentZone.childNodes[0],
-          this.lastCaretPosition
-        );
-      });
-    },
-    handleVirus() {
-      this.blueScreen = true;
-    }
+  function preventAndStopPropagation($event) {
+    $event.preventDefault();
+    $event.stopImmediatePropagation();
+    return false;
   }
-};
+
+  export default {
+    components: {
+      Command
+    },
+    data() {
+      return {
+        prompt: 'thomas@thomas:~/ ',
+        current: null,
+        lines: [],
+        lastCaretPosition: 1,
+        blueScreen: false
+      };
+    },
+    created() {
+      this.newLine({ mode: 'prompt' });
+    },
+    methods: {
+      keypress($event) {
+        if (this.blueScreen) {
+          this.blueScreen = false;
+          return preventAndStopPropagation($event);
+        }
+        const caretPosition = window.getSelection().getRangeAt(0).startOffset;
+        const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
+
+        if (caretPosition === 1 && isBack) {
+          return preventAndStopPropagation($event);
+        }
+
+        this.lastCaretPosition = caretPosition + (isBack ? -1 : 1);
+      },
+      enter($event) {
+        const command = document
+          .querySelector('.line:last-child .zone')
+          .textContent.trim();
+        if (command) {
+          this.newLine({ command });
+        }
+        this.newLine({ mode: 'prompt' });
+
+        this.$nextTick(() => {
+          var bashElement = document.querySelector('.bash');
+          bashElement.scrollTop = bashElement.scrollHeight;
+        });
+
+        return preventAndStopPropagation($event);
+      },
+      click($event) {
+        const selection = window.getSelection();
+        const caretPosition =
+          selection.focusOffset === 0 ? 0 : selection.getRangeAt(0).startOffset;
+
+        if (caretPosition < this.prompt.length) {
+          return preventAndStopPropagation($event);
+        }
+      },
+      bashEnter() {
+        this.promptFocus();
+      },
+      newLine(mode) {
+        const line = {
+          ...mode,
+          key: this.lines.length,
+          editable: true,
+          content: ''
+        };
+
+        this.lines.push(line);
+
+        if (this.current) {
+          this.current.editable = false;
+        }
+
+        this.current = line;
+        this.lastCaretPosition = 1;
+
+        this.promptFocus();
+      },
+      promptFocus() {
+        this.$nextTick(() => {
+          const currentZone = document.querySelector('.line:last-child .zone');
+          const selection = window.getSelection();
+
+          selection.setPosition(
+            currentZone.childNodes[0],
+            this.lastCaretPosition
+          );
+        });
+      },
+      handleVirus() {
+        this.blueScreen = true;
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
-@import '../colors.scss';
-.header {
-  background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top
-    center;
-  height: 28px;
-  width: 700px;
-  margin: auto;
-  border-radius: 7px 7px 0 0;
-}
+  @import '../colors.scss';
+  .header {
+    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top
+      center;
+    height: 28px;
+    width: 700px;
+    margin: auto;
+    border-radius: 7px 7px 0 0;
+  }
 
-.bash {
-  background-color: #300924;
-  height: 300px;
-  width: 700px;
-  margin: auto;
-  font-family: 'Ubuntu', monospace;
-  color: white;
-  text-align: left;
-  overflow: scroll;
-  position: relative;
-}
+  .bash {
+    background-color: #300924;
+    height: 300px;
+    width: 700px;
+    margin: auto;
+    font-family: 'Ubuntu', monospace;
+    color: white;
+    text-align: left;
+    overflow: scroll;
+    position: relative;
+  }
 
-.blueScreen::before {
-  content: '';
-  background: blue url('../assets/crash_windows.png') no-repeat center center;
-  height: 100%;
-  width: 100%;
-  display: block;
-  overflow: hidden;
-  position: absolute;
-}
-
-.bash::-webkit-scrollbar {
-  display: none;
-}
-
-.no-style {
-  outline: none;
-  background: transparent;
-  border: none;
-  font-family: 'Ubuntu', monospace;
-  color: white;
-  font-size: 1em;
-  display: block;
-  min-width: 10px;
-}
-
-.prompt {
-  caret-color: transparent;
-
-  &[contenteditable='true']::after {
+  .blueScreen::before {
     content: '';
-    width: 1px;
-    height: 15px;
-    padding-top: 2px;
-    display: inline-block;
-    vertical-align: bottom;
-    border-right: 6px solid white;
-    animation: terminal-blink-caret 0.75s step-end infinite;
+    background: blue url('../assets/crash_windows.png') no-repeat center center;
+    height: 100%;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    position: absolute;
   }
-}
 
-@keyframes terminal-blink-caret {
-  from,
-  to {
-    border-color: transparent;
+  .bash::-webkit-scrollbar {
+    display: none;
   }
-  50% {
-    border-color: white;
+
+  .no-style {
+    outline: none;
+    background: transparent;
+    border: none;
+    font-family: 'Ubuntu', monospace;
+    color: white;
+    font-size: 1em;
+    display: block;
+    min-width: 10px;
   }
-}
 
-.bold {
-  font-weight: bold;
-}
+  .prompt {
+    caret-color: transparent;
 
-.ubuntu-green {
-  color: $green;
-}
+    &[contenteditable='true']::after {
+      content: '';
+      width: 1px;
+      height: 15px;
+      padding-top: 2px;
+      display: inline-block;
+      vertical-align: bottom;
+      border-right: 6px solid white;
+      animation: terminal-blink-caret 0.75s step-end infinite;
+    }
+  }
 
-.ubuntu-blue {
-  color: $blue;
-}
+  @keyframes terminal-blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: white;
+    }
+  }
 
-.right {
-  text-align: right;
-}
+  .bold {
+    font-weight: bold;
+  }
 
-#bash {
-  margin-left: -3px;
-}
+  .ubuntu-green {
+    color: $green;
+  }
 
-#bash td {
-  padding-left: 3px;
-  padding-right: 3px;
-}
+  .ubuntu-blue {
+    color: $blue;
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  #bash {
+    margin-left: -3px;
+  }
+
+  #bash td {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
 </style>

@@ -1,107 +1,77 @@
 <template>
-    <div id="app">
-        <div class="menu">
-			<div>
-				<a href="#">cérémonie</a>
-			</div>
-			<div>
-				<a href="#">réception</a>
-			</div>
-			<div>
-				<a href="#">présence</a>
-			</div>
-			<div>
-				<a href="#">faq</a>
-			</div>
-		</div>
-		<div class="page">
-			<!-- page content -->
-			<div class="flex">
-				<div class="typewriter">
-					<h1>Clémentine && Thomas</h1>
-				</div>
-			</div>
-			<div class="date">
-				<b>8 Juin 2019 à 15h00</b>
-				<br/> -
-				<i>Star date 72900.4</i> -
-			</div>
-			<div class="tardis"></div>
-			<section>
-				<h1 class="title">Cérémonie - 15h20</h1>
-				<div class="padded">
-					<iframe width="600" height="450" frameborder="0" style="border:0" :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJdbbQwbZx5kcR7ZKHnZ405Fg&key=' + apiKey" allowfullscreen></iframe>
-				</div>
-			</section>
-			<section class="violet">
-				<h1 class="title">Réception - 19h00</h1>
-				<div class="padded">
-					<iframe width="600" height="450" frameborder="0" style="border:0" :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJgQfCkxNu5kcRcQi5NxUc9C8&key=' + apiKey" allowfullscreen></iframe>
-				</div>
-			</section>
-			<section>
-				<h1 class="title">Présence</h1>
-				<div>
-                    <terminal></terminal>
-                    <!--<div class="bash">-->
-                        <!--<div class="line">-->
-                            <!--<span class="ubuntu-green bold">thomas@thomas</span>:<span class="ubuntu-blue bold">~/</span> -->
-                            <!--<div contenteditable="true" class="no-style"></div><div class="cursor"></div>-->
-                        <!--</div>-->
-                        <!--<div class="ls">-->
-                            <!--total 34635<br/>-->
-                            <!--<table cellspacing="0" cellpadding="0" id="bash">-->
-                                <!--<tr>-->
-                                    <!--<td>drwxr-xr-x</td>-->
-                                    <!--<td>6</td>-->
-                                    <!--<td>thomas</td>-->
-                                    <!--<td>thomas</td>-->
-                                    <!--<td class="right">4096</td>-->
-                                    <!--<td>feb</td>-->
-                                    <!--<td>15:29</td>-->
-                                    <!--<td class="ubuntu-blue bold">./</td>-->
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td>drwxr-xr-x</td>-->
-                                    <!--<td>6</td>-->
-                                    <!--<td>thomas</td>-->
-                                    <!--<td>thomas</td>-->
-                                    <!--<td class="right">4096678</td>-->
-                                    <!--<td>feb</td>-->
-                                    <!--<td>15:29</td>-->
-                                    <!--<td class="ubuntu-blue bold">../</td>-->
-                                <!--</tr>-->
-                            <!--</table>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                </div>
-			</section>
-			<section class="violet">
-				<h1 class="title">FAQ</h1>
-				<div>uc.</div>
-			</section>
-		</div>
+  <div id="app">
+    <div class="menu">
+      <div>
+        <a href="#">cérémonie</a>
+      </div>
+      <div>
+        <a href="#">réception</a>
+      </div>
+      <div>
+        <a href="#">présence</a>
+      </div>
+      <div>
+        <a href="#">faq</a>
+      </div>
     </div>
+    <div class="page">
+      <!-- page content -->
+      <div class="flex">
+        <div class="typewriter">
+          <h1>Clémentine && Thomas</h1>
+        </div>
+      </div>
+      <div class="date">
+        <b>8 Juin 2019 à 15h00</b>
+        <br/> -
+        <i>Star date 72900.4</i> -
+      </div>
+      <div class="tardis"></div>
+      <section>
+        <h1 class="title">Cérémonie - 15h20</h1>
+        <div class="padded">
+          <iframe width="600" height="450" frameborder="0" style="border:0" :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJdbbQwbZx5kcR7ZKHnZ405Fg&key=' + apiKey" allowfullscreen></iframe>
+        </div>
+      </section>
+      <section class="violet">
+        <h1 class="title">Réception - 19h00</h1>
+        <div class="padded">
+          <iframe width="600" height="450" frameborder="0" style="border:0" :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJgQfCkxNu5kcRcQi5NxUc9C8&key=' + apiKey" allowfullscreen></iframe>
+        </div>
+      </section>
+      <section>
+        <h1 class="title">Présence</h1>
+        <div>
+          <terminal></terminal>
+        </div>
+      </section>
+      <section class="violet">
+        <h1 class="title">FAQ</h1>
+        <div>uc.</div>
+      </section>
+    </div>
+  </div>
 </template>
 
 <script>
-    import VisitorForm from './components/VisitorForm';
-    import Terminal from './components/Terminal';
-    import { config } from './config';
+import VisitorForm from './components/VisitorForm';
+import Terminal from './components/Terminal';
+import { config } from './config';
 
-    export default {
-        name: 'app',
-        components: {
-            VisitorForm, Terminal
-        },
-        data: () => {
-            return { apiKey: config.maps.apiKey }
-        },
-    }
+export default {
+  name: 'app',
+  components: {
+    VisitorForm,
+    Terminal
+  },
+  data: () => {
+    return { apiKey: config.maps.apiKey };
+  }
+};
 </script>
 
 <style>
-    body {
+body {
   padding-top: 5em;
   text-align: center;
   font-family: 'Roboto';
@@ -119,7 +89,7 @@ a {
   left: 90px;
   top: 50%;
   font-family: 'Space Mono';
-  background-color: rgba(255,255,255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 35px;
 }
 
@@ -141,32 +111,39 @@ a {
 }
 
 .flex {
-	display: flex;
+  display: flex;
   justify-content: center;
 }
 
 .typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
+  border-right: 0.15em solid orange; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
+  letter-spacing: 0.15em; /* Adjust as needed */
   font-family: 'Space Mono';
-  animation: 
-    typing 2.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+  animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #9da7d5; }
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #9da7d5;
+  }
 }
 
 .date {
@@ -198,7 +175,11 @@ h1 {
   text-transform: uppercase;
   /*border: none;
   border-bottom: 1px black dashed;*/
-  background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+  background-image: linear-gradient(
+    to right,
+    black 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
   background-position: bottom;
   background-size: 15px 1px;
   background-repeat: repeat-x;

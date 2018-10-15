@@ -8,5 +8,5 @@ const firebaseApp = firebase.initializeApp(config.firebase);
 export const database = firebaseApp.firestore();
 
 database.settings({
-    timestampsInSnapshots: true
+  timestampsInSnapshots: true
 });

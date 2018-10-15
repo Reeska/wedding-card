@@ -30,13 +30,17 @@
       <section>
         <h1 class="title">Cérémonie - 15h20</h1>
         <div class="padded">
-          <iframe width="600" height="450" frameborder="0" style="border:0" :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJdbbQwbZx5kcR7ZKHnZ405Fg&key=' + apiKey" allowfullscreen></iframe>
+          <iframe width="600" height="450" frameborder="0" style="border:0"
+                  :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJdbbQwbZx5kcR7ZKHnZ405Fg&key=' + apiKey"
+                  allowfullscreen></iframe>
         </div>
       </section>
       <section class="violet">
         <h1 class="title">Réception - 19h00</h1>
         <div class="padded">
-          <iframe width="600" height="450" frameborder="0" style="border:0" :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJgQfCkxNu5kcRcQi5NxUc9C8&key=' + apiKey" allowfullscreen></iframe>
+          <iframe width="600" height="450" frameborder="0" style="border:0"
+                  :src="'https://www.google.com/maps/embed/v1/place?q=place_id:ChIJgQfCkxNu5kcRcQi5NxUc9C8&key=' + apiKey"
+                  allowfullscreen></iframe>
         </div>
       </section>
       <section>
@@ -174,7 +178,7 @@
     font-size: 2.5em;
     text-transform: uppercase;
     /*border: none;
-              border-bottom: 1px black dashed;*/
+    border-bottom: 1px black dashed;*/
     background-image: linear-gradient(
       to right,
       black 33%,

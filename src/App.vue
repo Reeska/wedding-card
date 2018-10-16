@@ -1,33 +1,27 @@
 <template>
   <div id="app">
     <div class="menu">
-      <div>
-        <a href="#">cérémonie</a>
-      </div>
-      <div>
-        <a href="#">réception</a>
-      </div>
-      <div>
-        <a href="#">présence</a>
-      </div>
-      <div>
-        <a href="#">faq</a>
+      <div v-for="link in links" :key="link.label">
+        <a :href="link.href" v-smooth-scroll="smoothScroll">{{ link.label }}</a>
       </div>
     </div>
+
     <div class="page">
-      <!-- page content -->
-      <div class="flex">
+      <div class="flex" id="home">
         <div class="typewriter">
           <h1>Clémentine && Thomas</h1>
         </div>
       </div>
+
       <div class="date">
         <b>8 Juin 2019 à 15h00</b>
         <br/> -
         <i>Star date 72900.4</i> -
       </div>
-      <div class="tardis"></div>
-      <section>
+
+      <section class="tardis"></section>
+
+      <section id="ceremony">
         <h1 class="title">Cérémonie - 15h20</h1>
         <div class="padded">
           <iframe width="600" height="450" frameborder="0" style="border:0"
@@ -35,7 +29,8 @@
                   allowfullscreen></iframe>
         </div>
       </section>
-      <section class="violet">
+
+      <section id="reception">
         <h1 class="title">Réception - 19h00</h1>
         <div class="padded">
           <iframe width="600" height="450" frameborder="0" style="border:0"
@@ -43,13 +38,15 @@
                   allowfullscreen></iframe>
         </div>
       </section>
-      <section>
+
+      <section id="presence">
         <h1 class="title">Présence</h1>
         <div>
           <terminal></terminal>
         </div>
       </section>
-      <section class="violet">
+
+      <section id="faq">
         <h1 class="title">FAQ</h1>
         <div>uc.</div>
       </section>
@@ -68,46 +65,60 @@
       VisitorForm,
       Terminal
     },
-    data: () => {
-      return { apiKey: config.maps.apiKey };
+    data() {
+      return {
+        apiKey: config.maps.apiKey,
+        smoothScroll: {
+          duration: 1000
+        },
+        links: [
+          { href: '#app', label: 'home' },
+          { href: '#ceremony', label: 'cérémonie' },
+          { href: '#reception', label: 'réception' },
+          { href: '#presence', label: 'présence' },
+          { href: '#faq', label: 'faq' },
+        ]
+      };
     }
   };
 </script>
 
-<style>
+<style lang="scss">
   body {
-    padding-top: 5em;
     text-align: center;
-    font-family: 'Roboto';
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-top: 20px;
+    font-family: 'Roboto', serif;
+    margin: 0;
+    padding: 0;
   }
 
   a {
     text-decoration: none;
   }
 
+  #app {
+    padding-top: 20px;
+  }
+
   .menu {
     position: fixed;
     left: 90px;
     top: 50%;
-    font-family: 'Space Mono';
+    font-family: 'Space Mono', serif;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 35px;
-  }
 
-  .menu a {
-    color: #2f4f82;
-    font-weight: bold;
-  }
+    a {
+      color: #2f4f82;
+      font-weight: bold;
 
-  .menu a:hover {
-    font-style: italic;
-  }
+      &:hover {
+        font-style: italic;
+      }
+    }
 
-  .menu div {
-    padding: 5px 0px 5px 0px;
+    div {
+      padding: 5px 0 5px 0;
+    }
   }
 
   .page {
@@ -125,7 +136,7 @@
     white-space: nowrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     letter-spacing: 0.15em; /* Adjust as needed */
-    font-family: 'Space Mono';
+    font-family: 'Space Mono', serif;
     animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
   }
 
@@ -151,58 +162,45 @@
   }
 
   .date {
-    margin: auto;
-    margin-bottom: 30px;
+    margin: 10px auto 30px;
     border-style: solid;
-    border-width: 1px 0px 1px 0px;
-    /*border-color: #EEE0E0;*/
+    border-width: 1px 0 1px 0;
     border-color: #9da7d5;
     max-width: 220px;
     padding: 10px;
-    margin-top: 10px;
   }
 
   .tardis {
-    background-image: url('assets/tardis_big.jpg');
-    background-position: center center;
-    width: 100%;
+    background: url('assets/tardis_big.jpg') center center;
     height: 500px;
   }
 
   h1 {
-    font-family: 'Dosis';
+    font-family: 'Dosis', serif;
   }
 
   .title {
+    display: inline-block;
     font-weight: 100;
     font-size: 2.5em;
     text-transform: uppercase;
-    /*border: none;
-    border-bottom: 1px black dashed;*/
-    background-image: linear-gradient(
-      to right,
-      black 33%,
-      rgba(255, 255, 255, 0) 0%
-    );
-    background-position: bottom;
+    background: linear-gradient(
+        to right,
+        black 33%,
+        rgba(255, 255, 255, 0) 0%
+    ) repeat-x bottom;
     background-size: 15px 1px;
-    background-repeat: repeat-x;
-    display: inline-block;
-  }
-
-  .bold {
-    font-weight: bold;
   }
 
   .padded {
     padding: 30px;
   }
 
-  .violet {
-    background-color: #f9f6fa;
-  }
-
   section {
     padding-bottom: 30px;
+
+    &:nth-child(odd) {
+      background-color: #f9f6fa;
+    }
   }
 </style>

@@ -22,6 +22,7 @@
     components: { Ls },
     created() {
       switch (this.command) {
+        case 'll':
         case 'ls':
           this.resultAsComponent = 'ls';
           break;

@@ -4,18 +4,23 @@
     <div class="bash" :class="blueScreen ? 'blueScreen' : ''" @click="bashEnter">
       <div v-for="line in lines" :key="line.key" class="line">
         <div v-if="line.mode === 'prompt'">
-          <div class="prompt no-style" spellcheck="false" :contenteditable="line.editable" @keydown="keypress"
-               @keypress.enter="enter" @mousedown="click">
+          <div class="prompt no-style"
+               spellcheck="false"
+               :contenteditable="line.editable"
+               @keydown="keypress"
+               @keypress.enter="enter"
+               @mousedown="click">
             <span>
               <span class="ubuntu-green bold">thomas@thomas</span>:
               <span class="ubuntu-blue bold">~/</span>
             </span>
-            <span class="zone"></span>
+            <span class="zone">&nbsp;</span>
           </div>
         </div>
         <div v-else>
-          <command :command="line.command" @virus="handleVirus" 
-            @clear="handleClear"/>
+          <command :command="line.command"
+                   @virus="handleVirus"
+                   @clear="handleClear"/>
         </div>
       </div>
     </div>
@@ -48,11 +53,15 @@
       this.newLine();
     },
     methods: {
+      input() {
+        return document.querySelector('.line:last-child .zone');
+      },
       keypress($event) {
         if (this.blueScreen) {
           this.blueScreen = false;
           return preventAndStopPropagation($event);
         }
+
         const caretPosition = window.getSelection().getRangeAt(0).startOffset;
         const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
 
@@ -61,18 +70,26 @@
         }
 
         this.lastCaretPosition = caretPosition + (isBack ? -1 : 1);
+        this.moveCursor();
+
       },
+
+      moveCursor() {
+        document.querySelector('.line:last-child .prompt')
+          .style.setProperty('--caret-position', (15 + (this.lastCaretPosition - 1) * 8) + 'px');
+      },
+
       enter($event) {
-        const command = document
-          .querySelector('.line:last-child .zone')
-          .textContent.trim();
+        const command = this.input().textContent.trim();
+
         if (command) {
           this.newLine({ command });
         }
+
         this.newLine();
 
         this.$nextTick(() => {
-          var bashElement = document.querySelector('.bash');
+          const bashElement = document.querySelector('.bash');
           bashElement.scrollTop = bashElement.scrollHeight;
         });
 
@@ -111,12 +128,8 @@
       },
       promptFocus() {
         this.$nextTick(() => {
-          const currentZone = document.querySelector('.line:last-child .zone');
+          const currentZone = this.input();
           const selection = window.getSelection();
-
-          if (currentZone.childNodes.length === 0) {
-            currentZone.appendChild(document.createTextNode(' '));
-          }
 
           selection.setPosition(
             currentZone.childNodes[0],
@@ -139,8 +152,7 @@
   @import '../colors.scss';
 
   .header {
-    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top
-      center;
+    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
     height: 28px;
     width: 700px;
     margin: auto;
@@ -152,7 +164,7 @@
     height: 300px;
     width: 700px;
     margin: auto;
-    font-family: 'Ubuntu', monospace;
+    font-family: 'Ubuntu Mono', monospace;
     color: white;
     text-align: left;
     overflow: scroll;
@@ -177,7 +189,6 @@
     outline: none;
     background: transparent;
     border: none;
-    font-family: 'Ubuntu', monospace;
     color: white;
     font-size: 1em;
     display: block;
@@ -186,16 +197,22 @@
 
   .prompt {
     caret-color: transparent;
+    --caret-position: 15px;
 
-    &[contenteditable='true'] .zone::after {
-      content: '';
-      width: 1px;
-      height: 15px;
-      padding-top: 2px;
-      display: inline-block;
-      vertical-align: bottom;
-      border-right: 6px solid white;
-      animation: terminal-blink-caret 0.75s step-end infinite;
+    &[contenteditable='true'] .zone {
+
+      &::before {
+        content: '';
+        width: 1px;
+        height: 15px;
+        padding-top: 2px;
+        display: inline-block;
+        vertical-align: bottom;
+        border-right: 6px solid white;
+        animation: terminal-blink-caret 0.75s step-end infinite;
+        position: relative;
+        left: var(--caret-position);
+      }
     }
   }
 

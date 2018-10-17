@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 import vueSmoothScroll from 'vue2-smooth-scroll'
 
 Vue.use(vueSmoothScroll)

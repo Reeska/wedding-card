@@ -54,33 +54,32 @@
   </div>
 </template>
 
-<script>
-  import VisitorForm from './components/VisitorForm';
-  import Terminal from './components/Terminal';
-  import { config } from './config';
+<script lang="ts">
+  import Vue from 'vue'
+  import VisitorForm from './components/VisitorForm.vue';
+  import Terminal from './components/Terminal.vue';
+  import {config} from './config';
+  import Component from 'vue-class-component'
 
-  export default {
-    name: 'app',
+  @Component({
     components: {
       VisitorForm,
       Terminal
     },
-    data() {
-      return {
-        apiKey: config.maps.apiKey,
-        smoothScroll: {
-          duration: 1000
-        },
-        links: [
-          { href: '#app', label: 'home' },
-          { href: '#ceremony', label: 'cérémonie' },
-          { href: '#reception', label: 'réception' },
-          { href: '#presence', label: 'présence' },
-          { href: '#faq', label: 'faq' },
-        ]
-      };
-    }
-  };
+  })
+  export class App extends Vue {
+    apiKey: string = config.maps.apiKey;
+    smoothScroll = {
+      duration: 1000
+    };
+    links = [
+      {href: '#app', label: 'home'},
+      {href: '#ceremony', label: 'cérémonie'},
+      {href: '#reception', label: 'réception'},
+      {href: '#presence', label: 'présence'},
+      {href: '#faq', label: 'faq'},
+    ];
+  }
 </script>
 
 <style lang="scss">

@@ -1,53 +1,94 @@
 <template>
-  <div>total 34635<br/>
-    <table cellspacing="0" cellpadding="0">
-      <tr>
-        <td>drwxr-xr-x</td>
-        <td>6</td>
-        <td>thomas</td>
-        <td>thomas</td>
-        <td class="right">4096</td>
-        <td>feb</td>
-        <td>15:29</td>
-        <td class="blue bold">./</td>
+  <div>
+    <span v-if="isAList()">
+      total 34635<br/>
+      <table cellspacing="0" cellpadding="0">
+      <tr v-for="file in files" :key="file.key">
+          <td>{{file.access}}</td>
+          <td>{{file.type}}</td>
+          <td>{{file.owner}}</td>
+          <td>{{file.group}}</td>
+          <td class="right">{{file.size}}</td>
+          <td>{{file.month}}</td>
+          <td>{{file.hour}}</td>
+          <td :class="styleFromType(file.type)">{{file.name}}</td>
       </tr>
-      <tr>
-        <td>drwxr-xr-x</td>
-        <td>4</td>
-        <td>thomas</td>
-        <td>thomas</td>
-        <td class="right">4096678</td>
-        <td>feb</td>
-        <td>15:29</td>
-        <td class="blue bold">../</td>
-      </tr>
-      <tr>
-        <td>drwxr-xr-x</td>
-        <td>1</td>
-        <td>thomas</td>
-        <td>thomas</td>
-        <td class="right">42424242</td>
-        <td>feb</td>
-        <td>15:29</td>
-        <td class="green bold">mariage.sh</td>
-      </tr>
-      <tr>
-        <td>drwxr-xr-x</td>
-        <td>1</td>
-        <td>thomas</td>
-        <td>thomas</td>
-        <td class="right">666</td>
-        <td>feb</td>
-        <td>15:29</td>
-        <td class="green bold">virus.sh</td>
-      </tr>
-    </table>
+      </table>
+    </span>
+    <span v-else>
+      <span v-for="file in files" :key="file.key">
+        <span v-if="file.type !== 6">{{file.name}} </span>
+      </span>
+    </span>
   </div>
 </template>
 
 <script>
   export default {
-    created() {}
+    data() {
+      return {
+        files: [
+          {
+            access: 'drwxr-xr-x',
+            type: 6,
+            owner: 'thomas',
+            group: 'thomas',
+            size: '4096',
+            month: 'feb',
+            hour: '15:56',
+            name: './'
+          },
+          {
+            access: 'drwxr-xr-x',
+            type: 6,
+            owner: 'thomas',
+            group: 'thomas',
+            size: '4096678',
+            month: 'feb',
+            hour: '15:56',
+            name: '../'
+          },
+          {
+            access: 'drwxr-xr-x',
+            type: 1,
+            owner: 'thomas',
+            group: 'thomas',
+            size: '42424242',
+            month: 'feb',
+            hour: '15:56',
+            name: 'mariage.sh'
+          },
+          {
+            access: 'drwxr-xr-x',
+            type: 1,
+            owner: 'thomas',
+            group: 'thomas',
+            size: '666',
+            month: 'feb',
+            hour: '15:56',
+            name: 'virus.sh'
+          }
+        ]
+      };
+    },
+    props: {
+      options: Array
+    },
+    created() {},
+    methods: {
+      isAList: function() {
+        return this.options && this.options.includes('l');
+      },
+      styleFromType: function(type) {
+        if (type === 6) {
+          return 'bold blue';
+        }
+        if (type === 1) {
+          return 'bold green';
+        }
+        return '';
+      }
+    }
   };
 </script>
 

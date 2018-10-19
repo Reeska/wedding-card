@@ -55,29 +55,29 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+  import Vue from 'vue';
   import VisitorForm from './components/VisitorForm.vue';
   import Terminal from './components/Terminal.vue';
-  import {config} from './config';
-  import Component from 'vue-class-component'
+  import { config } from './config';
+  import Component from 'vue-class-component';
 
   @Component({
     components: {
       VisitorForm,
       Terminal
-    },
+    }
   })
-  export class App extends Vue {
+  export default class App extends Vue {
     apiKey: string = config.maps.apiKey;
     smoothScroll = {
       duration: 1000
     };
     links = [
-      {href: '#app', label: 'home'},
-      {href: '#ceremony', label: 'cérémonie'},
-      {href: '#reception', label: 'réception'},
-      {href: '#presence', label: 'présence'},
-      {href: '#faq', label: 'faq'},
+      { href: '#app', label: 'home' },
+      { href: '#ceremony', label: 'cérémonie' },
+      { href: '#reception', label: 'réception' },
+      { href: '#presence', label: 'présence' },
+      { href: '#faq', label: 'faq' }
     ];
   }
 </script>
@@ -183,11 +183,8 @@
     font-weight: 100;
     font-size: 2.5em;
     text-transform: uppercase;
-    background: linear-gradient(
-        to right,
-        black 33%,
-        rgba(255, 255, 255, 0) 0%
-    ) repeat-x bottom;
+    background: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%)
+      repeat-x bottom;
     background-size: 15px 1px;
   }
 

@@ -28,7 +28,7 @@
         cityhall: false,
         cityhall_companions: 1,
         bar: false,
-        bar_companions: 1
+        bar_companions: 1,
       };
     },
     created() {
@@ -40,7 +40,7 @@
 
         this.users = users.docs.map(user => ({
           id: user.id,
-          ...user.data()
+          ...user.data(),
         }));
       },
 
@@ -59,12 +59,12 @@
           cityhall: this.cityhall,
           cityhall_companions: this.cityhall_companions,
           bar: this.bar,
-          bar_companions: this.bar_companions
+          bar_companions: this.bar_companions,
         });
 
         this.loadUsers();
-      }
-    }
+      },
+    },
   };
 </script>
 

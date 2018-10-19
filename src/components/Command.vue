@@ -14,11 +14,11 @@
       return {
         result: '',
         resultAsComponent: '',
-        options: []
+        options: [],
       };
     },
     props: {
-      command: String
+      command: String,
     },
     components: { Ls },
     created() {
@@ -50,7 +50,6 @@
           this.result = `-bash: ${this.command}: command not found`;
       }
     },
-    methods: {}
   };
 </script>
 

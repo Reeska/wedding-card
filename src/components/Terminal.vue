@@ -27,125 +27,155 @@
   </div>
 </template>
 
-<script>
-  import Command from './Command';
+<script lang="ts">
+  import Vue from 'vue';
+  import Command from './Command.vue';
+  import Component from 'vue-class-component';
 
-  function preventAndStopPropagation($event) {
+  function preventAndStopPropagation($event: Event) {
     $event.preventDefault();
     $event.stopImmediatePropagation();
     return false;
   }
 
-  export default {
+  interface LineType {
+    mode?: string;
+    command?: string;
+  }
+
+  interface Line extends LineType {
+    key: number;
+    editable: boolean;
+  }
+
+  @Component({
     components: {
-      Command
+      Command,
     },
-    data() {
-      return {
-        prompt: 'thomas@thomas:~/ ',
-        current: null,
-        lines: [],
-        lastCaretPosition: 1,
-        blueScreen: false
-      };
-    },
+  })
+  export default class Terminal extends Vue {
+    prompt = 'thomas@thomas:~/ ';
+    current: Line | null = null;
+    lines: Line[] = [];
+    lastCaretPosition = 1;
+    blueScreen = false;
+
     created() {
       this.newLine();
-    },
-    methods: {
-      input() {
-        return document.querySelector('.line:last-child .zone');
-      },
-      keypress($event) {
-        if (this.blueScreen) {
-          this.blueScreen = false;
-          return preventAndStopPropagation($event);
-        }
+    }
 
-        const caretPosition = window.getSelection().getRangeAt(0).startOffset;
-        const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
 
-        if ($event.key === 'Tab' || (caretPosition === 1 && isBack)) {
-          return preventAndStopPropagation($event);
-        }
+    input() {
+      return document.querySelector('.line:last-child .zone');
+    }
 
-        this.lastCaretPosition = caretPosition + (isBack ? -1 : 1);
-        this.moveCursor();
-
-      },
-
-      moveCursor() {
-        document.querySelector('.line:last-child .prompt')
-          .style.setProperty('--caret-position', (15 + (this.lastCaretPosition - 1) * 8) + 'px');
-      },
-
-      enter($event) {
-        const command = this.input().textContent.trim();
-
-        if (command) {
-          this.newLine({ command });
-        }
-
-        this.newLine();
-
-        this.$nextTick(() => {
-          const bashElement = document.querySelector('.bash');
-          bashElement.scrollTop = bashElement.scrollHeight;
-        });
-
+    keypress($event: KeyboardEvent) {
+      if (this.blueScreen) {
+        this.blueScreen = false;
         return preventAndStopPropagation($event);
-      },
-      click($event) {
-        const selection = window.getSelection();
-        const caretPosition =
-          selection.focusOffset === 0 ? 0 : selection.getRangeAt(0).startOffset;
+      }
 
-        if (caretPosition < this.prompt.length) {
-          return preventAndStopPropagation($event);
-        }
-      },
-      bashEnter() {
-        this.promptFocus();
-      },
-      newLine(mode = { mode: 'prompt' }) {
-        const line = {
-          ...mode,
-          key: new Date().getTime() + this.lines.length,
-          editable: true,
-          content: ''
-        };
+      const caretPosition = window.getSelection().getRangeAt(0).startOffset;
+      const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
 
-        this.lines.push(line);
+      if ($event.key === 'Tab' || (caretPosition === 1 && isBack)) {
+        return preventAndStopPropagation($event);
+      }
 
-        if (this.current) {
-          this.current.editable = false;
-        }
+      this.lastCaretPosition = caretPosition + (isBack ? -1 : 1);
+      this.moveCursor();
+    }
 
-        this.current = line;
-        this.lastCaretPosition = 1;
+    moveCursor() {
+      const prompt = document.querySelector('.line:last-child .prompt');
 
-        this.promptFocus();
-      },
-      promptFocus() {
-        this.$nextTick(() => {
-          const currentZone = this.input();
-          const selection = window.getSelection();
-
-          selection.setPosition(
-            currentZone.childNodes[0],
-            this.lastCaretPosition
-          );
-        });
-      },
-      handleVirus() {
-        this.blueScreen = true;
-      },
-      handleClear() {
-        this.lines = [];
-        this.newLine();
+      if (prompt instanceof HTMLElement) {
+        prompt.style.setProperty('--caret-position', (15 + (this.lastCaretPosition - 1) * 8) + 'px');
       }
     }
-  };
+
+    enter($event: Event) {
+      const input = this.input();
+
+      if (!input) {
+        return;
+      }
+
+      const command = input.textContent && input.textContent.trim();
+
+      if (command) {
+        this.newLine({command});
+      }
+
+      this.newLine();
+
+      this.$nextTick(() => {
+        const bashElement = document.querySelector('.bash');
+
+        if (bashElement) {
+          bashElement.scrollTop = bashElement.scrollHeight;
+        }
+      });
+
+      return preventAndStopPropagation($event);
+    }
+
+    click($event: MouseEvent) {
+      const selection = window.getSelection();
+      const caretPosition =
+        selection.focusOffset === 0 ? 0 : selection.getRangeAt(0).startOffset;
+
+      if (caretPosition < this.prompt.length) {
+        return preventAndStopPropagation($event);
+      }
+    }
+
+    bashEnter() {
+      this.promptFocus();
+    }
+
+    newLine(mode: LineType = {mode: 'prompt'}) {
+      const line: Line = {
+        ...mode,
+        key: new Date().getTime() + this.lines.length,
+        editable: true,
+      };
+
+      this.lines.push(line);
+
+      if (this.current) {
+        this.current.editable = false;
+      }
+
+      this.current = line;
+      this.lastCaretPosition = 1;
+
+      this.promptFocus();
+    }
+
+    promptFocus() {
+      this.$nextTick(() => {
+        const currentZone = this.input();
+
+        if (!currentZone) {
+          return;
+        }
+
+        const selection = window.getSelection();
+
+        selection.setPosition(currentZone.childNodes[0], this.lastCaretPosition);
+      });
+    }
+
+    handleVirus() {
+      this.blueScreen = true;
+    }
+
+    handleClear() {
+      this.lines = [];
+      this.newLine();
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

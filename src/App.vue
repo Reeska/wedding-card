@@ -64,20 +64,20 @@
   @Component({
     components: {
       VisitorForm,
-      Terminal
-    }
+      Terminal,
+    },
   })
   export default class App extends Vue {
-    apiKey: string = config.maps.apiKey;
-    smoothScroll = {
-      duration: 1000
+    private apiKey: string = config.maps.apiKey;
+    private smoothScroll = {
+      duration: 1000,
     };
-    links = [
+    private links = [
       { href: '#app', label: 'home' },
       { href: '#ceremony', label: 'cérémonie' },
       { href: '#reception', label: 'réception' },
       { href: '#presence', label: 'présence' },
-      { href: '#faq', label: 'faq' }
+      { href: '#faq', label: 'faq' },
     ];
   }
 </script>

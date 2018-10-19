@@ -36,7 +36,7 @@
             size: '4096',
             month: 'feb',
             hour: '15:56',
-            name: './'
+            name: './',
           },
           {
             access: 'drwxr-xr-x',
@@ -46,7 +46,7 @@
             size: '4096678',
             month: 'feb',
             hour: '15:56',
-            name: '../'
+            name: '../',
           },
           {
             access: 'drwxr-xr-x',
@@ -56,7 +56,7 @@
             size: '42424242',
             month: 'feb',
             hour: '15:56',
-            name: 'mariage.sh'
+            name: 'mariage.sh',
           },
           {
             access: 'drwxr-xr-x',
@@ -66,20 +66,19 @@
             size: '666',
             month: 'feb',
             hour: '15:56',
-            name: 'virus.sh'
-          }
-        ]
+            name: 'virus.sh',
+          },
+        ],
       };
     },
     props: {
-      options: Array
+      options: Array,
     },
-    created() {},
     methods: {
-      isAList: function() {
+      isAList() {
         return this.options && this.options.includes('l');
       },
-      styleFromType: function(type) {
+      styleFromType(type) {
         if (type === 6) {
           return 'bold blue';
         }
@@ -87,8 +86,8 @@
           return 'bold green';
         }
         return '';
-      }
-    }
+      },
+    },
   };
 </script>
 

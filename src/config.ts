@@ -8,11 +8,11 @@ const firebase: Config = {
   databaseURL: process.env.VUE_APP_DATABASE_URL,
   projectId: process.env.VUE_APP_PROJECT_ID,
   storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID
+  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
 };
 
 const maps: Config = {
-  apiKey: process.env.VUE_APP_MAPS_API_KEY
+  apiKey: process.env.VUE_APP_MAPS_API_KEY,
 };
 
 export const config = {

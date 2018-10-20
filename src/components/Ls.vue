@@ -6,9 +6,19 @@
   import Vue from 'vue';
   import Component from 'vue-class-component';
   import fs from '../fs.json';
-  import {Prop} from 'vue-property-decorator';
+  import { Prop } from 'vue-property-decorator';
 
-  type FileField = 'access' | 'type' | 'name' | 'owner' | 'group' | 'size' | 'month' | 'hour';
+  const HIDDEN = 'hidden';
+
+  type FileField =
+    | 'access'
+    | 'type'
+    | 'name'
+    | 'owner'
+    | 'group'
+    | 'size'
+    | 'month'
+    | 'hour';
 
   interface File {
     [key: string]: string | number;
@@ -29,20 +39,23 @@
 
   @Component
   export default class Ls extends Vue {
-    @Prop()
-    public options?: string[];
+    @Prop() public options?: string[];
 
     private files: File[] = fs;
     private output: string = '';
 
     public created() {
-      this.output = this.isAList() ?
-        this.ls(this.files).join('\n') :
-        this.ls(this.files, ['name']).join(' ');
+      this.output = this.isAList()
+        ? this.ls(this.files).join('\n')
+        : this.ls(this.files, ['name']).join(' ');
     }
 
     isAList() {
       return this.options && this.options.includes('l');
+    }
+
+    showHiddenFiles() {
+      return this.options && this.options.includes('a');
     }
 
     ls(files: File[], fields?: FileField[]) {
@@ -59,9 +72,16 @@
       }, {});
 
       return files
+        .filter(file => this.showHiddenFiles() || !file.name.startsWith('.'))
         .map(file => {
-          const fileDescription = (fields || Object.keys(file) as FileField[])
-            .map(key => `<span class="field-${key}">${String(file[key]).padEnd(sizes[key], ' ')}</span>`)
+          const fileDescription = (fields || (Object.keys(file) as FileField[]))
+            .map(
+              key =>
+                `<span class="field-${key}">${String(file[key]).padEnd(
+                  sizes[key],
+                  ' ',
+                )}</span>`,
+            )
             .join(' ');
 
           return `<span class="type-${file.type}">${fileDescription}</span>`;

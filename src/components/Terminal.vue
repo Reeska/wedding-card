@@ -66,7 +66,6 @@
       this.newLine();
     }
 
-
     input() {
       return document.querySelector('.line:last-child .zone');
     }
@@ -82,7 +81,8 @@
       if ($event.key === 'ArrowUp') {
         if (input && this.history && this.historyPosition > 0) {
           this.historyPosition--;
-          input.textContent = '&nbsp;' + (this.history[this.historyPosition] || '');
+          input.textContent =
+            '&nbsp;' + (this.history[this.historyPosition] || '');
           this.lastCaretPosition = (input.textContent || '').length;
           this.moveCursor();
           return;
@@ -107,7 +107,8 @@
         return preventAndStopPropagation($event);
       }
 
-      const inputLength = (input && input.textContent && input.textContent.length) || 0;
+      const inputLength =
+        (input && input.textContent && input.textContent.length) || 0;
       const nextCaretPosition = caretPosition + (isBack ? -1 : 1);
 
       if ($event.key !== 'ArrowRight' || nextCaretPosition <= inputLength) {
@@ -122,9 +123,15 @@
 
       this.$nextTick(() => {
         if (prompt instanceof HTMLElement) {
-          const char = input && input.textContent && input.textContent.charAt(this.lastCaretPosition);
+          const char =
+            input &&
+            input.textContent &&
+            input.textContent.charAt(this.lastCaretPosition);
 
-          prompt.style.setProperty('--caret-position', (this.lastCaretPosition * 8) + 'px');
+          prompt.style.setProperty(
+            '--caret-position',
+            this.lastCaretPosition * 8 + 'px',
+          );
           prompt.style.setProperty('--current-character', `'${char}'`);
         }
       });
@@ -140,7 +147,7 @@
       const command = input.textContent && input.textContent.trim();
 
       if (command) {
-        this.newLine({command});
+        this.newLine({ command });
         this.history.push(command);
         this.historyPosition = this.history.length;
       }
@@ -159,12 +166,16 @@
     }
 
     click($event: MouseEvent) {
-      if (!event || !(event.target instanceof HTMLElement) || !event.target.classList.contains('zone')) {
+      if (
+        !event ||
+        !(event.target instanceof HTMLElement) ||
+        !event.target.classList.contains('zone')
+      ) {
         return preventAndStopPropagation($event);
       }
     }
 
-    newLine(mode: LineType = {mode: 'prompt'}) {
+    newLine(mode: LineType = { mode: 'prompt' }) {
       const line: Line = {
         ...mode,
         key: new Date().getTime() + this.lines.length,
@@ -213,7 +224,8 @@
   @import '../variables';
 
   .header {
-    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
+    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top
+      center;
     height: 28px;
     width: 700px;
     margin: auto;

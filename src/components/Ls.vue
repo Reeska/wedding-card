@@ -1,117 +1,94 @@
 <template>
-  <div>
-    <span v-if="isAList()">
-      total 34635<br/>
-      <table cellspacing="0" cellpadding="0">
-      <tr v-for="file in files" :key="file.key">
-          <td>{{file.access}}</td>
-          <td>{{file.type}}</td>
-          <td>{{file.owner}}</td>
-          <td>{{file.group}}</td>
-          <td class="right">{{file.size}}</td>
-          <td>{{file.month}}</td>
-          <td>{{file.hour}}</td>
-          <td :class="styleFromType(file.type)">{{file.name}}</td>
-      </tr>
-      </table>
-    </span>
-    <span v-else>
-      <span v-for="file in files" :key="file.key">
-        <span v-if="file.type !== 6">{{file.name}} </span>
-      </span>
-    </span>
-  </div>
+  <pre class="terminal-output" v-html="$options.filters.nl2br(output)"></pre>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        files: [
-          {
-            access: 'drwxr-xr-x',
-            type: 6,
-            owner: 'thomas',
-            group: 'thomas',
-            size: '4096',
-            month: 'feb',
-            hour: '15:56',
-            name: './',
-          },
-          {
-            access: 'drwxr-xr-x',
-            type: 6,
-            owner: 'thomas',
-            group: 'thomas',
-            size: '4096678',
-            month: 'feb',
-            hour: '15:56',
-            name: '../',
-          },
-          {
-            access: 'drwxr-xr-x',
-            type: 1,
-            owner: 'thomas',
-            group: 'thomas',
-            size: '42424242',
-            month: 'feb',
-            hour: '15:56',
-            name: 'mariage.sh',
-          },
-          {
-            access: 'drwxr-xr-x',
-            type: 1,
-            owner: 'thomas',
-            group: 'thomas',
-            size: '666',
-            month: 'feb',
-            hour: '15:56',
-            name: 'virus.sh',
-          },
-        ],
-      };
-    },
-    props: {
-      options: Array,
-    },
-    methods: {
-      isAList() {
-        return this.options && this.options.includes('l');
-      },
-      styleFromType(type) {
-        if (type === 6) {
-          return 'bold blue';
-        }
-        if (type === 1) {
-          return 'bold green';
-        }
-        return '';
-      },
-    },
-  };
+<script lang="ts">
+  import Vue from 'vue';
+  import Component from 'vue-class-component';
+  import fs from '../fs.json';
+  import {Prop} from 'vue-property-decorator';
+
+  type FileField = 'access' | 'type' | 'name' | 'owner' | 'group' | 'size' | 'month' | 'hour';
+
+  interface File {
+    [key: string]: string | number;
+
+    access: string;
+    type: number;
+    owner: string;
+    group: string;
+    size: string;
+    month: string;
+    hour: string;
+    name: string;
+  }
+
+  interface FileFieldSize {
+    [key: string]: number;
+  }
+
+  @Component
+  export default class Ls extends Vue {
+    @Prop()
+    public options?: string[];
+
+    private files: File[] = fs;
+    private output: string = '';
+
+    public created() {
+      this.output = this.isAList() ?
+        this.ls(this.files).join('\n') :
+        this.ls(this.files, ['name']).join(' ');
+    }
+
+    isAList() {
+      return this.options && this.options.includes('l');
+    }
+
+    ls(files: File[], fields?: FileField[]) {
+      const sizes: FileFieldSize = files.reduce((prev, cur) => {
+        const fileFieldSize: FileFieldSize = prev || {};
+
+        Object.keys(cur).forEach(key => {
+          const prevValue = fileFieldSize[key] || 0;
+          const curValue = String(cur[key]).length;
+          fileFieldSize[key] = prevValue > curValue ? prevValue : curValue;
+        });
+
+        return fileFieldSize;
+      }, {});
+
+      return files
+        .map(file => {
+          const fileDescription = (fields || Object.keys(file) as FileField[])
+            .map(key => `<span class="field-${key}">${String(file[key]).padEnd(sizes[key], ' ')}</span>`)
+            .join(' ');
+
+          return `<span class="type-${file.type}">${fileDescription}</span>`;
+        });
+    }
+  }
 </script>
 
-<style lang="scss" scoped>
-  @import '../colors.scss';
-  .blue {
-    color: $blue;
-  }
-  .green {
-    color: $green;
-  }
-  .bold {
-    font-weight: bold;
-  }
+<style lang="scss">
+  @import '../variables';
 
-  td:not(:first-child) {
-    padding-left: 3px;
-  }
+  pre.terminal-output {
+    font-family: $term-font;
+    margin: 0;
 
-  td {
-    padding-right: 3px;
-  }
+    .type-1 {
+      .field-name {
+        color: $green;
+        font-weight: bold;
+      }
+    }
 
-  .right {
-    text-align: right;
+    .type-6 {
+      .field-name {
+        color: $blue;
+        font-weight: bold;
+      }
+    }
   }
 </style>

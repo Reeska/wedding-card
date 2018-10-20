@@ -1,0 +1,42 @@
+[
+  {
+    "access": "drwxr-xr-x",
+    "type": 6,
+    "owner": "thomas",
+    "group": "thomas",
+    "size": "4096",
+    "month": "feb",
+    "hour": "15:56",
+    "name": "./"
+  },
+  {
+    "access": "drwxr-xr-x",
+    "type": 6,
+    "owner": "thomas",
+    "group": "thomas",
+    "size": "4096678",
+    "month": "feb",
+    "hour": "15:56",
+    "name": "../"
+  },
+  {
+    "access": "drwxr-xr-x",
+    "type": 1,
+    "owner": "thomas",
+    "group": "thomas",
+    "size": "42424242",
+    "month": "feb",
+    "hour": "15:56",
+    "name": "mariage.sh"
+  },
+  {
+    "access": "drwxr-xr-x",
+    "type": 1,
+    "owner": "thomas",
+    "group": "thomas",
+    "size": "666",
+    "month": "feb",
+    "hour": "15:56",
+    "name": "virus.sh"
+  }
+]

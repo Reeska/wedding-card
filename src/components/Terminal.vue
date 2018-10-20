@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header"></div>
-    <div class="bash" :class="blueScreen ? 'blueScreen' : ''" @click="bashEnter">
+    <div class="bash" :class="blueScreen ? 'blueScreen' : ''" @click="promptFocus">
       <div v-for="line in lines" :key="line.key" class="line">
         <div v-if="line.mode === 'prompt'">
           <div class="prompt no-style"
@@ -54,9 +54,10 @@
     },
   })
   export default class Terminal extends Vue {
-    prompt = 'thomas@thomas:~/ ';
     current: Line | null = null;
     lines: Line[] = [];
+    history: string[] = [];
+    historyPosition = 0;
     lastCaretPosition = 1;
     blueScreen = false;
 
@@ -75,6 +76,29 @@
         return preventAndStopPropagation($event);
       }
 
+      const input = this.input();
+
+      if ($event.key === 'ArrowUp') {
+        if (input && this.history && this.historyPosition > 0) {
+          this.historyPosition--;
+          input.textContent = this.history[this.historyPosition];
+          this.lastCaretPosition = (input.textContent || '').length;
+          this.moveCursor();
+          return;
+        }
+      }
+
+      if ($event.key === 'ArrowDown') {
+        if (input && this.history && this.historyPosition < this.history.length) {
+          this.historyPosition++;
+          console.log(this.historyPosition, this.history[this.historyPosition]);
+          input.innerHTML = this.history[this.historyPosition] || '&nbsp;';
+          this.lastCaretPosition = (input.textContent || '').length;
+          this.moveCursor();
+          return;
+        }
+      }
+
       const caretPosition = window.getSelection().getRangeAt(0).startOffset;
       const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
 
@@ -90,7 +114,7 @@
       const prompt = document.querySelector('.line:last-child .prompt');
 
       if (prompt instanceof HTMLElement) {
-        prompt.style.setProperty('--caret-position', (15 + (this.lastCaretPosition - 1) * 8) + 'px');
+        prompt.style.setProperty('--caret-position', (this.lastCaretPosition * 8) + 'px');
       }
     }
 
@@ -105,6 +129,8 @@
 
       if (command) {
         this.newLine({command});
+        this.history.push(command);
+        this.historyPosition = this.history.length;
       }
 
       this.newLine();
@@ -121,17 +147,9 @@
     }
 
     click($event: MouseEvent) {
-      const selection = window.getSelection();
-      const caretPosition =
-        selection.focusOffset === 0 ? 0 : selection.getRangeAt(0).startOffset;
-
-      if (caretPosition < this.prompt.length) {
+      if (!event || !(event.target instanceof HTMLElement) || !event.target.classList.contains('zone')) {
         return preventAndStopPropagation($event);
       }
-    }
-
-    bashEnter() {
-      this.promptFocus();
     }
 
     newLine(mode: LineType = {mode: 'prompt'}) {
@@ -163,7 +181,18 @@
 
         const selection = window.getSelection();
 
+
+        const textNode = currentZone.childNodes[0];
+        const textLength = (textNode && textNode.textContent && textNode.textContent.length) || 0;
+        this.lastCaretPosition = this.lastCaretPosition > textLength ?
+          textLength :
+          this.lastCaretPosition;
+
+        console.log('child', currentZone.childNodes[0], this.lastCaretPosition);
+
         selection.setPosition(currentZone.childNodes[0], this.lastCaretPosition);
+
+        this.moveCursor();
       });
     }
 
@@ -179,7 +208,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../colors.scss';
+  @import '../variables';
 
   .header {
     background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
@@ -194,7 +223,7 @@
     height: 300px;
     width: 700px;
     margin: auto;
-    font-family: 'Ubuntu Mono', monospace;
+    font-family: $term-font;
     color: white;
     text-align: left;
     overflow: scroll;
@@ -230,7 +259,7 @@
     --caret-position: 15px;
 
     &[contenteditable='true'] .zone {
-
+      position: relative;
       &::before {
         content: '';
         width: 1px;
@@ -240,7 +269,7 @@
         vertical-align: bottom;
         border-right: 6px solid white;
         animation: terminal-blink-caret 0.75s step-end infinite;
-        position: relative;
+        position: absolute;
         left: var(--caret-position);
       }
     }

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="header"></div>
+    <div class="header">
+      ubuntu@ubuntu-VirtualBox: ~/sfk
+    </div>
     <div class="bash" :class="blueScreen ? 'blueScreen' : ''" @click="promptFocus">
       <div v-for="line in lines" :key="line.key" class="line">
         <div v-if="line.mode === 'prompt'">
@@ -11,8 +13,7 @@
                @keypress.enter="enter"
                @mousedown="click">
             <span>
-              <span class="ubuntu-green bold">thomas@thomas</span>:
-              <span class="ubuntu-blue bold">~/</span>
+              <span class="ubuntu-green bold">thomas@thomas</span>:<span class="ubuntu-blue bold">~/</span>
             </span>
             <span class="zone">&nbsp;</span>
           </div>
@@ -81,7 +82,7 @@
       if ($event.key === 'ArrowUp') {
         if (input && this.history && this.historyPosition > 0) {
           this.historyPosition--;
-          input.textContent = this.history[this.historyPosition];
+          input.textContent = '&nbsp;' + (this.history[this.historyPosition] || '');
           this.lastCaretPosition = (input.textContent || '').length;
           this.moveCursor();
           return;
@@ -92,7 +93,7 @@
         if (input && this.history && this.historyPosition < this.history.length) {
           this.historyPosition++;
           console.log(this.historyPosition, this.history[this.historyPosition]);
-          input.innerHTML = this.history[this.historyPosition] || '&nbsp;';
+          input.innerHTML = '&nbsp;' + (this.history[this.historyPosition] || '');
           this.lastCaretPosition = (input.textContent || '').length;
           this.moveCursor();
           return;
@@ -106,16 +107,27 @@
         return preventAndStopPropagation($event);
       }
 
-      this.lastCaretPosition = caretPosition + (isBack ? -1 : 1);
-      this.moveCursor();
+      const inputLength = (input && input.textContent && input.textContent.length) || 0;
+      const nextCaretPosition = caretPosition + (isBack ? -1 : 1);
+
+      if ($event.key !== 'ArrowRight' || nextCaretPosition <= inputLength) {
+        this.lastCaretPosition = nextCaretPosition;
+        this.moveCursor();
+      }
     }
 
     moveCursor() {
-      const prompt = document.querySelector('.line:last-child .prompt');
+      const prompt = document.querySelector('.line:last-child .prompt .zone');
+      const input = this.input();
 
-      if (prompt instanceof HTMLElement) {
-        prompt.style.setProperty('--caret-position', (this.lastCaretPosition * 8) + 'px');
-      }
+      this.$nextTick(() => {
+        if (prompt instanceof HTMLElement) {
+          const char = input && input.textContent && input.textContent.charAt(this.lastCaretPosition);
+
+          prompt.style.setProperty('--caret-position', (this.lastCaretPosition * 8) + 'px');
+          prompt.style.setProperty('--current-character', `'${char}'`);
+        }
+      });
     }
 
     enter($event: Event) {
@@ -180,16 +192,6 @@
         }
 
         const selection = window.getSelection();
-
-
-        const textNode = currentZone.childNodes[0];
-        const textLength = (textNode && textNode.textContent && textNode.textContent.length) || 0;
-        this.lastCaretPosition = this.lastCaretPosition > textLength ?
-          textLength :
-          this.lastCaretPosition;
-
-        console.log('child', currentZone.childNodes[0], this.lastCaretPosition);
-
         selection.setPosition(currentZone.childNodes[0], this.lastCaretPosition);
 
         this.moveCursor();
@@ -216,6 +218,12 @@
     width: 700px;
     margin: auto;
     border-radius: 7px 7px 0 0;
+    font-family: Ubuntu, serif;
+    font-size: 14px;
+    line-height: 29px;
+    color: #d4d9cd;
+    text-align: left;
+    text-indent: 74px;
   }
 
   .bash {
@@ -257,12 +265,14 @@
 
   .prompt {
     caret-color: transparent;
-    --caret-position: 15px;
 
     &[contenteditable='true'] .zone {
+      --caret-position: 8px;
+      --current-character: '';
       position: relative;
+
       &::before {
-        content: '';
+        content: '' var(--current-character) '';
         width: 1px;
         height: 15px;
         padding-top: 2px;
@@ -272,6 +282,7 @@
         animation: terminal-blink-caret 0.75s step-end infinite;
         position: absolute;
         left: var(--caret-position);
+        line-height: 12px;
       }
     }
   }
@@ -280,9 +291,11 @@
     from,
     to {
       border-color: transparent;
+      color: transparent;
     }
     50% {
       border-color: white;
+      color: black;
     }
   }
 

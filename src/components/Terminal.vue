@@ -238,6 +238,7 @@
     display: block;
     overflow: hidden;
     position: absolute;
+    z-index: 1;
   }
 
   .bash::-webkit-scrollbar {
@@ -299,14 +300,5 @@
 
   .right {
     text-align: right;
-  }
-
-  #bash {
-    margin-left: -3px;
-  }
-
-  #bash td {
-    padding-left: 3px;
-    padding-right: 3px;
   }
 </style>

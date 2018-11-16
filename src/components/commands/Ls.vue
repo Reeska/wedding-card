@@ -5,10 +5,9 @@
 <script lang="ts">
   import Vue from 'vue';
   import Component from 'vue-class-component';
-  import fs from '../fs.json';
+  import fs from '../../fs.json';
   import { Prop } from 'vue-property-decorator';
-
-  const HIDDEN = 'hidden';
+  import { OnCreated } from '../../types';
 
   type FileField =
     | 'access'
@@ -38,7 +37,7 @@
   }
 
   @Component
-  export default class Ls extends Vue {
+  export default class Ls extends Vue implements OnCreated {
     @Prop() public options?: string[];
 
     private files: File[] = fs;
@@ -48,6 +47,7 @@
       this.output = this.isAList()
         ? this.ls(this.files).join('\n')
         : this.ls(this.files, ['name']).join(' ');
+      this.$emit('exit', 0);
     }
 
     isAList() {
@@ -91,7 +91,7 @@
 </script>
 
 <style lang="scss">
-  @import '../variables';
+  @import '../../variables';
 
   pre.terminal-output {
     font-family: $term-font;

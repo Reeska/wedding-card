@@ -50,6 +50,8 @@
         <h1 class="title">FAQ</h1>
         <div>uc.</div>
       </section>
+
+      <div class="sombra"></div>
     </div>
   </div>
 </template>
@@ -198,5 +200,11 @@
     &:nth-child(odd) {
       background-color: #f9f6fa;
     }
+  }
+
+  .sombra {
+    background: url('assets/sombra.png') no-repeat center bottom;
+    height: 450px;
+    width: 100%;
   }
 </style>

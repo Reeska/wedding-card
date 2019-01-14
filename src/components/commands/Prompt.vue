@@ -6,9 +6,7 @@
     @keydown="keypress"
     @keypress.enter="enter"
     @mousedown="click">
-      <span>
-        <span class="ubuntu-green bold">thomas@thomas</span>:<span class="ubuntu-blue bold">~/</span>
-      </span>
+    <span v-html="label"></span>
     <span class="zone" ref="zone">&nbsp;</span>
   </div>
 </template>
@@ -32,10 +30,12 @@
   export default class Prompt extends Vue implements OnMounted {
     @Prop()
     public extra: any;
+
+    @Prop()
+    public label: any;
+
     public editable: boolean = true;
 
-    private history: string[] = [];
-    private historyPosition = 0;
     private lastCaretPosition = 1;
 
     mounted() {
@@ -101,6 +101,8 @@
 
       const command = input.textContent && input.textContent.trim();
 
+      console.log('prompt command', command);
+
       if (command) {
         this.newLine({ command });
         history.push(command);
@@ -165,8 +167,6 @@
 
       const selection = window.getSelection();
 
-      console.log('setPosition', currentZone.childNodes[0], this.lastCaretPosition);
-
       selection.setPosition(currentZone.childNodes[0], this.lastCaretPosition);
     }
   }
@@ -221,20 +221,21 @@
     }
   }
 
-  .bold {
-    font-weight: bold;
-  }
+  /deep/ {
+    .bold {
+      font-weight: bold;
+    }
 
-  .ubuntu-green {
-    color: $green;
-  }
+    .ubuntu-green {
+      color: $green;
+    }
 
-  .ubuntu-blue {
-    color: $blue;
-  }
+    .ubuntu-blue {
+      color: $blue;
+    }
 
-  .right {
-    text-align: right;
+    .right {
+      text-align: right;
+    }
   }
-
 </style>

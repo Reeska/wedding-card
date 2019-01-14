@@ -6,6 +6,7 @@
         :is="resultAsComponent"
         :options="options"
         :extra="extra"
+        :username="username"
         @newLine="newLine"
         @exit="exit">
       </component>
@@ -18,13 +19,14 @@
   import Component from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
 
-  import Ls from './commands/Ls.vue';
-  import Prompt from './commands/Prompt.vue';
-  import Virus from './commands/Virus.vue';
   import { OnCreated } from '../types';
+  import Ls from './commands/Ls.vue';
+  import Bash from './commands/Bash.vue';
+  import Virus from './commands/Virus.vue';
+  import Login from './commands/Login.vue';
 
   @Component({
-    components: {  Prompt, Ls, Virus },
+    components: { Bash, Ls, Virus, Login },
   })
   export default class Command extends Vue implements OnCreated {
     @Prop()
@@ -32,6 +34,9 @@
 
     @Prop()
     public extra: any;
+
+    @Prop()
+    public username: string | undefined;
 
     private result: string = '';
     private resultAsComponent: string = '';
@@ -48,7 +53,7 @@
       const parameters = asArray[1];
       switch (command) {
         case 'bash':
-          this.resultAsComponent = 'prompt';
+          this.resultAsComponent = 'bash';
           break;
         case 'll':
           this.options.push('l');
@@ -70,6 +75,9 @@
         case './virus.sh':
         case 'sh virus.sh':
           this.resultAsComponent = 'virus';
+          break;
+        case 'login':
+          this.resultAsComponent = 'login';
           break;
         default:
           this.result = `-bash: ${this.command}: command not found`;

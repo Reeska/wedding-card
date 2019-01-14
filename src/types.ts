@@ -9,6 +9,7 @@ export interface OnMounted {
 export interface LineType {
   mode?: string;
   command?: string;
+  username?: string;
 }
 
 export interface Line extends LineType {

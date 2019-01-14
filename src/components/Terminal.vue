@@ -1,16 +1,17 @@
 <template>
   <div>
     <div class="header">
-      ubuntu@ubuntu-VirtualBox: ~/sfk
+      {{username}}@ubuntu-VirtualBox: ~/sfk
     </div>
     <div class="bash" @click="promptFocus">
       <div v-for="line in lines" :key="line.key" class="line">
         <command
           :command="line.command"
           :extra="line.extra"
+          :username="username"
           @clear="handleClear"
           @newLine="newLine"
-          @exit="bash()"
+          @exit="restart"
         />
       </div>
     </div>
@@ -31,6 +32,7 @@
   export default class Terminal extends Vue implements OnCreated {
     current: Line | null = null;
     lines: Line[] = [];
+    username: string | undefined = '';
 
     public created() {
       this.bash();
@@ -40,6 +42,11 @@
       if (this.current) {
         this.current.extra.focus = new Date().getTime();
       }
+    }
+
+    public restart() {
+      this.lines = [];
+      this.login();
     }
 
     public handleClear() {
@@ -57,13 +64,25 @@
         },
       };
 
-      this.lines.push(line);
+      if (mode.command === 'loggedIn') {
+        this.handleClear();
+        this.username = mode.username;
+      } else {
+        this.lines.push(line);
+        this.current = line;
+      }
+    }
 
-      this.current = line;
+    private cmd(command: string) {
+      this.newLine({ mode: 'command', command });
     }
 
     private bash() {
-      this.newLine({ mode: 'command', command: 'bash' });
+      this.cmd('bash');
+    }
+
+    private login() {
+      this.cmd('login');
     }
   }
 </script>

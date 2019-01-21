@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <div class="menu">
-      <div v-for="link in links" :key="link.label">
-        <a :href="link.href" v-smooth-scroll="smoothScroll">{{ link.label }}</a>
-      </div>
+      <input v-model="burger" class="burger" type="checkbox">
+      <nav>
+        <div v-for="link in links" :key="link.label">
+          <a @click="burger = false" :href="link.href" v-smooth-scroll="smoothScroll">{{ link.label }}</a>
+        </div>
+      </nav>
     </div>
 
     <div class="page">
@@ -99,6 +102,7 @@
 
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap-vue/dist/bootstrap-vue.css';
+  import 'material-icons/iconfont/material-icons.scss';
 
   @Component({
     components: {
@@ -118,6 +122,7 @@
       { href: '#presence', label: 'présence' },
       { href: '#faq', label: 'faq' },
     ];
+    private burger = false;
   }
 </script>
 
@@ -133,29 +138,110 @@
     text-decoration: none;
   }
 
-  #app {
-    padding-top: 20px;
+  @media screen and(min-width: 700px) {
+    #app {
+      padding-top: 20px;
+    }
   }
 
-  .menu {
-    position: fixed;
-    left: 90px;
-    top: 50%;
-    font-family: 'Space Mono', serif;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 35px;
-
-    a {
-      color: #2f4f82;
-      font-weight: bold;
-
-      &:hover {
-        font-style: italic;
-      }
+  @media screen and(min-width: 700px) {
+    .burger {
+      display: none;
     }
 
-    div {
-      padding: 5px 0 5px 0;
+    .menu {
+      position: fixed;
+      left: 90px;
+      top: 50%;
+      font-family: 'Space Mono', serif;
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 35px;
+
+      a {
+        color: #2f4f82;
+        font-weight: bold;
+
+        &:hover {
+          font-style: italic;
+        }
+      }
+
+      div {
+        padding: 5px 0 5px 0;
+      }
+    }
+  }
+
+  @media screen and(max-width: 700px) {
+    nav a {
+      color: white;
+    }
+    .menu {
+      background: #9da7d5;
+      color: #fff;
+      height: 50px;
+      top: 0;
+      width: 100%;
+    }
+    .menu .burger {
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      color: inherit;
+      cursor: pointer;
+      font-family: 'Material Icons';
+      font-size: 30px;
+      line-height: 50px;
+      margin: 0;
+      outline: 0;
+      padding: 0;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      right: 10px;
+      width: 50px;
+    }
+
+    .menu .burger:before {
+      content: 'menu';
+    }
+
+    .menu .burger:checked:before {
+      content: 'close';
+    }
+    .menu nav {
+      background: inherit;
+      font-size: 20px;
+      font-weight: bold;
+      height: 0;
+      overflow: hidden;
+      text-transform: uppercase;
+      transition: height 0.2s;
+    }
+
+    .burger:checked ~ nav {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      padding-top: 50px;
+    }
+
+    .menu nav > * {
+      display: block;
+      letter-spacing: 1px;
+      line-height: 2.5;
+      padding: 0 20px;
+      width: 100%;
+    }
+
+    .menu nav input {
+      background: #111;
+      border: none;
+    }
+
+    .burger {
+      z-index: 100;
     }
   }
 
@@ -171,11 +257,13 @@
   .typewriter h1 {
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     border-right: 0.15em solid orange; /* The typwriter cursor */
-    white-space: nowrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     letter-spacing: 0.15em; /* Adjust as needed */
     font-family: 'Space Mono', serif;
     animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    @media screen and(min-width: 700px) {
+      white-space: nowrap; /* Keeps the content on a single line */
+    }
   }
 
   /* The typing effect */

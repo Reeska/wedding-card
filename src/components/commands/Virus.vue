@@ -23,7 +23,7 @@
 
     public exit() {
       this.enabled = false;
-      this.$emit('exit', 0);
+      this.$emit('newLine', { command: 'login' });
     }
   }
 </script>

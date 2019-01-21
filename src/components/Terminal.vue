@@ -3,15 +3,15 @@
     <div class="header">
       {{username}}@ubuntu-VirtualBox: ~/sfk
     </div>
-    <div class="bash" @click="promptFocus">
+    <div class="bash" ref="bash">
       <div v-for="line in lines" :key="line.key" class="line">
         <command
           :command="line.command"
-          :extra="line.extra"
+          :events="events"
           :username="username"
           @clear="handleClear"
           @newLine="newLine"
-          @exit="restart"
+          @exit="onCommandExit"
         />
       </div>
     </div>
@@ -22,31 +22,27 @@
   import Vue from 'vue';
   import Command from './Command.vue';
   import Component from 'vue-class-component';
-  import { Line, LineType, OnCreated } from '../types';
+  import { Line, LineType, OnMounted } from '../types';
+  import { fromEvent, Observable, of } from 'rxjs';
 
   @Component({
     components: {
       Command,
     },
   })
-  export default class Terminal extends Vue implements OnCreated {
+  export default class Terminal extends Vue implements OnMounted {
     current: Line | null = null;
     lines: Line[] = [];
-    username: string | undefined = '';
+    username: string | undefined = 'attendee';
+    events?: Observable<Event> = of();
 
-    public created() {
-      this.bash();
-    }
-
-    public promptFocus() {
-      if (this.current) {
-        this.current.extra.focus = new Date().getTime();
-      }
-    }
-
-    public restart() {
-      this.lines = [];
+    public mounted() {
       this.login();
+      this.events = fromEvent(this.$refs.bash as Element, 'click');
+    }
+
+    public onCommandExit() {
+      this.bash();
     }
 
     public handleClear() {
@@ -59,9 +55,6 @@
       const line: Line = {
         ...mode,
         key: timestamp + this.lines.length,
-        extra: {
-          focus: timestamp,
-        },
       };
 
       if (mode.command === 'loggedIn') {
@@ -88,10 +81,10 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../variables';
+  @import "../variables";
 
   .header {
-    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
+    background: #300924 url("../assets/ubuntu_bash_header.png") no-repeat top center;
     height: 28px;
     width: 100%;
     max-width: 700px;

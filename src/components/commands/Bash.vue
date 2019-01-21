@@ -1,6 +1,6 @@
 <template>
   <Prompt
-    :extra="extra"
+    :events="events"
     :label="label"
     @newLine="newLine">
   </Prompt>
@@ -12,6 +12,7 @@
   import { Prop } from 'vue-property-decorator';
   import Prompt from './Prompt.vue';
   import { LineType } from '../../types';
+  import { Observable } from 'rxjs';
 
   @Component({
     components: {
@@ -20,12 +21,13 @@
   })
   export default class Login extends Vue {
     @Prop()
-    public extra: any;
+    public events?: Observable<Event>;
+
     @Prop()
     public username: string | undefined;
 
     get label() {
-      return `<span class="ubuntu-green bold">${this.username}@${this.username}</span>` +
+      return `<span class="ubuntu-green bold">${this.username}@wedding</span>` +
         `:<span class="ubuntu-blue bold">~/</span>`;
     }
 

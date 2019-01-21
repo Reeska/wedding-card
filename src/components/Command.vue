@@ -5,7 +5,7 @@
       <component
         :is="resultAsComponent"
         :options="options"
-        :extra="extra"
+        :events="events"
         :username="username"
         @newLine="newLine"
         @exit="exit">
@@ -18,6 +18,7 @@
   import Vue from 'vue';
   import Component from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
+  import { Observable } from 'rxjs';
 
   import { OnCreated } from '../types';
   import Ls from './commands/Ls.vue';
@@ -33,7 +34,7 @@
     public command?: string;
 
     @Prop()
-    public extra: any;
+    public events?: Observable<Event>;
 
     @Prop()
     public username: string | undefined;
@@ -48,9 +49,8 @@
         return;
       }
 
-      const asArray = this.command.trim().split(' ');
-      const command = asArray[0];
-      const parameters = asArray[1];
+      const [command, parameters] = this.command.trim().split(' ');
+
       switch (command) {
         case 'bash':
           this.resultAsComponent = 'bash';

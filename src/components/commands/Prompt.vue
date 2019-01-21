@@ -14,8 +14,9 @@
 <script lang="ts">
   import Vue from 'vue';
   import Component from 'vue-class-component';
-  import { Prop, Watch } from 'vue-property-decorator';
+  import { Prop } from 'vue-property-decorator';
   import { LineType, OnMounted } from '../../types';
+  import { Observable } from 'rxjs';
 
   function preventAndStopPropagation($event: Event) {
     $event.preventDefault();
@@ -29,22 +30,22 @@
   @Component
   export default class Prompt extends Vue implements OnMounted {
     @Prop()
-    public extra: any;
+    public events?: Observable<Event>;
 
     @Prop()
     public label: any;
 
     public editable: boolean = true;
-
     private lastCaretPosition = 1;
 
     mounted() {
       this.promptFocus();
-    }
 
-    @Watch('extra', { immediate: true, deep: true })
-    public onExtraChanged() {
-      this.promptFocus();
+      if (this.events) {
+        this.events.subscribe(() => {
+          this.promptFocus();
+        });
+      }
     }
 
     public keypress($event: KeyboardEvent) {
@@ -99,15 +100,14 @@
         return;
       }
 
-      const command = input.textContent && input.textContent.trim();
-
-      console.log('prompt command', command);
+      const command = input.textContent && input.textContent.trim() || '';
 
       if (command) {
-        this.newLine({ command });
         history.push(command);
         historyPosition = history.length;
       }
+
+      this.newLine({ command });
 
       this.editable = false;
 

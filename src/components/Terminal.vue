@@ -93,7 +93,8 @@
   .header {
     background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
     height: 28px;
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     margin: auto;
     border-radius: 7px 7px 0 0;
     font-family: Ubuntu, serif;
@@ -107,7 +108,8 @@
   .bash {
     background-color: #300924;
     height: 300px;
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     margin: auto;
     font-family: $term-font;
     color: white;

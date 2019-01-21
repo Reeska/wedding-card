@@ -138,10 +138,8 @@
     text-decoration: none;
   }
 
-  @media screen and(min-width: 700px) {
-    #app {
-      padding-top: 20px;
-    }
+  #app {
+    padding-top: 50px;
   }
 
   @media screen and(min-width: 700px) {
@@ -182,6 +180,8 @@
       height: 50px;
       top: 0;
       width: 100%;
+      position: fixed;
+      z-index: 1000;
     }
     .menu .burger {
       appearance: none;
@@ -195,7 +195,8 @@
       margin: 0;
       outline: 0;
       padding: 0;
-      position: absolute;
+      position: fixed;
+      z-index: 400;
       text-align: center;
       top: 0;
       right: 10px;
@@ -217,6 +218,7 @@
       overflow: hidden;
       text-transform: uppercase;
       transition: height 0.2s;
+      position: fixed;
     }
 
     .burger:checked ~ nav {
@@ -225,6 +227,7 @@
       position: fixed;
       top: 0;
       padding-top: 50px;
+      z-index: 100;
     }
 
     .menu nav > * {

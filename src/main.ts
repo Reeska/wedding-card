@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import vueSmoothScroll from 'vue2-smooth-scroll';
 import './filters';
-import BootstrapVue from 'bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue';
 
 Vue.use(vueSmoothScroll);
 Vue.use(BootstrapVue);

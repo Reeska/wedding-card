@@ -91,32 +91,32 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue";
-  import VisitorForm from "./components/VisitorForm.vue";
-  import Terminal from "./components/Terminal.vue";
-  import { config } from "./config";
-  import Component from "vue-class-component";
+  import Vue from 'vue';
+  import VisitorForm from './components/VisitorForm.vue';
+  import Terminal from './components/Terminal.vue';
+  import { config } from './config';
+  import Component from 'vue-class-component';
 
-  import "bootstrap/dist/css/bootstrap.css";
-  import "bootstrap-vue/dist/bootstrap-vue.css";
+  import 'bootstrap/dist/css/bootstrap.css';
+  import 'bootstrap-vue/dist/bootstrap-vue.css';
 
   @Component({
     components: {
       VisitorForm,
-      Terminal
-    }
+      Terminal,
+    },
   })
   export default class App extends Vue {
     private apiKey: string = config.maps.apiKey;
     private smoothScroll = {
-      duration: 1000
+      duration: 1000,
     };
     private links = [
-      { href: "#app", label: "home" },
-      { href: "#ceremony", label: "cérémonie" },
-      { href: "#reception", label: "réception" },
-      { href: "#presence", label: "présence" },
-      { href: "#faq", label: "faq" }
+      { href: '#app', label: 'home' },
+      { href: '#ceremony', label: 'cérémonie' },
+      { href: '#reception', label: 'réception' },
+      { href: '#presence', label: 'présence' },
+      { href: '#faq', label: 'faq' },
     ];
   }
 </script>
@@ -124,7 +124,7 @@
 <style lang="scss">
   body {
     text-align: center;
-    font-family: "Roboto", serif;
+    font-family: 'Roboto', serif;
     margin: 0;
     padding: 0;
   }
@@ -141,7 +141,7 @@
     position: fixed;
     left: 90px;
     top: 50%;
-    font-family: "Space Mono", serif;
+    font-family: 'Space Mono', serif;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 35px;
 
@@ -174,7 +174,7 @@
     white-space: nowrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     letter-spacing: 0.15em; /* Adjust as needed */
-    font-family: "Space Mono", serif;
+    font-family: 'Space Mono', serif;
     animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
   }
 
@@ -209,12 +209,12 @@
   }
 
   .tardis {
-    background: url("assets/tardis_big.jpg") center center;
+    background: url('assets/tardis_big.jpg') center center;
     height: 500px;
   }
 
   h1 {
-    font-family: "Dosis", serif;
+    font-family: 'Dosis', serif;
   }
 
   .title {
@@ -222,8 +222,7 @@
     font-weight: 100;
     font-size: 2.5em;
     text-transform: uppercase;
-    background: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%)
-      repeat-x bottom;
+    background: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%) repeat-x bottom;
     background-size: 15px 1px;
     padding-top: 10px;
   }
@@ -241,7 +240,7 @@
   }
 
   .sombra {
-    background: url("assets/sombra.png") no-repeat center bottom;
+    background: url('assets/sombra.png') no-repeat center bottom;
     height: 450px;
     width: 100%;
   }
@@ -253,8 +252,7 @@
 
   .question {
     font-weight: bold;
-    background: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%)
-      repeat-x bottom;
+    background: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%) repeat-x bottom;
     background-size: 8px 1px;
     display: inline-block;
   }

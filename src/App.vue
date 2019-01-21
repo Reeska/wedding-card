@@ -23,7 +23,7 @@
 
       <section id="ceremony">
         <h1 class="title">Cérémonie - 15h20</h1>
-        <div class="padded">
+        <div class="padded map-responsive">
           <iframe
             width="600"
             height="450"
@@ -37,7 +37,7 @@
 
       <section id="reception">
         <h1 class="title">Réception - 19h00</h1>
-        <div class="padded">
+        <div class="padded map-responsive">
           <iframe
             width="600"
             height="450"
@@ -63,7 +63,7 @@
             <div class="question">Qu'est-ce que je dois porter ?</div>
             <div
               class="answer"
-            >Il n'y a pas de dress code, venez comme vous le souhaitez (promis, même en jean/t-shirt on vous laissera rester !).</div>
+            >Il n'y a pas de dress code, venez comme vous le souhaitez (promis, même en jean/t-shirt on vous laissera rentrer !).</div>
             <div class="question">Est-ce qu'il y a une liste de mariage ?</div>
             <div
               class="answer"
@@ -71,13 +71,15 @@
             <div class="question">Est-ce que je peux venir avec mes enfants ?</div>
             <div
               class="answer"
-            >Vous pouvez venir avec vos enfants à la mairie et à l'activité qui suivra, mais il vaudrait mieux éviter pour la soirée étant donné qu'elle se passera dans un bar.</div>
+            >Vous pouvez venir avec vos enfants à la mairie et à l'activité qui suivra. Concernant la soirée, elle se déroulera dans un petit bar donc c'est à vos risques et périls.</div>
             <div class="question">Quel est le muscle ?</div>
             <div class="answer">42.</div>
             <div class="question">Comment est-ce que la journée va se passer ?</div>
-            <div class="answer">15h - Cérémonie à la mairie du 14ème.
+            <div class="answer">
+              15h - Cérémonie à la mairie du 14ème.
               <br>16h (environ) - Une "chasse au trésor" à côté si ça tente assez de monde.
-              <br>19h - Soirée aux P'tites Poules.
+              <br>19h - Soirée aux
+              <a href="#reception" id="poule">P'tites Poules</a>.
             </div>
           </div>
         </div>
@@ -223,6 +225,7 @@
     background: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%)
       repeat-x bottom;
     background-size: 15px 1px;
+    padding-top: 10px;
   }
 
   .padded {
@@ -265,5 +268,37 @@
   .row {
     margin-left: 0px;
     margin-right: 0px;
+  }
+
+  a#poule:hover:after {
+    content: url(assets/poule.gif);
+    display: block;
+  }
+
+  a {
+    color: #2f4f82;
+  }
+
+  a:hover {
+    color: #9da7d5;
+    font-style: italic;
+    text-decoration: none;
+  }
+
+  @media screen and(max-width: 700px) {
+    .map-responsive {
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      position: relative;
+      height: 0;
+    }
+    .map-responsive iframe {
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      max-width: 600px;
+      position: absolute;
+    }
   }
 </style>

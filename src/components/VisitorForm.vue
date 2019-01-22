@@ -33,12 +33,21 @@
     </v-form>
 
     <div v-if="step === 3">
-      Merci :)
+      <div v-if="!bar && !cityhall">
+        <img src="https://media.giphy.com/media/5xtDarxOHIVfDcAoiqI/giphy.gif"/>
+      </div>
+      <div v-if="(!bar && cityhall) || (bar && !cityhall)">
+        <img src="https://media.giphy.com/media/3eNx5SV39lH6o/giphy.gif"/>
+      </div>
+      <div v-if="bar && cityhall">
+        Merci ! <3<br/>
+        <img src="https://media.giphy.com/media/OivLSRvnLLvDW/giphy.gif"/>
+      </div>
     </div>
 
-    <ul>
+    <!-- <ul>
       <li v-for="user in users" :key="user.id">{{ user.id }} - {{ user.firstname }}</li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 

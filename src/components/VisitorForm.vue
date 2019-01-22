@@ -1,8 +1,8 @@
 <template>
   <div>
-    <form @submit.prevent="addVisitor()">
+    <v-form @submit.prevent="addVisitor()">
       <div v-if="step === 1">
-        name: <input type="text" v-model="firstname"><br/>
+        <v-input color="red" label="Votre prénom" v-model="firstname"/>
         <button :disabled="!firstname" type="button" @click="goToSecondStep()">Continuer</button>
       </div>
       <div v-else>
@@ -12,7 +12,7 @@
         <div v-show="bar">Accompagnants : <input type="number" v-model="bar_companions"></div>
         <button type="submit">Enregistrer</button>
       </div>
-    </form>
+    </v-form>
 
     <ul>
       <li v-for="user in users" :key="user.id">{{ user.id }} - {{ user.firstname }}</li>

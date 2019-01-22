@@ -54,8 +54,12 @@
 
       <section id="presence">
         <h1 class="title">Présence</h1>
-        <div>
+        <div><input type="checkbox" v-model="geekModeActivated" /> Mode geek activé</div>
+        <div v-if="geekModeActivated">
           <terminal></terminal>
+        </div>
+        <div v-else>
+          <visitor-form></visitor-form>
         </div>
       </section>
 
@@ -123,6 +127,7 @@
       { href: '#faq', label: 'faq' },
     ];
     private burger = false;
+    private geekModeActivated = true;
   }
 </script>
 
@@ -173,6 +178,10 @@
   @media screen and(max-width: 700px) {
     nav a {
       color: white;
+    }
+
+    nav a:hover {
+      color: #2f4f82;
     }
     .menu {
       background: #9da7d5;

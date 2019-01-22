@@ -54,7 +54,9 @@
 
       <section id="presence">
         <h1 class="title">Présence</h1>
-        <div><input type="checkbox" v-model="geekModeActivated" /> Mode geek activé</div>
+        <div class="col-md-4 offset-md-5">
+          <v-switch color="#300924" label="Mode geek activé" v-model="geekModeActivated"></v-switch>
+        </div>
         <div v-if="geekModeActivated">
           <terminal></terminal>
         </div>
@@ -107,6 +109,7 @@
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap-vue/dist/bootstrap-vue.css';
   import 'material-icons/iconfont/material-icons.scss';
+  import 'vuetify/dist/vuetify.min.css';
 
   @Component({
     components: {
@@ -398,5 +401,9 @@
       max-width: 600px;
       position: absolute;
     }
+  }
+
+  .center {
+    margin: auto;
   }
 </style>

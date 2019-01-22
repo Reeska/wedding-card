@@ -1,12 +1,17 @@
 <template>
   <div>
     <form @submit.prevent="addVisitor()">
-      <div>name: <input type="text" v-model="firstname"></div>
-      <div>Mairie ?: <input type="checkbox" v-model="cityhall"></div>
-      <div v-show="cityhall">Accompagnants : <input type="number" v-model="cityhall_companions"></div>
-      <div>Bar ?: <input type="checkbox" v-model="bar"></div>
-      <div v-show="bar">Accompagnants : <input type="number" v-model="bar_companions"></div>
-      <button>Ajouter</button>
+      <div v-if="step === 1">
+        name: <input type="text" v-model="firstname"><br/>
+        <button :disabled="!firstname" type="button" @click="goToSecondStep()">Continuer</button>
+      </div>
+      <div v-else>
+        <div>Mairie ?: <input type="checkbox" v-model="cityhall"></div>
+        <div v-show="cityhall">Accompagnants : <input type="number" v-model="cityhall_companions"></div>
+        <div>Bar ?: <input type="checkbox" v-model="bar"></div>
+        <div v-show="bar">Accompagnants : <input type="number" v-model="bar_companions"></div>
+        <button type="submit">Enregistrer</button>
+      </div>
     </form>
 
     <ul>
@@ -29,12 +34,22 @@
         cityhall_companions: 1,
         bar: false,
         bar_companions: 1,
+        step: 1,
       };
     },
     created() {
       this.loadUsers();
     },
     methods: {
+      async goToSecondStep() {
+        const users = await visitorsRef
+          .where('firstname', '==', this.firstname)
+          .get();
+        if (users.docs.length) {
+          return;
+        }
+        this.step = 2;
+      },
       async loadUsers() {
         const users = await visitorsRef.get();
 
@@ -45,15 +60,6 @@
       },
 
       async addVisitor() {
-        const users = await visitorsRef
-          .where('firstname', '==', this.firstname)
-          .get();
-
-        if (users.docs.length) {
-          alert('Already exists visitor');
-          return;
-        }
-
         await visitorsRef.add({
           firstname: this.firstname,
           cityhall: this.cityhall,

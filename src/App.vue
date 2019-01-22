@@ -55,9 +55,9 @@
       <section id="presence">
         <h1 class="title">Présence</h1>
         <div class="col-md-4 offset-md-5">
-          <v-switch color="#300924" label="Mode geek activé" v-model="geekModeActivated"></v-switch>
+          <v-switch color="#300924" label="Mode geek" v-model="geekMode"></v-switch>
         </div>
-        <div v-if="geekModeActivated">
+        <div v-if="geekMode">
           <terminal></terminal>
         </div>
         <div v-else>
@@ -130,7 +130,7 @@
       { href: '#faq', label: 'faq' },
     ];
     private burger = false;
-    private geekModeActivated = true;
+    private geekMode = false;
   }
 </script>
 

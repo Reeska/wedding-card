@@ -40,14 +40,14 @@
 
     <div v-if="step === 4">
       <div v-if="!bar && !cityhall">
-        <img src="https://media.giphy.com/media/5xtDarxOHIVfDcAoiqI/giphy.gif"/>
+        <img src="../assets/dwight.gif"/>
       </div>
       <div v-if="(!bar && cityhall) || (bar && !cityhall)">
-        <img src="https://media.giphy.com/media/3eNx5SV39lH6o/giphy.gif"/>
+        <img src="../assets/disappointed.gif"/>
       </div>
       <div v-if="bar && cityhall">
         Merci !<br/>
-        <img src="https://media.giphy.com/media/OivLSRvnLLvDW/giphy.gif"/>
+        <img src="../assets/monica.gif"/>
       </div>
     </div>
 

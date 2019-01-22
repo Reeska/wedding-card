@@ -1,19 +1,25 @@
 <template>
   <div>
-    <v-form class="col-lg-4 offset-lg-4" @submit.prevent="addVisitor()">
+    <v-form class="col-lg-4 offset-lg-4" @submit.prevent="submit()">
       <div v-if="step === 1">
         <v-text-field
           v-model="firstname"
           label="Votre prénom"
           color="#300924">
         </v-text-field>
-        <v-btn :disabled="!firstname" type="button" @click="goToSecondStep()">Continuer</v-btn>
+        <v-btn :disabled="!firstname" type="button" @click="goToNextStep()">Continuer</v-btn>
       </div>
       <div v-if="step === 2">
+        <component
+          :is="firstname">
+        </component>
+        <v-btn type="button" @click="goToNextStep()">Continuer</v-btn>
+      </div>
+      <div v-if="step === 3">
         <v-checkbox label="Je viens à la mairie" v-model="cityhall" color="#300924"></v-checkbox>
         <div v-show="cityhall">
           <v-text-field
-            v-model="cityhall_companions"
+            v-model="cityhallCompanions"
             label="Nombre d'accompagnants à la mairie"
             type="number"
             color="#300924">
@@ -22,7 +28,7 @@
         <v-checkbox label="Je viens aux P'tites poules" v-model="bar" color="#300924"></v-checkbox>
         <div v-show="bar">
           <v-text-field
-            v-model="bar_companions"
+            v-model="barCompanions"
             label="Nombre d'accompagnants au bar"
             type="number"
             color="#300924">
@@ -32,7 +38,7 @@
       </div>
     </v-form>
 
-    <div v-if="step === 3">
+    <div v-if="step === 4">
       <div v-if="!bar && !cityhall">
         <img src="https://media.giphy.com/media/5xtDarxOHIVfDcAoiqI/giphy.gif"/>
       </div>
@@ -40,7 +46,7 @@
         <img src="https://media.giphy.com/media/3eNx5SV39lH6o/giphy.gif"/>
       </div>
       <div v-if="bar && cityhall">
-        Merci ! <3<br/>
+        Merci !<br/>
         <img src="https://media.giphy.com/media/OivLSRvnLLvDW/giphy.gif"/>
       </div>
     </div>
@@ -51,62 +57,77 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  import Vue from 'vue';
   import { database } from '../services/firebase';
+
+  import { FirebaseFirestore } from '@firebase/firestore-types';
+  import Component from 'vue-class-component';
+  import Cyrielle from './guests/Cyrielle.vue';
+  import { OnCreated, User } from '../types';
 
   const visitorsRef = database.collection('visitors');
 
-  export default {
-    data() {
-      return {
-        users: [],
-        firstname: '',
-        cityhall: false,
-        cityhall_companions: 0,
-        bar: false,
-        bar_companions: 0,
-        step: 1,
-      };
-    },
-    created() {
+  @Component({
+    components: { Cyrielle },
+  })
+  export default class VisitorForm extends Vue implements OnCreated {
+    private users: User[] = [];
+    private firstname: string = '';
+    private cityhall: boolean = false;
+    private cityhallCompanions: number = 0;
+    private bar: boolean = false;
+    private barCompanions: number = 0;
+    private step: number = 1;
+    private specialUsers: string[] = ['Cyrielle'];
+
+    public created() {
       this.loadUsers();
-    },
-    methods: {
-      async goToSecondStep() {
-        const users = await visitorsRef
-          .where('firstname', '==', this.firstname)
-          .get();
+    }
+
+    public async goToNextStep() {
+      if (this.step === 1) {
+        const users = await visitorsRef.where('firstname', '==', this.firstname).get();
         if (users.docs.length) {
+          console.log('user deja enregistre');
+        }
+        if (!this.specialUsers.includes(this.firstname)) {
+          this.step = 3;
           return;
         }
-        this.step = 2;
-      },
-      async loadUsers() {
-        const users = await visitorsRef.get();
+      }
+      this.step += 1;
+    }
 
-        this.users = users.docs.map(user => ({
-          id: user.id,
-          ...user.data(),
-        }));
-      },
+    public async loadUsers() {
+      const users = await visitorsRef.get();
 
-      async addVisitor() {
-        try {
-          await visitorsRef.add({
-            firstname: this.firstname,
-            cityhall: this.cityhall,
-            cityhall_companions: this.cityhall_companions,
-            bar: this.bar,
-            bar_companions: this.bar_companions,
-          });
-        } catch (error) {
-          console.log('error', error);
-        }
-        this.step = 3;
-        this.loadUsers();
-      },
-    },
-  };
+      this.users = users.docs.map(user => ({
+        id: user.id,
+        ...user.data(),
+      }));
+    }
+
+    public async submit() {
+      if (this.step < 3) {
+        this.goToNextStep();
+        return;
+      }
+      try {
+        await visitorsRef.add({
+          firstname: this.firstname,
+          cityhall: this.cityhall,
+          cityhall_companions: this.cityhallCompanions,
+          bar: this.bar,
+          bar_companions: this.barCompanions,
+        });
+      } catch (error) {
+        console.log('error', error);
+      }
+      this.step = 4;
+      this.loadUsers();
+    }
+  }
 </script>
 
 <style scoped>

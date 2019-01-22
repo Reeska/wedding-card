@@ -81,10 +81,10 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "../variables";
+  @import '../variables';
 
   .header {
-    background: #300924 url("../assets/ubuntu_bash_header.png") no-repeat top center;
+    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
     height: 28px;
     width: 100%;
     max-width: 700px;

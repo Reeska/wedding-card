@@ -16,3 +16,7 @@ export interface Line extends LineType {
   key: number;
   extra?: any;
 }
+
+export interface User {
+  id: string;
+}

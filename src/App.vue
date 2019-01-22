@@ -86,7 +86,7 @@
             <div class="question">Comment est-ce que la journée va se passer ?</div>
             <div class="answer">
               15h - Cérémonie à la mairie du 14ème.
-              <br>16h (environ) - Une "chasse au trésor" à côté si ça tente assez de monde.
+              <br>16h (environ) - Une "chasse au trésor" organisée par nous à côté si ça tente assez de monde.
               <br>19h - Soirée aux
               <a href="#reception" id="poule">P'tites Poules</a>.
             </div>

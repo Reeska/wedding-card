@@ -2,7 +2,11 @@
   <div>
     <v-form @submit.prevent="addVisitor()">
       <div v-if="step === 1">
-        <v-input color="red" label="Votre prénom" v-model="firstname"/>
+        <v-text-field
+          color="red"
+          v-model="firstname"
+          label="Votre prénom">
+        </v-text-field>
         <button :disabled="!firstname" type="button" @click="goToSecondStep()">Continuer</button>
       </div>
       <div v-else>

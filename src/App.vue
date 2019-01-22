@@ -25,7 +25,7 @@
       <section class="tardis"></section>
 
       <section id="ceremony">
-        <h1 class="title">Cérémonie - 15h20</h1>
+        <h1 class="titleCustom">Cérémonie - 15h20</h1>
         <div class="padded map-responsive">
           <iframe
             width="600"
@@ -39,7 +39,7 @@
       </section>
 
       <section id="reception">
-        <h1 class="title">Réception - 19h00</h1>
+        <h1 class="titleCustom">Réception - 19h00</h1>
         <div class="padded map-responsive">
           <iframe
             width="600"
@@ -53,7 +53,7 @@
       </section>
 
       <section id="presence">
-        <h1 class="title">Présence</h1>
+        <h1 class="titleCustom">Présence</h1>
         <div class="col-md-4 offset-md-5">
           <v-switch color="#300924" label="Mode geek" v-model="geekMode"></v-switch>
         </div>
@@ -66,7 +66,7 @@
       </section>
 
       <section id="faq">
-        <h1 class="title">FAQ</h1>
+        <h1 class="titleCustom">FAQ</h1>
         <div class="row">
           <div class="faq col-lg-6 col-sm-12 offset-lg-3">
             <div class="question">Qu'est-ce que je dois porter ?</div>
@@ -328,7 +328,7 @@
     font-family: 'Dosis', serif;
   }
 
-  .title {
+  .titleCustom {
     display: inline-block;
     font-weight: 100;
     font-size: 2.5em;

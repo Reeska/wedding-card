@@ -102,7 +102,31 @@
         </div>
       </section>
 
-      <div class="sombra"></div>
+      <div class="sombra">
+        <div class="boop" @click="booped = true">
+        </div>
+        <v-dialog
+          v-model="booped"
+          fullscreen
+          content-class="modalContent"
+          dark
+          class="sombraModal"
+        >
+          <v-card class="black">
+            <v-toolbar dark class="primary">
+                <v-btn icon @click.native="booped = false">
+                  <v-icon>close</v-icon>
+                </v-btn>
+                <v-toolbar-title>BOOP</v-toolbar-title>
+            </v-toolbar>
+            <div>
+              <!-- <h1 class="sombraTitle">BOOP</h1> -->
+              <img class="resizable" src="./assets/hacked.gif"/>
+              <!-- <img src="./assets/boop.gif"/> -->
+            </div>
+          </v-card>
+        </v-dialog>
+      </div>
     </div>
   </div>
 </template>
@@ -139,6 +163,7 @@
     ];
     private burger = false;
     private geekMode = false;
+    private booped = false;
   }
 </script>
 
@@ -201,7 +226,7 @@
       top: 0;
       width: 100%;
       position: fixed;
-      z-index: 1000;
+      z-index: 100;
     }
     .menu .burger {
       appearance: none;
@@ -351,8 +376,9 @@
   }
 
   .sombra {
-    background: url('assets/sombra.png') no-repeat center bottom;
-    height: 450px;
+    background: url('assets/sombra2.png') no-repeat right bottom;
+    background-size: auto;
+    height: 260px;
     width: 100%;
   }
 
@@ -413,5 +439,22 @@
 
   .center {
     margin: auto;
+  }
+
+  .boop {
+    width: 3px;
+    height: 12px;
+    position: absolute;
+    margin-top: 64px;
+    right: 287px;
+    cursor: pointer;
+  }
+
+  .resizable {
+    max-width: 100%;
+  }
+
+  .sombraModal {
+    z-index: 101;
   }
 </style>

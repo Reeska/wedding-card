@@ -6,7 +6,9 @@
     </h4>
     <div class="quote">&ldquo;You can make it play music, and the words flash, and, you know, put in things like the line of dancing aeroplanes – you know, make it look ... make it look really professional.&ldquo;</div>
     <div class="paragraph">Pardon, j'ai pas pu résister <img src="../../assets/proud.gif"/> T'as de la chance, j'ai pas mis la musique <img src="../../assets/hide.gif"/></div>
-    <img class="smallGif" src="../../assets/ron.gif"/>
+    <img class="smallGif" src="../../assets/ron.gif"/><br/>
+    <div class="paragraph">Au moment où j'écris ça, les pats sont qualifiés pour le super bowl, prions pour qu'ils refassent pas comme l'année dernière <img src="../../assets/arrow.gif"/></div>
+    <img class="smallGif" src="../../assets/brady_vent.gif"/>
   </div>
 </template>
 

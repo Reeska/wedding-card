@@ -42,8 +42,11 @@
       <div v-if="!bar && !cityhall">
         <img src="../assets/dwight.gif"/>
       </div>
-      <div v-if="(!bar && cityhall) || (bar && !cityhall)">
+      <div v-if="!bar && cityhall">
         <img src="../assets/disappointed.gif"/>
+      </div>
+      <div v-if="bar && !cityhall">
+        <img src="../assets/drunk_ron.gif"/>
       </div>
       <div v-if="bar && cityhall">
         Merci !<br/>

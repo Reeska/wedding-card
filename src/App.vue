@@ -168,6 +168,8 @@
 </script>
 
 <style lang="scss">
+  @import './common';
+
   body {
     text-align: center;
     font-family: 'Roboto', serif;
@@ -183,11 +185,7 @@
     padding-top: 50px;
   }
 
-  @media screen and(min-width: 700px) {
-    .burger {
-      display: none;
-    }
-
+  @include desktop {
     .menu {
       position: fixed;
       left: 90px;
@@ -195,6 +193,10 @@
       font-family: 'Space Mono', serif;
       background-color: rgba(255, 255, 255, 0.5);
       padding: 35px;
+
+      .burger {
+        display: none;
+      }
 
       a {
         color: #2f4f82;
@@ -211,14 +213,7 @@
     }
   }
 
-  @media screen and(max-width: 700px) {
-    nav a {
-      color: white;
-    }
-
-    nav a:hover {
-      color: #2f4f82;
-    }
+  @include mobile {
     .menu {
       background: #9da7d5;
       color: #fff;
@@ -227,69 +222,71 @@
       width: 100%;
       position: fixed;
       z-index: 100;
-    }
-    .menu .burger {
-      appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      color: inherit;
-      cursor: pointer;
-      font-family: 'Material Icons';
-      font-size: 30px;
-      line-height: 50px;
-      margin: 0;
-      outline: 0;
-      padding: 0;
-      position: fixed;
-      z-index: 400;
-      text-align: center;
-      top: 0;
-      right: 10px;
-      width: 50px;
-    }
 
-    .menu .burger:before {
-      content: 'menu';
-    }
+      nav {
+        background: inherit;
+        font-size: 20px;
+        font-weight: bold;
+        height: 0;
+        overflow: hidden;
+        text-transform: uppercase;
+        transition: height 0.2s;
+        position: fixed;
 
-    .menu .burger:checked:before {
-      content: 'close';
-    }
-    .menu nav {
-      background: inherit;
-      font-size: 20px;
-      font-weight: bold;
-      height: 0;
-      overflow: hidden;
-      text-transform: uppercase;
-      transition: height 0.2s;
-      position: fixed;
-    }
+        a {
+          color: white;
+          &:hover {
+            color: #2f4f82;
+          }
+        }
 
-    .burger:checked ~ nav {
-      height: 100%;
-      width: 100%;
-      position: fixed;
-      top: 0;
-      padding-top: 50px;
-      z-index: 100;
-    }
+        > * {
+          display: block;
+          letter-spacing: 1px;
+          line-height: 2.5;
+          padding: 0 20px;
+          width: 100%;
+        }
+      }
 
-    .menu nav > * {
-      display: block;
-      letter-spacing: 1px;
-      line-height: 2.5;
-      padding: 0 20px;
-      width: 100%;
-    }
+      .burger {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        color: inherit;
+        cursor: pointer;
+        font-family: 'Material Icons';
+        font-size: 30px;
+        line-height: 50px;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        position: fixed;
+        z-index: 400;
+        text-align: center;
+        top: 0;
+        right: 10px;
+        width: 50px;
 
-    .menu nav input {
-      background: #111;
-      border: none;
-    }
+        &:before {
+          content: 'menu';
+        }
 
-    .burger {
-      z-index: 100;
+        &:checked {
+          &:before {
+            content: 'close';
+          }
+
+          ~ nav {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            padding-top: 50px;
+            z-index: 100;
+          }
+        }
+      }
     }
   }
 
@@ -347,6 +344,12 @@
   .tardis {
     background: url('assets/tardis_big.jpg') center center;
     height: 500px;
+
+    @include mobile {
+      height: 300px;
+      background-size: 322%;
+      background-repeat: no-repeat;
+    }
   }
 
   h1 {
@@ -412,28 +415,29 @@
 
   a {
     color: #2f4f82;
+
+    &:hover {
+      color: #9da7d5;
+      font-style: italic;
+      text-decoration: none;
+    }
   }
 
-  a:hover {
-    color: #9da7d5;
-    font-style: italic;
-    text-decoration: none;
-  }
-
-  @media screen and(max-width: 700px) {
+  @include mobile {
     .map-responsive {
       overflow: hidden;
       padding-bottom: 56.25%;
       position: relative;
       height: 0;
-    }
-    .map-responsive iframe {
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 100%;
-      max-width: 600px;
-      position: absolute;
+
+      iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        max-width: 600px;
+        position: absolute;
+      }
     }
   }
 

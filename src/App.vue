@@ -90,6 +90,14 @@
               <br>19h - Soirée aux
               <a href="#reception" id="poule">P'tites Poules</a>.
             </div>
+            <div class="question">Et sinon, qu'est-ce qu'on mange ?</div>
+            <div class="answer">
+              Le bar servira un buffet pendant la soirée, on a pas encore décidé exactement ce qu'il y aurait, mais il y aura des options végétariennes bien sûr et des places pour s'asseoir. Le bar est aussi jumelé à un très bon restaurant juste à côté au cas où.
+            </div>
+            <div class="question">Il faut prévoir quoi comme budget ?</div>
+            <div class="answer">
+              On paiera la note du repas et de la soirée, assurez-vous juste d'avoir au moins un ticket de métro pour vous rendre de la mairie au bar.
+            </div>
           </div>
         </div>
       </section>

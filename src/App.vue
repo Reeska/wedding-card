@@ -23,7 +23,9 @@
         <i>Star date 72900.4</i> -
       </div>
 
-      <section class="tardis"></section>
+      <section class="tardis" v-bind:class="{ justMarried: showJustMarried }">
+        <div @click="showJustMarried = true" id="star"></div>
+      </section>
 
       <section id="ceremony">
         <h1 class="titleCustom">Cérémonie - 15h20</h1>
@@ -70,7 +72,7 @@
         <h1 class="titleCustom">Easter Eggs</h1>
         <div class="row">
           <div class="faq col-lg-6 col-sm-12 offset-lg-3">
-            Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site <img class="smallGif" src="./assets/hehe.gif"/><br/> Ils sont au nombre de <strong>3</strong> et on espère que personne ne les trouvera tous <img class="smallGif" src="./assets/oups.gif"/><br/>
+            Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site <img class="smallGif" src="./assets/hehe.gif"/><br/> Ils sont au nombre de <strong>2</strong> et on espère que personne ne les trouvera tous <img class="smallGif" src="./assets/oups.gif"/><br/>
             Vous avez la flemme de les chercher ou vous pensez que vous avez déjà assez sué comme ça pour les trouver ? Cliquez ci-dessous pour voir la solution <img src="./assets/tongue.png"/><br/>
             <div class="text-xs-center">
               <v-btn type="button" @click="easterEggFakeSolutionShown = true">Découvrir les solutions</v-btn>            
@@ -193,6 +195,7 @@
     private booped = false;
     private easterEggFakeSolutionShown = false;
     private easterEggRealSolutionShown = false;
+    private showJustMarried = false;
   }
 </script>
 
@@ -381,6 +384,11 @@
     }
   }
 
+  .justMarried {
+    /* tmp */
+    background: url('assets/tardis_big.jpg') center top!important;
+  }
+
   h1 {
     font-family: 'Dosis', serif;
   }
@@ -489,5 +497,16 @@
 
   .sombraModal {
     z-index: 101;
+  }
+
+  #star {
+    background-color: white;
+    opacity: 0.7;
+    width: 3px;
+    height: 3px;
+    position: relative;
+    top: 80%;
+    left: 90%;
+    cursor: pointer;
   }
 </style>

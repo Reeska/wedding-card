@@ -1,4 +1,8 @@
-<template></template>
+<template>
+    <div v-if="active">
+        <img src="../assets/enterprise.png" id="ship" />
+    </div>
+</template>
 
 <script lang="ts">
   import Vue from 'vue';
@@ -16,6 +20,8 @@
         65: 'a',
         66: 'b',
     };
+
+    private active = false;
 
     private const konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
 
@@ -37,7 +43,7 @@
             this.konamiCodePosition++;
             // if the last key is reached, activate cheats
             if (this.konamiCodePosition == this.konamiCode.length) {
-            console.log('konami !!!!');
+            this.active = true;
             this.konamiCodePosition = 0;
             }
         } else {
@@ -47,4 +53,17 @@
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+    #ship {
+        position: absolute;
+        top: 20%;
+        right: -500px;
+        animation: flyshipfly 7s cubic-bezier(.03,.34,1,.11) alternate;
+        opacity: 0;
+    }
+
+    @keyframes flyshipfly {
+        from { transform: rotate(4deg) scale(0.001); opacity:0.9; }
+        to { transform: rotate(0deg) scale(1) translate(-500px); opacity:1; }
+    }
+</style>

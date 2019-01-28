@@ -10,6 +10,7 @@
     </div>
 
     <div class="page">
+      <Konami />
       <div class="flex" id="home">
         <div class="typewriter">
           <h1>Clémentine && Thomas</h1>
@@ -135,6 +136,7 @@
   import Vue from 'vue';
   import VisitorForm from './components/VisitorForm.vue';
   import Terminal from './components/Terminal.vue';
+  import Konami from './components/Konami.vue';
   import { config } from './config';
   import Component from 'vue-class-component';
 
@@ -147,6 +149,7 @@
     components: {
       VisitorForm,
       Terminal,
+      Konami,
     },
   })
   export default class App extends Vue {

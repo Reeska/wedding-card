@@ -1,6 +1,6 @@
 <template>
     <div v-if="active">
-        <img src="../assets/enterprise.png" id="ship" />
+        <img src="../assets/enterprise.png" class="enterprise" id="ship" />
     </div>
 </template>
 
@@ -55,10 +55,10 @@
 
 <style lang="scss">
     #ship {
-        position: absolute;
+        position: fixed;
         top: 20%;
         right: -500px;
-        animation: flyshipfly 7s cubic-bezier(.03,.34,1,.11) alternate;
+        animation: flyshipfly 7s cubic-bezier(.03,.34,1,.05) alternate;
         opacity: 0;
     }
 

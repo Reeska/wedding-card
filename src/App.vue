@@ -79,10 +79,11 @@
               <div>
                 <img class="smallGif" src="./assets/disappointment.gif" />
               </div>
+              <div>On est pas en colère, on est juste déçus... Bon ok... !</div>
               <v-btn type="button" @click="easterEggRealSolutionShown = true">Découvrir les solutions (pour de vrai)</v-btn>
             </div>
             <div v-if="easterEggRealSolutionShown">
-              Bon ok, voilà comment les trouver <img src="./assets/hehe.gif"/>
+              Voilà comment les trouver <img src="./assets/hehe.gif"/>
             </div>
           </div>
         </div>

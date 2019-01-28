@@ -1,6 +1,6 @@
 <template>
     <div v-if="active">
-        <img src="../assets/enterprise.png" class="enterprise" id="ship" />
+        <img src="../assets/enterprise.png" id="ship" />
     </div>
 </template>
 
@@ -44,6 +44,7 @@
             // if the last key is reached, activate cheats
             if (this.konamiCodePosition == this.konamiCode.length) {
             this.active = true;
+            setTimeout(() => {this.active = false;}, 7000);
             this.konamiCodePosition = 0;
             }
         } else {

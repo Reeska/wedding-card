@@ -13,7 +13,7 @@
       <Konami />
       <div class="flex" id="home">
         <div class="typewriter">
-          <h1>Clémentine && Thomas</h1>
+          <h1>{{title}}</h1>
         </div>
       </div>
 
@@ -72,7 +72,7 @@
         <h1 class="titleCustom">Easter Eggs</h1>
         <div class="row">
           <div class="faq col-lg-6 col-sm-12 offset-lg-3">
-            Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site <img class="smallGif" src="./assets/hehe.gif"/><br/> Ils sont au nombre de <strong>2</strong> et on espère que personne ne les trouvera tous <img class="smallGif" src="./assets/oups.gif"/><br/>
+            Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site <img class="smallGif" src="./assets/hehe.gif"/><br/> Ils sont au nombre de <strong>4</strong> et on espère que personne ne les trouvera tous <img class="smallGif" src="./assets/oups.gif"/><br/>
             Vous avez la flemme de les chercher ou vous pensez que vous avez déjà assez sué comme ça pour les trouver ? Cliquez ci-dessous pour voir la solution <img src="./assets/tongue.png"/><br/>
             <div class="text-xs-center">
               <v-btn type="button" @click="easterEggFakeSolutionShown = true">Découvrir les solutions</v-btn>            
@@ -169,6 +169,7 @@
   import 'bootstrap-vue/dist/bootstrap-vue.css';
   import 'material-icons/iconfont/material-icons.scss';
   import 'vuetify/dist/vuetify.min.css';
+  import { OnCreated } from './types';
 
   @Component({
     components: {
@@ -177,7 +178,7 @@
       Konami,
     },
   })
-  export default class App extends Vue {
+  export default class App extends Vue implements OnCreated {
     private apiKey: string = config.maps.apiKey;
     private smoothScroll = {
       duration: 1000,
@@ -196,6 +197,27 @@
     private easterEggFakeSolutionShown = false;
     private easterEggRealSolutionShown = false;
     private showJustMarried = false;
+    private finalTitle = 'Clémentine && Thomas';
+    private title = '';
+    private counter = 0;
+
+    public created() {
+      setTimeout(this.printTitle, this.randomDelay());
+    }
+
+    public printTitle() {
+      if (this.counter < this.finalTitle.length) {
+        this.title += this.finalTitle.charAt(this.counter);
+        this.counter++;
+        setTimeout(this.printTitle, this.randomDelay());
+      }
+    }
+
+    public randomDelay() {
+      const delay = Math.random() * 300;
+      return Math.max(100, delay);
+    }
+
   }
 </script>
 
@@ -331,39 +353,6 @@
     justify-content: center;
   }
 
-  .typewriter h1 {
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: 0.15em solid orange; /* The typwriter cursor */
-    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    letter-spacing: 0.15em; /* Adjust as needed */
-    font-family: 'Space Mono', serif;
-    animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
-    @media screen and(min-width: 700px) {
-      white-space: nowrap; /* Keeps the content on a single line */
-    }
-  }
-
-  /* The typing effect */
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
-  }
-
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: #9da7d5;
-    }
-  }
-
   .date {
     margin: 10px auto 30px;
     border-style: solid;
@@ -371,6 +360,31 @@
     border-color: #9da7d5;
     max-width: 220px;
     padding: 10px;
+  }
+
+  .typewriter h1 {
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    font-family: 'Space Mono', serif;
+  }
+
+  .typewriter h1:after {
+    content: '';
+    height: 40px;
+    width: 4px;
+    background-color: #9da7d5;
+    animation: blink-caret 0.75s step-end infinite;
+    position: absolute;
+  }
+
+  @keyframes blink-caret {
+    from,
+    to {
+      background-color: transparent;
+    }
+    50% {
+      background-color: #9da7d5;
+    }
   }
 
   .tardis {

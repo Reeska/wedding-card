@@ -2,7 +2,7 @@
   <div>
     <div><img src="../../assets/unicorn.gif" class="smallGif"/></div>
     <p>Dude, on t'aime <img src="../../assets/sheep.gif"/></p>
-    <p>T'as intérêt à avoir trouvé tous les easter eggs <img src="../../assets/roll.gif"/> Et oublie pas de ramener charlie aux p'tites poules <img src="../../assets/cute.gif"/></p>
+    <p>T'as intérêt à avoir trouvé tous les easter eggs <img src="../../assets/roll.gif"/> D'ailleurs qu'est-ce que tu fous là ? Tu remplis pas le formulaire en ligne de commande !? Ah, et oublie pas de ramener charlie aux p'tites poules <img src="../../assets/cute.gif"/></p>
   </div>
 </template>
 

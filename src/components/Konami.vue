@@ -61,10 +61,11 @@
         right: -500px;
         animation: flyshipfly 7s cubic-bezier(.03,.34,1,.05) alternate;
         opacity: 0;
+        z-index: 3000;
     }
 
     @keyframes flyshipfly {
-        from { transform: rotate(4deg) scale(0.001); opacity:0.9; }
+        from { transform: rotate(4deg) scale(0.001); opacity:1; }
         to { transform: rotate(0deg) scale(1) translate(-500px); opacity:1; }
     }
 </style>

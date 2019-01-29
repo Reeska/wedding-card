@@ -38,10 +38,5 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../../variables';
 
-  pre {
-    font-family: $term-font;
-    margin: 0;
-  }
 </style>

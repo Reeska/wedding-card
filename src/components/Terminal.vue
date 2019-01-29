@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="terminal">
     <div class="header">
       {{username}}@ubuntu-VirtualBox: ~/sfk
     </div>
@@ -84,13 +84,12 @@
   @import '../variables';
 
   .header {
-    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top center;
+    background: #300924 url('../assets/ubuntu_bash_header.png') no-repeat top left;
     height: 28px;
     width: 100%;
     max-width: 700px;
     margin: auto;
     border-radius: 7px 7px 0 0;
-    font-family: Ubuntu, serif;
     font-size: 14px;
     line-height: 29px;
     color: #d4d9cd;
@@ -104,8 +103,6 @@
     width: 100%;
     max-width: 700px;
     margin: auto;
-    font-family: $term-font;
-    color: white;
     text-align: left;
     overflow: scroll;
     position: relative;
@@ -113,5 +110,16 @@
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+</style>
+
+<style lang="scss">
+  @import '../variables';
+
+  .terminal * {
+    font-family: $term-font;
+    color: white;
+    font-size: 16px;
+    line-height: 1;
   }
 </style>

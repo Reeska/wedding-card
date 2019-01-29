@@ -25,9 +25,10 @@
   import Bash from './commands/Bash.vue';
   import Virus from './commands/Virus.vue';
   import Login from './commands/Login.vue';
+  import Wedding from './commands/Wedding.vue';
 
   @Component({
-    components: { Bash, Ls, Virus, Login },
+    components: { Bash, Ls, Virus, Login, Wedding },
   })
   export default class Command extends Vue implements OnCreated {
     @Prop()
@@ -69,8 +70,7 @@
           break;
         case './mariage.sh':
         case 'sh mariage.sh':
-          this.result = 'bienvenue !';
-          this.exit(0);
+          this.resultAsComponent = 'wedding';
           break;
         case './virus.sh':
         case 'sh virus.sh':

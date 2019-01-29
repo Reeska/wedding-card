@@ -73,25 +73,32 @@
         <h1 class="titleCustom">Easter Eggs</h1>
         <div class="row">
           <div class="faq col-lg-6 col-sm-12 offset-lg-3">
-            Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site <img class="smallGif" src="./assets/hehe.gif"/><br/> Ils sont au nombre de <strong>4</strong> et on espère que personne ne les trouvera tous <img class="smallGif" src="./assets/oups.gif"/><br/>
-            <br/>Vous abandonnez déjà ? <img src="./assets/tongue.png"/><br/>
+            Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques
+            <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site
+            <img class="smallGif" src="../../assets/hehe.gif"/><br/>
+            Ils sont au nombre de <strong>4</strong> et on espère que personne ne les trouvera tous
+            <img class="smallGif" src="../../assets/oups.gif"/><br/>
+            <br/>Vous abandonnez déjà ? <img src="../../assets/tongue.png"/><br/>
             <div class="text-xs-center">
               <v-btn type="button" @click="easterEggFakeSolutionShown = true">Tricher</v-btn>
             </div>
             <div v-if="easterEggFakeSolutionShown" class="text-xs-center">
               <div>
-                <img class="smallGif" src="./assets/disappointment.gif" />
+                <img class="smallGif" src="../../assets/disappointment.gif" />
               </div>
               <div>
-                <img class="smallGif" src="./assets/not_mad.jpg" />
+                <img class="smallGif" src="../../assets/not_mad.jpg" />
               </div>
               <v-btn type="button" @click="easterEggRealSolutionShown = true">Voir les indices</v-btn>
             </div>
             <div v-if="easterEggRealSolutionShown">
-              <p>Allez, on est sympas, on vous aide un peu <img src="./assets/hehe.gif"/></p>
-              <p>Déjà il y a la moitié des easter eggs que vous ne pourrez trouver que sur ordinateur, donc si vous êtes sur mobile depuis le début, on vous conseille de changer.</p>
-              <p><strong>1.</strong> Vous vous souvenez des cheat codes sur GTA pour avoir des vies infinies ou pouvoir piloter un avion ? Et bah là c'est pareil mais la référence est plus vieille <img src="./assets/hehe.gif" /></p>
-              <p><strong>2.</strong> Vous voyez Sombra en bas à droite sur le footer ? Elle n'est pas là que pour le plaisir des yeux <img src="./assets/glasses.gif"/></p>
+              <p>Allez, on est sympas, on vous aide un peu <img src="../../assets/hehe.gif"/></p>
+              <p>Déjà il y a la moitié des easter eggs que vous ne pourrez trouver que sur ordinateur,
+                donc si vous êtes sur mobile depuis le début, on vous conseille de changer.</p>
+              <p><strong>1.</strong> Vous vous souvenez des cheat codes sur GTA pour avoir des vies infinies ou pouvoir piloter un avion ?
+                Et bah là c'est pareil mais la référence est plus vieille <img src="../../assets/hehe.gif" /></p>
+              <p><strong>2.</strong> Vous voyez Sombra en bas à droite sur le footer ? Elle n'est pas là que pour le plaisir des yeux
+                <img src="../../assets/glasses.gif"/></p>
               <p><strong>3.</strong> Pour celui-ci, il va falloir faire preuve de curiosité et tenter de regarder sous le capot.</p>
               <p><strong>4.</strong> Il n'y a pas une étoile vers le TARDIS qui vous paraît bizarre, vous ?</p>
             </div>
@@ -155,7 +162,7 @@
             </v-toolbar>
             <div>
               <!-- <h1 class="sombraTitle">BOOP</h1> -->
-              <img class="resizable" src="./assets/hacked.gif"/>
+              <img class="resizable" src="../../assets/hacked.gif"/>
               <!-- <img src="./assets/boop.gif"/> -->
             </div>
           </v-card>
@@ -167,17 +174,17 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import VisitorForm from './components/VisitorForm.vue';
-  import Terminal from './components/Terminal.vue';
-  import Konami from './components/Konami.vue';
-  import { config } from './config';
   import Component from 'vue-class-component';
-
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap-vue/dist/bootstrap-vue.css';
   import 'material-icons/iconfont/material-icons.scss';
   import 'vuetify/dist/vuetify.min.css';
-  import { OnCreated } from './types';
+
+  import VisitorForm from '../VisitorForm.vue';
+  import Terminal from '../Terminal.vue';
+  import Konami from '../Konami.vue';
+  import { config } from '../../config';
+  import { OnCreated } from '../../types';
 
   @Component({
     components: {
@@ -200,7 +207,7 @@
       { href: '#faq', label: 'faq' },
     ];
     private burger = false;
-    private geekMode = false;
+    private geekMode = true;
     private booped = false;
     private easterEggFakeSolutionShown = false;
     private easterEggRealSolutionShown = false;
@@ -229,7 +236,7 @@
 </script>
 
 <style lang="scss">
-  @import './common';
+  @import '../../common';
 
   body {
     text-align: center;
@@ -369,19 +376,22 @@
     padding: 10px;
   }
 
-  .typewriter h1 {
-    margin: 0 auto;
-    letter-spacing: 0.15em;
-    font-family: 'Space Mono', serif;
-  }
+  .typewriter {
+    h1 {
+      margin: 0 auto;
+      letter-spacing: 0.15em;
+      font-family: 'Space Mono', serif;
 
-  .typewriter h1:after {
-    content: '';
-    height: 40px;
-    width: 4px;
-    background-color: #9da7d5;
-    animation: blink-caret 0.75s step-end infinite;
-    position: absolute;
+      &:after {
+        content: '';
+        height: 40px;
+        width: 4px;
+        background-color: #9da7d5;
+        animation: blink-caret 0.75s step-end infinite;
+        display: inline-block;
+        vertical-align: bottom;
+      }
+    }
   }
 
   @keyframes blink-caret {
@@ -395,7 +405,7 @@
   }
 
   .tardis {
-    background: url('assets/tardis_big.jpg') center center;
+    background: url('../../assets/tardis_big.jpg') center center;
     height: 500px;
     position: relative;
 
@@ -409,7 +419,7 @@
   .justMarried {
     height: 100%;
     width: 100%;
-    background: url('assets/just_married.png') center center;
+    background: url('../../assets/just_married.png') center center;
     @include mobile {
       height: 300px;
       background-size: 322%;
@@ -444,7 +454,7 @@
   }
 
   .sombra {
-    background: url('assets/sombra2.png') no-repeat right bottom;
+    background: url('../../assets/sombra2.png') no-repeat right bottom;
     background-size: auto;
     height: 260px;
     width: 100%;
@@ -475,7 +485,7 @@
 
   a#poule:hover:after {
     content: '';
-    background: url(assets/poule.gif);
+    background: url('../../assets/poule.gif');
     width: 250px;
     height: 140px;
     position: absolute;

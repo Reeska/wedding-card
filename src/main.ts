@@ -1,12 +1,13 @@
 import Vue from 'vue';
-import App from './App.vue';
-import Home from './Home.vue';
-import Dashboard from './Dashboard.vue';
-import vueSmoothScroll from 'vue2-smooth-scroll';
 import VueRouter from 'vue-router';
-import './filters';
 import BootstrapVue from 'bootstrap-vue';
 import Vuetify from 'vuetify';
+import vueSmoothScroll from 'vue2-smooth-scroll';
+
+import App from './App.vue';
+import Home from './components/routes/Home.vue';
+import Dashboard from './components/routes/Dashboard.vue';
+import './filters';
 
 Vue.use(vueSmoothScroll);
 Vue.use(BootstrapVue);

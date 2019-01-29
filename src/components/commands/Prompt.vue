@@ -175,18 +175,9 @@
 <style lang="scss" scoped>
   @import '../../variables';
 
-  .no-style {
-    outline: none;
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1em;
-    display: block;
-    min-width: 10px;
-  }
-
   .prompt {
     caret-color: transparent;
+    outline: none;
 
     &[contenteditable='true'] .zone {
       --caret-position: 8px;

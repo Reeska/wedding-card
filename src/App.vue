@@ -73,19 +73,21 @@
         <div class="row">
           <div class="faq col-lg-6 col-sm-12 offset-lg-3">
             Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site <img class="smallGif" src="./assets/hehe.gif"/><br/> Ils sont au nombre de <strong>4</strong> et on espère que personne ne les trouvera tous <img class="smallGif" src="./assets/oups.gif"/><br/>
-            Vous avez la flemme de les chercher ou vous pensez que vous avez déjà assez sué comme ça pour les trouver ? Cliquez ci-dessous pour voir la solution <img src="./assets/tongue.png"/><br/>
+            <br/>Vous abandonnez déjà ? <img src="./assets/tongue.png"/><br/>
             <div class="text-xs-center">
-              <v-btn type="button" @click="easterEggFakeSolutionShown = true">Découvrir les solutions</v-btn>            
+              <v-btn type="button" @click="easterEggFakeSolutionShown = true">Tricher</v-btn>            
             </div>
             <div v-if="easterEggFakeSolutionShown" class="text-xs-center">
               <div>
                 <img class="smallGif" src="./assets/disappointment.gif" />
               </div>
-              <div>On est pas en colère, on est juste déçus... Bon ok... !</div>
-              <v-btn type="button" @click="easterEggRealSolutionShown = true">Découvrir les solutions (pour de vrai)</v-btn>
+              <div>
+                <img class="smallGif" src="./assets/not_mad.jpg" />
+              </div>
+              <v-btn type="button" @click="easterEggRealSolutionShown = true">Découvrir les solutions</v-btn>
             </div>
             <div v-if="easterEggRealSolutionShown">
-              Voilà comment les trouver <img src="./assets/hehe.gif"/>
+              Allez, on est sympas, voilà comment les trouver <img src="./assets/hehe.gif"/>
             </div>
           </div>
         </div>
@@ -528,3 +530,4 @@
     cursor: pointer;
   }
 </style>
+=

@@ -20,3 +20,12 @@ export interface Line extends LineType {
 export interface User {
   id: string;
 }
+
+export interface Attendee {
+  id: string;
+  firstname: string;
+  cityhall: boolean;
+  cityhall_companions: number;
+  bar: boolean;
+  bar_companions: number;
+}

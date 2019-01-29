@@ -82,7 +82,7 @@
     private bar: boolean = false;
     private barCompanions: number = 0;
     private step: number = 1;
-    private specialUsers: string[] = ['Cyrielle'];
+    private specialUsers: string[] = ['cyrielle'];
 
     public created() {
       this.loadUsers();
@@ -94,7 +94,7 @@
         if (users.docs.length) {
           console.log('user deja enregistre');
         }
-        if (!this.specialUsers.includes(this.firstname)) {
+        if (!this.specialUsers.includes(this.firstname.toLowerCase())) {
           this.step = 3;
           return;
         }

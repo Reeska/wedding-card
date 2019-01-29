@@ -84,10 +84,15 @@
               <div>
                 <img class="smallGif" src="./assets/not_mad.jpg" />
               </div>
-              <v-btn type="button" @click="easterEggRealSolutionShown = true">Découvrir les solutions</v-btn>
+              <v-btn type="button" @click="easterEggRealSolutionShown = true">Voir les indices</v-btn>
             </div>
             <div v-if="easterEggRealSolutionShown">
-              Allez, on est sympas, voilà comment les trouver <img src="./assets/hehe.gif"/>
+              <p>Allez, on est sympas, on vous aide un peu <img src="./assets/hehe.gif"/></p>
+              <p>Déjà il y a la moitié des easter eggs que vous ne pourrez trouver que sur ordinateur, donc si vous êtes sur mobile depuis le début, on vous conseille de changer.</p>
+              <p><strong>1.</strong> Vous vous souvenez des cheat codes sur GTA pour avoir des vies infinies ou pouvoir piloter un avion ? Et bah là c'est pareil mais la référence est plus vieille <img src="./assets/hehe.gif" /></p>
+              <p><strong>2.</strong> Vous voyez Sombra en bas à droite sur le footer ? Elle n'est pas là que pour le plaisir des yeux <img src="./assets/glasses.gif"/></p>
+              <p><strong>3.</strong> Pour celui-ci, il va falloir faire preuve de curiosité et tenter de regarder sous le capot.</p>
+              <p><strong>4.</strong> Il n'y a pas une étoile vers le TARDIS qui vous paraît bizarre, vous ?</p>
             </div>
           </div>
         </div>
@@ -530,4 +535,3 @@
     cursor: pointer;
   }
 </style>
-=

@@ -140,6 +140,8 @@
           firstname: this.firstname,
           cityhall: this.cityhall,
           cityhall_companions: this.cityhallCompanions,
+          scavenger_hunt: this.scavengerHunt,
+          scavenger_hunt_companions: this.scavengerHuntCompanions,
           bar: this.bar,
           bar_companions: this.barCompanions,
         });

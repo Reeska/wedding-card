@@ -23,8 +23,9 @@
         <i>Star date 72900.4</i> -
       </div>
 
-      <section class="tardis" v-bind:class="{ justMarried: showJustMarried }">
+      <section class="tardis">
         <div @click="showJustMarried = true" id="star"></div>
+        <div class="justMarried" v-if="showJustMarried"></div>
       </section>
 
       <section id="ceremony">
@@ -75,7 +76,7 @@
             Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site <img class="smallGif" src="./assets/hehe.gif"/><br/> Ils sont au nombre de <strong>4</strong> et on espère que personne ne les trouvera tous <img class="smallGif" src="./assets/oups.gif"/><br/>
             <br/>Vous abandonnez déjà ? <img src="./assets/tongue.png"/><br/>
             <div class="text-xs-center">
-              <v-btn type="button" @click="easterEggFakeSolutionShown = true">Tricher</v-btn>            
+              <v-btn type="button" @click="easterEggFakeSolutionShown = true">Tricher</v-btn>
             </div>
             <div v-if="easterEggFakeSolutionShown" class="text-xs-center">
               <div>
@@ -224,7 +225,6 @@
       const delay = Math.random() * 300;
       return Math.max(100, delay);
     }
-
   }
 </script>
 
@@ -397,6 +397,7 @@
   .tardis {
     background: url('assets/tardis_big.jpg') center center;
     height: 500px;
+    position: relative;
 
     @include mobile {
       height: 300px;
@@ -406,8 +407,14 @@
   }
 
   .justMarried {
-    /* tmp */
-    background: url('assets/tardis_big.jpg') center top!important;
+    height: 100%;
+    width: 100%;
+    background: url('assets/just_married.png') center center;
+    @include mobile {
+      height: 300px;
+      background-size: 322%;
+      background-repeat: no-repeat;
+    }
   }
 
   h1 {
@@ -529,7 +536,7 @@
     opacity: 0.7;
     width: 3px;
     height: 3px;
-    position: relative;
+    position: absolute;
     top: 80%;
     left: 90%;
     cursor: pointer;

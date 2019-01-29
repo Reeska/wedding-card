@@ -67,12 +67,13 @@
   import { FirebaseFirestore } from '@firebase/firestore-types';
   import Component from 'vue-class-component';
   import Cyrielle from './guests/Cyrielle.vue';
+  import Alexandre from './guests/Alexandre.vue';
   import { OnCreated, User } from '../types';
 
   const visitorsRef = database.collection('visitors');
 
   @Component({
-    components: { Cyrielle },
+    components: { Cyrielle, Alexandre },
   })
   export default class VisitorForm extends Vue implements OnCreated {
     private users: User[] = [];
@@ -82,7 +83,7 @@
     private bar: boolean = false;
     private barCompanions: number = 0;
     private step: number = 1;
-    private specialUsers: string[] = ['cyrielle'];
+    private specialUsers: string[] = ['cyrielle', 'alexandre'];
 
     public created() {
       this.loadUsers();

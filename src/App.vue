@@ -122,7 +122,7 @@
             </div>
             <div class="question">Il faut prévoir quoi comme budget ?</div>
             <div class="answer">
-              On paiera la note du repas et de la soirée, assurez-vous juste d'avoir au moins un ticket de métro pour vous rendre de la mairie au bar.
+              On paiera la note du repas et de la soirée, assurez-vous juste d'avoir de quoi vous rendre de la mairie au bar et de quoi rentrer.
             </div>
           </div>
         </div>
@@ -460,7 +460,11 @@
   }
 
   a#poule:hover:after {
-    content: url(assets/poule.gif);
+    content: '';
+    background: url(assets/poule.gif);
+    width: 250px;
+    height: 140px;
+    position: absolute;
     display: block;
   }
 

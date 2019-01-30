@@ -25,6 +25,7 @@
   }
 
   const history: string[] = [];
+  const possibleCommands: string[] = ['ls', './mariage.sh', './virus.sh', 'sh'];
   let historyPosition = 0;
 
   @Component
@@ -76,10 +77,22 @@
         }
       }
 
+      if ($event.key === 'Tab') {
+        const text = (input.textContent || '').trim();
+        const possibleCommand = possibleCommands.filter(command => command.startsWith(text));
+        if (possibleCommand && possibleCommand.length === 1) {
+          input.textContent = possibleCommand[0];
+          this.lastCaretPosition = (input.textContent || '').length;
+          this.restoreCaretPositionToLatest();
+          this.moveCursor();
+        }
+        preventAndStopPropagation($event);
+      }
+
       const caretPosition = window.getSelection().getRangeAt(0).startOffset;
       const isBack = $event.key === 'ArrowLeft' || $event.key === 'Backspace';
 
-      if ($event.key === 'Tab' || (caretPosition === 1 && isBack)) {
+      if ((caretPosition === 1 && isBack)) {
         return preventAndStopPropagation($event);
       }
 

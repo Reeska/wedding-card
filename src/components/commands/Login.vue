@@ -12,7 +12,8 @@
         v-if="line.type === 'password'"
         label="password:"
         :events="events"
-        @newLine="password"/>
+        @newLine="password"
+        :isPassword="true"/>
       <pre v-else>{{line.label}}</pre>
     </div>
   </div>

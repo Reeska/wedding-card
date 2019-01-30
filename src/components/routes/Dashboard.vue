@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div>Nombre total de réponses : {{users.length}}</div>
-    <div>Nombre de oui pour la mairie : {{comingToCityHall}}</div>
-    <div>Nombre d'accompagnants pour la mairie : {{companionsToCityHall}}</div>
+    <div class="stats">
+      <div><strong>Nombre total de réponses :</strong> {{users.length}}</div>
+      <div><strong>Nombre de oui pour la mairie :</strong> {{comingToCityHall}}</div>
+      <div><strong>Nombre d'accompagnants pour la mairie :</strong> {{companionsToCityHall}}</div>
+      <div><strong>Nombre de oui pour les p'tites poules :</strong> {{comingToBar}}</div>
+      <div><strong>Nombre d'accompagnants pour les p'tites poules :</strong> {{companionsToBar}}</div>
+    </div>
     <table>
       <thead>
         <tr>
@@ -10,16 +14,16 @@
           <th>Prénom</th>
           <th>Mairie ?</th>
           <th>Avec ?</th>
-          <th>Bar ?</th>
+          <th>P'tites poules ?</th>
           <th>Avec ?</th>
         </tr>
       </thead>
       <tr v-for="user in users" :key="user.id">
         <td>{{user.id}}</td>
         <td>{{user.firstname}}</td>
-        <td>{{user.cityhall}}</td>
+        <td v-bind:class="user.cityhall ? 'coming' : 'notComing'">{{normalizeBoolean(user.cityhall)}}</td>
         <td>{{user.cityhall_companions}}</td>
-        <td>{{user.bar}}</td>
+        <td v-bind:class="user.bar ? 'coming' : 'notComing'">{{normalizeBoolean(user.bar)}}</td>
         <td>{{user.bar_companions}}</td>
       </tr>
     </table>
@@ -54,15 +58,38 @@
     get companionsToCityHall() {
       return this.users.map(user => +user.cityhall_companions).reduce((a, b) => a + b, 0);
     }
+
+    get comingToBar() {
+      return this.users.filter(user => user.bar).length;
+    }
+
+    get companionsToBar() {
+      return this.users.map(user => +user.bar_companions).reduce((a, b) => a + b, 0);
+    }
+
+    normalizeBoolean(b: boolean) {
+      return b ? 'Oui' : 'Non';
+    }
   }
 </script>
 
 <style lang="scss">
   table {
+    width: 100%;
     td,
     th {
       padding: 5px;
       border: 1px solid black;
     }
+    .coming {
+      background-color: #7fe497;
+    }
+    .notComing {
+      background-color: #ec606e;
+    }
+  }
+  .stats {
+    text-align: justify;
+    margin: 15px;
   }
 </style>

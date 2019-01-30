@@ -80,7 +80,7 @@
           this.resultAsComponent = 'login';
           break;
         default:
-          this.result = `-bash: ${this.command}: command not found`;
+          this.result = `-bash: ${command}: command not found`;
           this.exit(1);
       }
     }

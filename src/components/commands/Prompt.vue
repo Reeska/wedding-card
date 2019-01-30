@@ -7,7 +7,7 @@
     @keypress.enter="enter"
     @mousedown="click">
     <span v-html="label"></span>
-    <span class="zone" ref="zone">&nbsp;</span>
+    <span class="zone" v-bind:class="{ transparent: isPassword }" ref="zone">&nbsp;</span>
   </div>
 </template>
 
@@ -35,6 +35,9 @@
 
     @Prop()
     public label: any;
+
+    @Prop()
+    public isPassword: boolean;
 
     public editable: boolean = true;
     private lastCaretPosition = 1;
@@ -151,9 +154,11 @@
             input.textContent &&
             input.textContent.charAt(this.lastCaretPosition);
 
+          const newCaretPosition = this.isPassword ? 8 : this.lastCaretPosition * 8;
+
           input.style.setProperty(
             '--caret-position',
-            this.lastCaretPosition * 8 + 'px',
+            newCaretPosition + 'px',
           );
           input.style.setProperty('--current-character', `'${char}'`);
         }
@@ -241,5 +246,9 @@
     .right {
       text-align: right;
     }
+  }
+
+  .transparent {
+    color: #300924;
   }
 </style>

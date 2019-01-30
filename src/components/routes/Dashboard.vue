@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="stats">
-      <div><strong>Nombre total de réponses :</strong> {{users.length}}</div>
+      <div><strong>Nombre total de réponses :</strong> {{users.length}}</div><br/>
       <div><strong>Nombre de oui pour la mairie :</strong> {{comingToCityHall}}</div>
-      <div><strong>Nombre d'accompagnants pour la mairie :</strong> {{companionsToCityHall}}</div>
+      <div><strong>Nombre d'accompagnants pour la mairie :</strong> {{companionsToCityHall}}</div><br/>
+      <div><strong>Nombre de oui pour le jeu de piste :</strong> {{comingToScavengerHunt}}</div>
+      <div><strong>Nombre d'accompagnants pour le jeu de piste :</strong> {{companionsToScavengerHunt}}</div><br/>
       <div><strong>Nombre de oui pour les p'tites poules :</strong> {{comingToBar}}</div>
       <div><strong>Nombre d'accompagnants pour les p'tites poules :</strong> {{companionsToBar}}</div>
     </div>
@@ -14,6 +16,8 @@
           <th>Prénom</th>
           <th>Mairie ?</th>
           <th>Avec ?</th>
+          <th>Jeu de piste ?</th>
+          <th>Avec ?</th>
           <th>P'tites poules ?</th>
           <th>Avec ?</th>
         </tr>
@@ -23,6 +27,8 @@
         <td>{{user.firstname}}</td>
         <td v-bind:class="user.cityhall ? 'coming' : 'notComing'">{{normalizeBoolean(user.cityhall)}}</td>
         <td>{{user.cityhall_companions}}</td>
+        <td v-bind:class="user.scavenger_hunt ? 'coming' : 'notComing'">{{normalizeBoolean(user.scavenger_hunt)}}</td>
+        <td>{{user.scavenger_hunt_companions}}</td>
         <td v-bind:class="user.bar ? 'coming' : 'notComing'">{{normalizeBoolean(user.bar)}}</td>
         <td>{{user.bar_companions}}</td>
       </tr>
@@ -57,6 +63,14 @@
 
     get companionsToCityHall() {
       return this.users.map(user => +user.cityhall_companions).reduce((a, b) => a + b, 0);
+    }
+
+    get comingToScavengerHunt() {
+      return this.users.filter(user => user.scavenger_hunt).length;
+    }
+
+    get companionsToScavengerHunt() {
+      return this.users.map(user => +user.scavenger_hunt_companions || 0).reduce((a, b) => a + b, 0);
     }
 
     get comingToBar() {

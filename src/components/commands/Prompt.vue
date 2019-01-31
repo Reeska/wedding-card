@@ -17,6 +17,7 @@
   import Component from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
   import { LineType, OnMounted } from '../../types';
+  import { CONTROL_KEYS } from '../../services/constantes';
   import { Observable } from 'rxjs';
 
   function preventAndStopPropagation($event: Event) {
@@ -42,6 +43,7 @@
 
     public editable: boolean = true;
     private lastCaretPosition = 1;
+    private ctrlDown: boolean = false;
 
     mounted() {
       this.promptFocus();
@@ -109,10 +111,25 @@
         this.moveCursor();
       }
 
+      if (CONTROL_KEYS.includes($event.keyCode)) {
+        this.ctrlDown = true;
+      }
+
+      if (this.ctrlDown && $event.keyCode === 85) {
+        input.textContent = ' ';
+        this.lastCaretPosition = 1;
+        this.restoreCaretPositionToLatest();
+        this.moveCursor();
+        $event.preventDefault();
+      }
+
       this.$emit('keydown', $event);
     }
 
     public keyup($event: KeyboardEvent) {
+      if (CONTROL_KEYS.includes($event.keyCode)) {
+        this.ctrlDown = false;
+      }
       this.$emit('keyup', $event);
     }
 

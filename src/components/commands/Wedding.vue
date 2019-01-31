@@ -20,6 +20,8 @@
   import { Prop } from 'vue-property-decorator';
   import { Observable } from 'rxjs';
 
+  import { CONTROL_KEYS, C_KEY_CODE } from '../../services/constantes';
+
   import { LineType, OnCreated } from '../../types';
   import Prompt from './Prompt.vue';
 
@@ -146,16 +148,16 @@
     }
 
     keyup($event: KeyboardEvent) {
-      if ([17, 91].includes($event.keyCode)) {
+      if (CONTROL_KEYS.includes($event.keyCode)) {
         this.ctrlDown = false;
       }
     }
 
     keydown($event: KeyboardEvent) {
-      if ([17, 91].includes($event.keyCode)) {
+      if (CONTROL_KEYS.includes($event.keyCode)) {
         this.ctrlDown = true;
       }
-      if (this.ctrlDown && $event.keyCode === 67) {
+      if (this.ctrlDown && $event.keyCode === C_KEY_CODE) {
         this.$emit('exit', 0);
       }
     }

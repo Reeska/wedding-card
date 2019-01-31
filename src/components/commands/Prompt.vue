@@ -4,6 +4,7 @@
     spellcheck="false"
     :contenteditable="editable"
     @keydown="keypress"
+    @keyup="keyup"
     @keypress.enter="enter"
     @mousedown="click">
     <span v-html="label"></span>
@@ -25,7 +26,7 @@
   }
 
   const history: string[] = [];
-  const possibleCommands: string[] = ['ls', './mariage.sh', './virus.sh', 'sh'];
+  const possibleCommands: string[] = ['ls', './mariage.sh', './virus.sh', 'sh', 'clear'];
   let historyPosition = 0;
 
   @Component
@@ -107,6 +108,12 @@
         this.lastCaretPosition = nextCaretPosition;
         this.moveCursor();
       }
+
+      this.$emit('keydown', $event);
+    }
+
+    public keyup($event: KeyboardEvent) {
+      this.$emit('keyup', $event);
     }
 
     public enter($event: Event) {

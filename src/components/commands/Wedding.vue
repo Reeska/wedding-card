@@ -52,6 +52,15 @@
       field: 'cityhall_companions',
       showIf: () => { return this.getAnswerForField('cityhall'); },
     }, {
+      label: 'On voudrait organiser un petit jeu de piste à côté de la mairie en attendant de pouvoir aller aux poules, ça te tenterait ? [Y/n]',
+      type: 'boolean',
+      field: 'scavenger_hunt',
+    }, {
+      label: 'Et du coup tu viendrais accompagné de combien de personne pour l\'activité ? ',
+      type: 'number',
+      field: 'scavenger_hunt_companions',
+      showIf: () => { return this.getAnswerForField('scavenger_hunt'); },
+    }, {
       label: 'Est-ce que tu viens aux p\'tites poules ? [Y/n]',
       type: 'boolean',
       field: 'bar',
@@ -80,6 +89,11 @@
         this.current++;
       }
 
+      const futureQuestion = this.getCurrentQuestion();
+      if (futureQuestion && futureQuestion.showIf && !futureQuestion.showIf()) {
+        this.current++;
+      }
+
       if (this.current >= this.questions.length) {
         this.submit(this.answers);
         return;
@@ -93,10 +107,6 @@
     }
 
     appendNextQuestion() {
-      const futureQuestion = this.getCurrentQuestion();
-      if (futureQuestion && futureQuestion.showIf && !futureQuestion.showIf()) {
-        this.current++;
-      }
       this.lines.push(this.getCurrentQuestion());
     }
 

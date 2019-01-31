@@ -87,12 +87,13 @@
   import Jeremie from './guests/Jeremie.vue';
   import Corentin from './guests/Corentin.vue';
   import Guillaume from './guests/Guillaume.vue';
+  import Maelle from './guests/Maelle.vue';
   import { OnCreated, User } from '../types';
 
   const visitorsRef = database.collection('visitors');
 
   @Component({
-    components: { Cyrielle, Alexandre, Akli, Jeremie, Corentin, Guillaume },
+    components: { Cyrielle, Alexandre, Akli, Jeremie, Corentin, Guillaume, Maelle },
   })
   export default class VisitorForm extends Vue implements OnCreated {
     private users: User[] = [];
@@ -104,7 +105,7 @@
     private scavengerHunt: boolean = false;
     private scavengerHuntCompanions: number = 0;
     private step: number = 1;
-    private specialUsers: string[] = ['cyrielle', 'alexandre', 'akli', 'jeremie', 'corentin', 'guillaume'];
+    private specialUsers: string[] = ['cyrielle', 'alexandre', 'akli', 'jeremie', 'corentin', 'guillaume', 'maelle'];
 
     public created() {
       this.loadUsers();

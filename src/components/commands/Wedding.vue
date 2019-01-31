@@ -6,7 +6,9 @@
       <prompt
         :label="line.label + ':'"
         @newLine="respond"
-        :events="events">
+        :events="events"
+        @keyup="keyup"
+        @keydown="keydown">
       </prompt>
     </div>
   </div>
@@ -41,24 +43,30 @@
     public username?: string;
 
     public questions: Question[] = [{
-      label: 'Je viens à la Mairie [Y/n]',
+      label: 'Est-ce que tu viens à la mairie ? [Y/n]',
       type: 'boolean',
       field: 'cityhall',
     }, {
-      label: 'Test',
+      label: 'Tu viens accompagné de combien de personne à la mairie ? ',
       type: 'number',
-      field: 'test',
+      field: 'cityhall_companions',
+      showIf: () => { return this.getAnswerForField('cityhall'); },
     }, {
-      label: 'Test 2',
+      label: 'Est-ce que tu viens aux p\'tites poules ? [Y/n]',
+      type: 'boolean',
+      field: 'bar',
+    }, {
+      label: 'Tu viens accompagné de combien de personne au bar ? ',
       type: 'number',
-      field: 'test2',
+      field: 'bar_companions',
+      showIf: () => { return this.getAnswerForField('bar'); },
     }];
 
     public lines: Question[] = [];
     public current = 0;
 
     private answers: Question[] = [];
-
+    private ctrlDown: boolean = false;
 
     created() {
       this.appendNextQuestion();
@@ -85,6 +93,10 @@
     }
 
     appendNextQuestion() {
+      const futureQuestion = this.getCurrentQuestion();
+      if (futureQuestion && futureQuestion.showIf && !futureQuestion.showIf()) {
+        this.current++;
+      }
       this.lines.push(this.getCurrentQuestion());
     }
 
@@ -114,10 +126,28 @@
       }
     }
 
+    getAnswerForField(field: string) {
+      return this.answers.find(answer => answer.field === field).answer;
+    }
+
     submit(answers: Question[]) {
       console.log('answsers', JSON.stringify(answers));
-
       this.$emit('exit', 0);
+    }
+
+    keyup($event: KeyboardEvent) {
+      if ([17, 91].includes($event.keyCode)) {
+        this.ctrlDown = false;
+      }
+    }
+
+    keydown($event: KeyboardEvent) {
+      if ([17, 91].includes($event.keyCode)) {
+        this.ctrlDown = true;
+      }
+      if (this.ctrlDown && $event.keyCode === 67) {
+        this.$emit('exit', 0);
+      }
     }
   }
 </script>

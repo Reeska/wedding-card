@@ -76,7 +76,7 @@
             Certains d'entre vous l'auront peut-être déjà remarqué, mais on s'est amusé à placer quelques
             <a href="https://fr.wikipedia.org/wiki/Easter_egg">easter eggs</a> sur le site
             <img class="smallGif" src="../../assets/hehe.gif"/><br/>
-            Ils sont au nombre de <strong>4</strong> et on espère que personne ne les trouvera tous
+            Ils sont au nombre de <strong>5</strong> et on espère que personne ne les trouvera tous
             <img class="smallGif" src="../../assets/oups.gif"/><br/>
             <br/>Vous abandonnez déjà ? <img src="../../assets/tongue.png"/><br/>
             <div class="text-xs-center">
@@ -101,6 +101,7 @@
                 <img src="../../assets/glasses.gif"/></p>
               <p><strong>3.</strong> Pour celui-ci, il va falloir faire preuve de curiosité et tenter de regarder sous le capot.</p>
               <p><strong>4.</strong> Il n'y a pas une étoile vers le TARDIS qui vous paraît bizarre, vous ?</p>
+              <p><strong>5.</strong> Pour le dernier il va falloir rafraîchir la page à une heure bien spécifique, on vous laisse deviner laquelle <img src="../../assets/proud.gif"/></p>
             </div>
           </div>
         </div>
@@ -161,14 +162,32 @@
                 <v-toolbar-title>BOOP</v-toolbar-title>
             </v-toolbar>
             <div>
-              <!-- <h1 class="sombraTitle">BOOP</h1> -->
               <img class="resizable" src="../../assets/hacked.gif"/>
-              <!-- <img src="./assets/boop.gif"/> -->
             </div>
           </v-card>
         </v-dialog>
       </div>
     </div>
+
+    <v-dialog
+      v-model="leet"
+      content-class="modalContent"
+      class="leet"
+      max-width="450px"
+    >
+      <v-card>
+        <v-toolbar class="primary">
+            <v-btn icon @click.native="leet = false">
+              <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>l33t time</v-toolbar-title>
+        </v-toolbar>
+        <div class="leetContent">
+          <img class="resizable" src="../../assets/leet.jpg"/>
+        </div>
+      </v-card>
+    </v-dialog>
+
   </div>
 </template>
 
@@ -209,6 +228,7 @@
     private burger = false;
     private geekMode = true;
     private booped = false;
+    private leet = false;
     private easterEggFakeSolutionShown = false;
     private easterEggRealSolutionShown = false;
     private showJustMarried = false;
@@ -218,6 +238,8 @@
 
     public created() {
       setTimeout(this.printTitle, this.randomDelay());
+      const now = new Date();
+      this.leet = now.getHours() === 13 && now.getMinutes() === 37;
     }
 
     public printTitle() {
@@ -261,6 +283,7 @@
       font-family: 'Space Mono', serif;
       background-color: rgba(255, 255, 255, 0.5);
       padding: 35px;
+      z-index: 100;
 
       .burger {
         display: none;
@@ -537,8 +560,12 @@
     max-width: 100%;
   }
 
-  .sombraModal {
+  .sombraModal, .leet {
     z-index: 101;
+  }
+
+  .leetContent {
+    padding: 20px;
   }
 
   #star {

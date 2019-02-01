@@ -11,7 +11,7 @@
       </div>
       <div v-if="step === 2">
         <component
-          :is="firstname">
+          :is="firstnameAsComponent">
         </component>
         <v-btn type="button" @click="goToNextStep()">Continuer</v-btn>
       </div>
@@ -103,6 +103,7 @@
   export default class VisitorForm extends Vue implements OnCreated {
     private users: User[] = [];
     private firstname: string = '';
+    private firstnameAsComponent: string = '';
     private cityhall: boolean = false;
     private cityhallCompanions: number = 0;
     private bar: boolean = false;
@@ -110,7 +111,20 @@
     private scavengerHunt: boolean = false;
     private scavengerHuntCompanions: number = 0;
     private step: number = 1;
-    private specialUsers: string[] = ['cyrielle', 'alexandre', 'akli', 'jeremie', 'corentin', 'guillaume', 'maelle', 'justine', 'catherine', 'thierry', 'sabine', 'abdoulaye'];
+    private specialUsers: any[] = [
+      { name: 'cyrielle', alt: ['cy', 'cycy'] },
+      { name: 'alexandre', alt: ['alex', 'microbe'] },
+      { name: 'akli', alt: [] },
+      { name: 'jeremie', alt: ['jerem'] },
+      { name: 'corentin', alt: ['coretin'] },
+      { name: 'guillaume', alt: ['guigui'] },
+      { name: 'maelle', alt: ['maëlle'] },
+      { name: 'justine', alt: [] },
+      { name: 'catherine', alt: ['maman'] },
+      { name: 'thierry', alt: ['papa'] },
+      { name: 'sabine', alt: [] },
+      { name: 'abdoulaye', alt: ['ablo'] },
+    ];
 
     public created() {
       this.loadUsers();
@@ -122,12 +136,24 @@
         if (users.docs.length) {
           console.log('user deja enregistre');
         }
-        if (!this.specialUsers.includes(this.firstname.toLowerCase())) {
+        this.firstnameAsComponent = this.findFirstname();
+        if (!this.firstnameAsComponent) {
           this.step = 3;
           return;
         }
       }
       this.step += 1;
+    }
+
+    public findFirstname() {
+      if (this.specialUsers.find(user => user.name === this.firstname)) {
+        return this.firstname;
+      }
+      const user = this.specialUsers.find(user => user.alt.includes(this.firstname));
+      if (user) {
+        return user.name;
+      }
+      return '';
     }
 
     public async loadUsers() {

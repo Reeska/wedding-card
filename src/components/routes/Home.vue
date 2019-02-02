@@ -226,7 +226,7 @@
       { href: '#faq', label: 'faq' },
     ];
     private burger = false;
-    private geekMode = true;
+    private geekMode = false;
     private booped = false;
     private leet = false;
     private easterEggFakeSolutionShown = false;
@@ -560,7 +560,8 @@
     max-width: 100%;
   }
 
-  .sombraModal, .leet {
+  .sombraModal,
+  .leet {
     z-index: 101;
   }
 

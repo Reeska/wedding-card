@@ -159,10 +159,11 @@
     }
 
     public findFirstname() {
-      if (this.specialUsers.find(u => u.name === this.firstname)) {
-        return this.firstname;
+      const firstnameLowerCase = this.firstname.toLowerCase();
+      if (this.specialUsers.find(u => u.name === firstnameLowerCase)) {
+        return firstnameLowerCase;
       }
-      const user = this.specialUsers.find(u => u.alt.includes(this.firstname));
+      const user = this.specialUsers.find(u => u.alt.includes(firstnameLowerCase));
       if (user) {
         return user.name;
       }

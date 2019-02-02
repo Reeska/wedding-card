@@ -1,7 +1,6 @@
 <template>
   <div>
     <pre>Hello {{username}}</pre>
-
     <div v-for="line in lines">
       <prompt
         :label="line.label + ':'"
@@ -21,6 +20,7 @@
   import { Observable } from 'rxjs';
 
   import { CONTROL_KEYS, C_KEY_CODE } from '../../services/constantes';
+  import { database } from '../../services/firebase';
 
   import { LineType, OnCreated } from '../../types';
   import Prompt from './Prompt.vue';
@@ -45,6 +45,8 @@
 
     @Prop()
     public username?: string;
+
+    visitorsRef = database.collection('visitors');
 
     public questions: Question[] = [
       {
@@ -135,7 +137,6 @@
     }
 
     normalize(question: Question, answer: string | undefined): any {
-      console.log('normalize: question', question, answer);
       switch (question.type) {
         case 'boolean':
           if (answer === 'Y' || answer === 'y' || !answer) {
@@ -153,8 +154,20 @@
       return (this.answers.find(answer => answer.field === field) || { answer: null }).answer;
     }
 
-    submit(answers: Question[]) {
-      console.log('answsers', JSON.stringify(answers));
+    async submit(answers: Question[]) {
+      try {
+        await this.visitorsRef.add({
+          firstname: this.username,
+          cityhall: this.getAnswerForField('cityhall'),
+          cityhall_companions: this.getAnswerForField('cityhall_companions'),
+          scavenger_hunt: this.getAnswerForField('scavenger_hunt'),
+          scavenger_hunt_companions: this.getAnswerForField('scavenger_hunt_companions'),
+          bar: this.getAnswerForField('bar'),
+          bar_companions: this.getAnswerForField('bar_companions'),
+        });
+      } catch (error) {
+        console.log('error', error);
+      }
       this.$emit('exit', 0);
     }
 

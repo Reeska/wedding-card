@@ -26,6 +26,8 @@ export interface Attendee {
   firstname: string;
   cityhall: boolean;
   cityhall_companions: number;
+  scavenger_hunt: boolean;
+  scavenger_hunt_companions: number;
   bar: boolean;
   bar_companions: number;
 }

@@ -24,6 +24,7 @@
 
   import { LineType, OnCreated } from '../../types';
   import Prompt from './Prompt.vue';
+  import { functions } from 'firebase';
 
   type QuestionType = 'boolean' | 'number';
 
@@ -32,6 +33,7 @@
     type: QuestionType;
     field: string;
     answer?: any;
+    showIf?: () => boolean;
   }
 
   @Component({
@@ -44,34 +46,43 @@
     @Prop()
     public username?: string;
 
-    public questions: Question[] = [{
-      label: 'Est-ce que tu viens à la mairie ? [Y/n]',
-      type: 'boolean',
-      field: 'cityhall',
-    }, {
-      label: 'Tu viens accompagné de combien de personne à la mairie ? ',
-      type: 'number',
-      field: 'cityhall_companions',
-      showIf: () => { return this.getAnswerForField('cityhall'); },
-    }, {
-      label: 'On voudrait organiser un petit jeu de piste à côté de la mairie en attendant de pouvoir aller aux poules, ça te tenterait ? [Y/n]',
-      type: 'boolean',
-      field: 'scavenger_hunt',
-    }, {
-      label: 'Et du coup tu viendrais accompagné de combien de personne pour l\'activité ? ',
-      type: 'number',
-      field: 'scavenger_hunt_companions',
-      showIf: () => { return this.getAnswerForField('scavenger_hunt'); },
-    }, {
-      label: 'Est-ce que tu viens aux p\'tites poules ? [Y/n]',
-      type: 'boolean',
-      field: 'bar',
-    }, {
-      label: 'Tu viens accompagné de combien de personne au bar ? ',
-      type: 'number',
-      field: 'bar_companions',
-      showIf: () => { return this.getAnswerForField('bar'); },
-    }];
+    public questions: Question[] = [
+      {
+        label: 'Est-ce que tu viens à la mairie ? [Y/n]',
+        type: 'boolean',
+        field: 'cityhall',
+      },
+      {
+        label: 'Tu viens accompagné de combien de personne à la mairie ? ',
+        type: 'number',
+        field: 'cityhall_companions',
+        showIf: () => this.getAnswerForField('cityhall'),
+      },
+      {
+        label:
+          'On voudrait organiser un petit jeu de piste à côté de la mairie en attendant de pouvoir ' +
+          'aller aux poules, ça te tenterait ? [Y/n]',
+        type: 'boolean',
+        field: 'scavenger_hunt',
+      },
+      {
+        label: `Et du coup tu viendrais accompagné de combien de personne pour l'activité ? `,
+        type: 'number',
+        field: 'scavenger_hunt_companions',
+        showIf: () => this.getAnswerForField('scavenger_hunt'),
+      },
+      {
+        label: `Est-ce que tu viens aux p'tites poules ? [Y/n]`,
+        type: 'boolean',
+        field: 'bar',
+      },
+      {
+        label: 'Tu viens accompagné de combien de personne au bar ? ',
+        type: 'number',
+        field: 'bar_companions',
+        showIf: () => this.getAnswerForField('bar'),
+      },
+    ];
 
     public lines: Question[] = [];
     public current = 0;
@@ -139,7 +150,7 @@
     }
 
     getAnswerForField(field: string) {
-      return this.answers.find(answer => answer.field === field).answer;
+      return (this.answers.find(answer => answer.field === field) || { answer: null }).answer;
     }
 
     submit(answers: Question[]) {
@@ -165,5 +176,4 @@
 </script>
 
 <style scoped>
-
 </style>

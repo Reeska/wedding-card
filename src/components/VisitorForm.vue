@@ -98,7 +98,20 @@
   const visitorsRef = database.collection('visitors');
 
   @Component({
-    components: { Cyrielle, Alexandre, Akli, Jeremie, Corentin, Guillaume, Maelle, Justine, Catherine, Thierry, Sabine, Abdoulaye },
+    components: {
+      Cyrielle,
+      Alexandre,
+      Akli,
+      Jeremie,
+      Corentin,
+      Guillaume,
+      Maelle,
+      Justine,
+      Catherine,
+      Thierry,
+      Sabine,
+      Abdoulaye,
+    },
   })
   export default class VisitorForm extends Vue implements OnCreated {
     private users: User[] = [];
@@ -146,10 +159,10 @@
     }
 
     public findFirstname() {
-      if (this.specialUsers.find(user => user.name === this.firstname)) {
+      if (this.specialUsers.find(u => u.name === this.firstname)) {
         return this.firstname;
       }
-      const user = this.specialUsers.find(user => user.alt.includes(this.firstname));
+      const user = this.specialUsers.find(u => u.alt.includes(this.firstname));
       if (user) {
         return user.name;
       }

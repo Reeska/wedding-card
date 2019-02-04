@@ -7,7 +7,8 @@
       <div><strong>Nombre de oui pour le jeu de piste :</strong> {{comingToScavengerHunt}}</div>
       <div><strong>Nombre d'accompagnants pour le jeu de piste :</strong> {{companionsToScavengerHunt}}</div><br/>
       <div><strong>Nombre de oui pour les p'tites poules :</strong> {{comingToBar}}</div>
-      <div><strong>Nombre d'accompagnants pour les p'tites poules :</strong> {{companionsToBar}}</div>
+      <div><strong>Nombre d'accompagnants pour les p'tites poules :</strong> {{companionsToBar}}</div><br/>
+      <div><strong>Pourcentage de remplissage par terminal :</strong> {{percentageTerminal}}%</div>
     </div>
     <table>
       <thead>
@@ -81,6 +82,12 @@
 
     get companionsToBar() {
       return this.users.map(user => +user.bar_companions).reduce((a, b) => a + b, 0);
+    }
+
+    get percentageTerminal() {
+      const numberOfTerminal = this.users.filter(user => user.by_terminal).length;
+      const percentage = (numberOfTerminal / this.users.length) * 100;
+      return Math.round(percentage * 100) / 100;
     }
 
     normalizeBoolean(b: boolean) {

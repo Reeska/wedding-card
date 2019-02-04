@@ -93,6 +93,7 @@
   import Thierry from './guests/Thierry.vue';
   import Sabine from './guests/Sabine.vue';
   import Abdoulaye from './guests/Abdoulaye.vue';
+  import Olaf from './guests/Olaf.vue';
   import { OnCreated, User } from '../types';
 
   const visitorsRef = database.collection('visitors');
@@ -111,6 +112,7 @@
       Thierry,
       Sabine,
       Abdoulaye,
+      Olaf,
     },
   })
   export default class VisitorForm extends Vue implements OnCreated {
@@ -137,6 +139,7 @@
       { name: 'thierry', alt: ['papa'] },
       { name: 'sabine', alt: [] },
       { name: 'abdoulaye', alt: ['ablo'] },
+      { name: 'olaf', alt: [] },
     ];
 
     public created() {

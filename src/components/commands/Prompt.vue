@@ -5,8 +5,7 @@
     :contenteditable="editable"
     @keydown="keypress"
     @keyup="keyup"
-    @keypress.enter="enter"
-    @mousedown="click">
+    @keypress.enter="enter">
     <span v-html="label"></span>
     <span class="zone" v-bind:class="{ transparent: isPassword }" ref="zone">&nbsp;</span>
   </div>
@@ -60,24 +59,14 @@
 
       if ($event.key === 'ArrowUp') {
         if (input && history && historyPosition > 0) {
-          historyPosition--;
-          input.innerHTML = '&nbsp;' + (history[historyPosition] || '');
-          this.lastCaretPosition = (input.textContent || '').length;
-          this.restoreCaretPositionToLatest();
-          this.moveCursor();
+          this.setInputWithCursor(history[--historyPosition]);
           return;
         }
       }
 
       if ($event.key === 'ArrowDown') {
         if (input && history && historyPosition < history.length) {
-          historyPosition++;
-          console.log(historyPosition, history[historyPosition]);
-          input.innerHTML = '&nbsp;' + (history[historyPosition] || '');
-          console.log('html', input.innerHTML);
-          this.lastCaretPosition = (input.textContent || '').length;
-          this.restoreCaretPositionToLatest();
-          this.moveCursor();
+          this.setInputWithCursor(history[++historyPosition]);
           return;
         }
       }
@@ -85,12 +74,11 @@
       if ($event.key === 'Tab') {
         const text = (input.textContent || '').trim();
         const possibleCommand = possibleCommands.filter(command => command.startsWith(text));
+
         if (possibleCommand && possibleCommand.length === 1) {
-          input.textContent = possibleCommand[0];
-          this.lastCaretPosition = (input.textContent || '').length;
-          this.restoreCaretPositionToLatest();
-          this.moveCursor();
+          this.setInputWithCursor(possibleCommand[0]);
         }
+
         preventAndStopPropagation($event);
       }
 
@@ -114,10 +102,7 @@
       }
 
       if (this.ctrlDown && $event.keyCode === 85) {
-        input.textContent = ' ';
-        this.lastCaretPosition = 1;
-        this.restoreCaretPositionToLatest();
-        this.moveCursor();
+        this.setInputWithCursor('');
         $event.preventDefault();
       }
 
@@ -152,10 +137,17 @@
       return preventAndStopPropagation($event);
     }
 
-    public click($event: MouseEvent) {
-      if (!event || !(event.target instanceof HTMLElement) || !event.target.classList.contains('zone')) {
-        return preventAndStopPropagation($event);
-      }
+    private setInputWithCursor(value: string = '') {
+      this.setInput(value);
+      this.restoreCaretPositionToLatest();
+      this.moveCursor();
+    }
+
+    private setInput(value: string = '') {
+      const input = this.$refs.zone as HTMLElement;
+
+      input.innerHTML = `&nbsp;${value || ''}`;
+      this.lastCaretPosition = (input.textContent || '').length;
     }
 
     private newLine(line?: LineType) {

@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: process.env.NODE_ENV === 'production' ? '/mariage/' : '/',
+  baseUrl: process.env.NODE_ENV === 'production' ? '/' : '/',
   chainWebpack: config => {
     config.plugin('html').tap(args => {
       if (process.env.NODE_ENV === 'production') {

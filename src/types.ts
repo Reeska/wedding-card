@@ -30,4 +30,5 @@ export interface Attendee {
   scavenger_hunt_companions: number;
   bar: boolean;
   bar_companions: number;
+  by_terminal: boolean;
 }

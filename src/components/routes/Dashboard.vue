@@ -20,17 +20,19 @@
           <th>Avec ?</th>
           <th>P'tites poules ?</th>
           <th>Avec ?</th>
+          <th>Depuis terminal</th>
         </tr>
       </thead>
       <tr v-for="user in users" :key="user.id">
         <td>{{user.id}}</td>
         <td>{{user.firstname}}</td>
-        <td v-bind:class="user.cityhall ? 'coming' : 'notComing'">{{normalizeBoolean(user.cityhall)}}</td>
+        <td :class="user.cityhall ? 'coming' : 'notComing'">{{normalizeBoolean(user.cityhall)}}</td>
         <td>{{user.cityhall_companions}}</td>
-        <td v-bind:class="user.scavenger_hunt ? 'coming' : 'notComing'">{{normalizeBoolean(user.scavenger_hunt)}}</td>
+        <td :class="user.scavenger_hunt ? 'coming' : 'notComing'">{{normalizeBoolean(user.scavenger_hunt)}}</td>
         <td>{{user.scavenger_hunt_companions}}</td>
-        <td v-bind:class="user.bar ? 'coming' : 'notComing'">{{normalizeBoolean(user.bar)}}</td>
+        <td :class="user.bar ? 'coming' : 'notComing'">{{normalizeBoolean(user.bar)}}</td>
         <td>{{user.bar_companions}}</td>
+        <td>{{normalizeBoolean(user.by_terminal)}}</td>
       </tr>
     </table>
   </div>

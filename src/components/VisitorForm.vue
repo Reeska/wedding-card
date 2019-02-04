@@ -195,6 +195,7 @@
           scavenger_hunt_companions: this.scavengerHuntCompanions,
           bar: this.bar,
           bar_companions: this.barCompanions,
+          by_terminal: false,
         });
       } catch (error) {
         console.log('error', error);

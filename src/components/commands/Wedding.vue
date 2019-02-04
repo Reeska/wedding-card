@@ -164,6 +164,7 @@
           scavenger_hunt_companions: this.getAnswerForField('scavenger_hunt_companions'),
           bar: this.getAnswerForField('bar'),
           bar_companions: this.getAnswerForField('bar_companions'),
+          by_terminal: true,
         });
       } catch (error) {
         console.log('error', error);

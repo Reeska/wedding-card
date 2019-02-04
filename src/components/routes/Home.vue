@@ -118,7 +118,7 @@
             <div class="question">Est-ce qu'il y a une liste de mariage ?</div>
             <div
               class="answer"
-            >Non, on en a pas prévu, on a quand même créé une cagnotte en ligne si vous souhaitez participer à la note du bar :d Vous pouvez aussi nous offrir quelque chose si vous préférez et que ça vous fait plaisir, mais ne vous sentez pas obligés, ce qui compte pour nous c'est que vous soyiez là et que vous passiez un bon moment :)</div>
+            >Non, on en a pas prévu, on a quand même créé <a class="leetchi" target=_blank href="https://www.leetchi.com/c/mariage-de-thomas-et-clementine">une cagnotte en ligne</a> si vous souhaitez participer à la note du bar :d Vous pouvez aussi nous offrir quelque chose si vous préférez et que ça vous fait plaisir, mais ne vous sentez pas obligés, ce qui compte pour nous c'est que vous soyiez là et que vous passiez un bon moment :)</div>
             <div class="question">Est-ce que je peux venir avec mes enfants ?</div>
             <div
               class="answer"
@@ -461,7 +461,8 @@
     text-transform: uppercase;
     background: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%) repeat-x bottom;
     background-size: 15px 1px;
-    padding-top: 10px;
+    margin-top: 55px;
+    margin-bottom: 20px;
   }
 
   .padded {
@@ -539,6 +540,8 @@
         width: 100%;
         max-width: 600px;
         position: absolute;
+        margin-top: 20px;
+        margin-bottom: 20px;
       }
     }
   }
@@ -578,5 +581,12 @@
     top: 80%;
     left: 90%;
     cursor: pointer;
+  }
+
+  .leetchi {
+    color: #f45979;
+    &:hover {
+      color: #c74661;
+    }
   }
 </style>

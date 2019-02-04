@@ -20,19 +20,19 @@
         <div v-show="cityhall">
           <v-text-field
             v-model="cityhallCompanions"
-            label="Nombre d'accompagnants à la mairie"
+            label="Avec combien de personnes venez-vous à la mairie ?"
             type="number"
             color="#300924">
           </v-text-field>
         </div>
         <div class="justified">
-          Entre la cérémonie à la mairie et la soirée au bar nous souhaitons organiser un petit "jeu de piste" personnalisé près de chez nous (et de la mairie). Nous avons donc besoin de savoir si assez de personne seraient intéressés pour participer.
+          Entre la cérémonie à la mairie et la soirée au bar nous souhaitons organiser un petit "jeu de piste" personnalisé autour de la mairie. Nous avons donc besoin de savoir si assez de personnes seraient intéressées pour participer.
         </div>
         <v-checkbox label="Je veux participer au jeu de piste" v-model="scavengerHunt" color="#300924"></v-checkbox>
         <div v-show="scavengerHunt">
           <v-text-field
             v-model="scavengerHuntCompanions"
-            label="Nombre d'accompagnants au jeu de piste"
+            label="Avec combien de personnes venez-vous au jeu de piste ?"
             type="number"
             color="#300924">
           </v-text-field>
@@ -41,7 +41,7 @@
         <div v-show="bar">
           <v-text-field
             v-model="barCompanions"
-            label="Nombre d'accompagnants au bar"
+            label="Avec combien de personnes venez-vous au bar ?"
             type="number"
             color="#300924">
           </v-text-field>
@@ -52,26 +52,22 @@
 
     <div v-if="step === 4">
       <div v-if="!bar && !cityhall">
-        <img src="../assets/dwight.gif"/><br/>
-        C'est noté, on espère pouvoir fêter avec toi une autre fois <img src="../assets/cute.gif"/>
+        <p><img src="../assets/dwight.gif"/></p>
+        <p>C'est noté, on espère pouvoir fêter avec toi une autre fois <img src="../assets/cute.gif"/></p>
       </div>
       <div v-if="!bar && cityhall">
-        <img src="../assets/disappointed.gif"/><br/>
-        C'est noté, dommage on aurait voulu boire un verre avec toi pour fêter, mais ce sera pour une autre fois <img src="../assets/cute.gif"/>
+        <p><img src="../assets/disappointed.gif"/></p>
+        <p>C'est noté, dommage on aurait voulu boire un verre avec toi pour fêter, mais ce sera pour une autre fois <img src="../assets/cute.gif"/></p>
       </div>
       <div v-if="bar && !cityhall">
-        <img src="../assets/drunk_ron.gif"/><br/>
-        Ah ouais, on voit le genre (et on respecte <img src="../assets/glasses.gif"/>), c'est bien noté !
+        <p><img src="../assets/drunk_ron.gif"/></p>
+        <p>Ah ouais, on voit le genre (et on respecte <img src="../assets/glasses.gif"/>), c'est bien noté !</p>
       </div>
       <div v-if="bar && cityhall">
-        <img src="../assets/monica.gif"/><br/>
-        Trop bien, hâte de pouvoir fêter ça avec toi <img src="../assets/sheep.gif"/>
+        <p><img src="../assets/monica.gif"/></p>
+        <p>Trop bien, hâte de pouvoir fêter ça avec toi <img src="../assets/sheep.gif"/></p>
       </div>
     </div>
-
-    <!-- <ul>
-      <li v-for="user in users" :key="user.id">{{ user.id }} - {{ user.firstname }}</li>
-    </ul> -->
   </div>
 </template>
 

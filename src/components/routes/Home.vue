@@ -381,10 +381,6 @@
     }
   }
 
-  .page {
-    max-width: 1800px;
-  }
-
   .flex {
     display: flex;
     justify-content: center;
@@ -431,6 +427,8 @@
     background: url('../../assets/tardis_big.jpg') center center;
     height: 500px;
     position: relative;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
 
     @include mobile {
       height: 300px;

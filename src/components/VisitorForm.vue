@@ -73,10 +73,11 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  import Component from 'vue-class-component';
+
+  import { OnCreated, User } from '../types';
   import { database } from '../services/firebase';
 
-  import { FirebaseFirestore } from '@firebase/firestore-types';
-  import Component from 'vue-class-component';
   import Cyrielle from './guests/Cyrielle.vue';
   import Alexandre from './guests/Alexandre.vue';
   import Akli from './guests/Akli.vue';
@@ -91,7 +92,9 @@
   import Abdoulaye from './guests/Abdoulaye.vue';
   import Olaf from './guests/Olaf.vue';
   import Ugo from './guests/Ugo.vue';
-  import { OnCreated, User } from '../types';
+  import Farid from './guests/Farid.vue';
+  import Igor from './guests/Igor.vue';
+  import Adam from './guests/Adam.vue';
 
   const visitorsRef = database.collection('visitors');
 
@@ -111,6 +114,9 @@
       Abdoulaye,
       Olaf,
       Ugo,
+      Farid,
+      Igor,
+      Adam,
     },
   })
   export default class VisitorForm extends Vue implements OnCreated {
@@ -139,6 +145,9 @@
       { name: 'abdoulaye', alt: ['ablo'] },
       { name: 'olaf', alt: [] },
       { name: 'ugo', alt: [] },
+      { name: 'farid', alt: [] },
+      { name: 'igor' },
+      { name: 'adam' },
     ];
 
     public created() {

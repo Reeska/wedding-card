@@ -20,7 +20,7 @@
         <div v-show="cityhall">
           <v-text-field
             v-model="cityhallCompanions"
-            label="Avec combien de personnes venez-vous à la mairie ?"
+            label="Avec combien de personnes supplémentaires venez-vous à la mairie ?"
             type="number"
             color="#300924">
           </v-text-field>
@@ -32,7 +32,7 @@
         <div v-show="scavengerHunt">
           <v-text-field
             v-model="scavengerHuntCompanions"
-            label="Avec combien de personnes venez-vous au jeu de piste ?"
+            label="Avec combien de personnes supplémentaires venez-vous au jeu de piste ?"
             type="number"
             color="#300924">
           </v-text-field>
@@ -41,7 +41,7 @@
         <div v-show="bar">
           <v-text-field
             v-model="barCompanions"
-            label="Avec combien de personnes venez-vous au bar ?"
+            label="Avec combien de personnes supplémentaires venez-vous au bar ?"
             type="number"
             color="#300924">
           </v-text-field>
@@ -98,6 +98,11 @@
 
   const visitorsRef = database.collection('visitors');
 
+  interface SpecialGuest {
+    name: string;
+    alt: string[];
+  }
+
   @Component({
     components: {
       Cyrielle,
@@ -130,7 +135,7 @@
     private scavengerHunt: boolean = false;
     private scavengerHuntCompanions: number = 0;
     private step: number = 1;
-    private specialUsers: any[] = [
+    private specialUsers: SpecialGuest[] = [
       { name: 'cyrielle', alt: ['cy', 'cycy'] },
       { name: 'alexandre', alt: ['alex', 'microbe'] },
       { name: 'akli', alt: [] },
@@ -146,8 +151,8 @@
       { name: 'olaf', alt: [] },
       { name: 'ugo', alt: [] },
       { name: 'farid', alt: [] },
-      { name: 'igor' },
-      { name: 'adam' },
+      { name: 'igor', alt: [] },
+      { name: 'adam', alt: [] },
     ];
 
     public created() {
